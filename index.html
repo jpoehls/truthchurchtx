@@ -178,6 +178,9 @@
     //   sub     – subheading color
     //   dot     – locator dot color (should complement the map but stand out softly)
 
+    const colorGold = "#f5c842"; // a warm gold used for the locator dot and trail on some maps
+    const colorStreetlight = "#a8c8f0"; // a bright cyan-blue used for the locator and trail on darker maps (alt: #88bcd8)
+
     const maps = [
       // — Light / warm backgrounds —
       { enabled: false, file: "luling_autumn.svg",        bg: "#fbf7f0", fade: 0.72, text: "#221508", sub: "#9a7a5a", dot: "#c0623a" },
@@ -201,7 +204,7 @@
       // — Dark backgrounds —
       { enabled: false, file: "luling_blueprint.svg",      bg: "#1a3a5c", fade: 0.68, text: "#e0ecf8", sub: "#6888aa", dot: "#88bcd8" },
       { enabled: false, file: "luling_midnight_blue.svg",  bg: "#0a1628", fade: 0.68, text: "#d8e8f8", sub: "#486888", dot: "#6898c0" },
-      { enabled: true,  file: "luling_noir.svg",           bg: "#0a0a0a", fade: 0.68, text: "#e0e0e0", sub: "#a0a0a0", dot: "#f5c842", trailColor: "#a8c8f0" },
+      { enabled: true,  file: "luling_noir.svg",           bg: "#0a0a0a", fade: 0.68, text: "#e0e0e0", sub: "#a0a0a0", dot: colorGold, trailColor: colorStreetlight },
       { enabled: false, file: "luling_neon_cyberpunk.svg", bg: "#0d0d1a", fade: 0.68, text: "#d8d8f0", sub: "#484860", dot: "#8888c8" },
     ];
     // ─────────────────────────────────────────────────────────────────────────
