@@ -17,13 +17,30 @@
 
     body {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: center;
       min-height: 100vh;
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+    }
+
+    /* Fades the map to a very subtle ghost — adjust opacity to taste (0 = invisible, 1 = full) */
+    #map-overlay {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background: inherit;
+      /* This overlay is driven by the page background color set in JS */
     }
 
     .center {
+      position: relative;
+      z-index: 1;
       text-align: center;
+      margin-top: 33vh;  /* sits at roughly the top third of the viewport */
     }
 
     h1 {
@@ -43,124 +60,139 @@
   </style>
 </head>
 <body>
+  <div id="map-overlay"></div>
   <div class="center">
     <h1>Truth Church</h1>
     <p>Luling, Texas</p>
   </div>
 
   <script>
-    // ─── Themes ──────────────────────────────────────────────────────────────
-    // Each theme defines:
-    //   bg         – page background
-    //   text       – heading color
-    //   sub        – subheading color
+    // ─── Background Maps ──────────────────────────────────────────────────────
+    // Each entry defines:
+    //   file    – filename inside lulingmaps-notext/
+    //   bg      – page background color (must match the map's base fill)
+    //   fade    – opacity of the white/dark wash laid over the map (0–1).
+    //             Higher = more faded. Tune this per map for a subtle ghost effect.
+    //   text    – heading color
+    //   sub     – subheading color
+
+    const maps = [
+      // — Light / warm backgrounds —
+      { file: "luling_autumn.svg",        bg: "#fbf7f0", fade: 0.72, text: "#221508", sub: "#9a7a5a" },
+      { file: "luling_warm_beige.svg",    bg: "#f5f0e8", fade: 0.72, text: "#221508", sub: "#8a6a50" },
+      { file: "luling_japanese_ink.svg",  bg: "#faf8f5", fade: 0.72, text: "#1a1a1a", sub: "#888888" },
+      { file: "luling_sunset.svg",        bg: "#fdf5f0", fade: 0.72, text: "#280e08", sub: "#886050" },
+      { file: "luling_pastel_dream.svg",  bg: "#faf7f2", fade: 0.72, text: "#1a1a28", sub: "#6a7a8a" },
+      { file: "luling_terracotta.svg",    bg: "#f5ede4", fade: 0.72, text: "#281a10", sub: "#5a7878" },
+      { file: "luling_copper_patina.svg", bg: "#e8f0f0", fade: 0.72, text: "#1a2828", sub: "#5a7878" },
+
+      // — Light / cool backgrounds —
+      { file: "luling_ocean.svg",           bg: "#f0f8fa", fade: 0.72, text: "#0a1e2a", sub: "#3a6878" },
+      { file: "luling_forest.svg",          bg: "#f0f4f0", fade: 0.72, text: "#1a281a", sub: "#5a7870" },
+      { file: "luling_monochrome_blue.svg", bg: "#f5f8fa", fade: 0.72, text: "#0a1828", sub: "#3a5870" },
+
+      // — White / near-white backgrounds —
+      { file: "luling_contrast_zones.svg",  bg: "#ffffff", fade: 0.78, text: "#1a1a1a", sub: "#888888" },
+      { file: "luling_feature_based.svg",   bg: "#ffffff", fade: 0.78, text: "#1a1a1a", sub: "#888888" },
+      { file: "luling_gradient_roads.svg",  bg: "#ffffff", fade: 0.78, text: "#1a1a1a", sub: "#888888" },
+
+      // — Dark backgrounds —
+      { file: "luling_blueprint.svg",      bg: "#1a3a5c", fade: 0.68, text: "#e0ecf8", sub: "#6888aa" },
+      { file: "luling_midnight_blue.svg",  bg: "#0a1628", fade: 0.68, text: "#d8e8f8", sub: "#486888" },
+      { file: "luling_noir.svg",           bg: "#0a0a0a", fade: 0.68, text: "#e0e0e0", sub: "#585858" },
+      { file: "luling_neon_cyberpunk.svg", bg: "#0d0d1a", fade: 0.68, text: "#d8d8f0", sub: "#484860" },
+    ];
+    // ─────────────────────────────────────────────────────────────────────────
+
+    // ─── Font Themes ──────────────────────────────────────────────────────────
+    // Each entry defines only typography — colors come from the map above.
     //   headingFont – font-family for <h1>
     //   subFont     – font-family for <p>
-    //   googleFont  – Google Fonts URL to load (or null)
+    //   googleFont  – Google Fonts URL to load (or null for system fonts)
 
-    const themes = [
+    const fontThemes = [
+      // — Serif —
       {
-        // Warm ivory · classic serif
-        bg: "#f5f4f2",
-        text: "#1a1a1a",
-        sub: "#999",
+        // Classic serif
         headingFont: "Georgia, 'Times New Roman', serif",
-        subFont: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
-        googleFont: null
+        subFont:     "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+        googleFont:  null
       },
       {
-        // Cool white · modern geometric sans
-        bg: "#ffffff",
-        text: "#111111",
-        sub: "#aaaaaa",
+        // Cormorant Garamond — refined, high-contrast
         headingFont: "'Cormorant Garamond', Georgia, serif",
-        subFont: "'Cormorant Garamond', Georgia, serif",
-        googleFont: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&display=swap"
+        subFont:     "'Cormorant Garamond', Georgia, serif",
+        googleFont:  "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&display=swap"
       },
       {
-        // Slate blue-grey · elegant transitional serif
-        bg: "#e8e9ed",
-        text: "#2c2f3a",
-        sub: "#7a7f90",
+        // Playfair Display — elegant editorial
         headingFont: "'Playfair Display', Georgia, serif",
-        subFont: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
-        googleFont: "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400&display=swap"
+        subFont:     "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+        googleFont:  "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400&display=swap"
       },
       {
-        // Warm tan · humanist sans
-        bg: "#f0ebe3",
-        text: "#2b2218",
-        sub: "#a08c78",
+        // Lora — warm literary serif
         headingFont: "'Lora', Georgia, serif",
-        subFont: "'Lora', Georgia, serif",
-        googleFont: "https://fonts.googleapis.com/css2?family=Lora:wght@400&display=swap"
+        subFont:     "'Lora', Georgia, serif",
+        googleFont:  "https://fonts.googleapis.com/css2?family=Lora:wght@400&display=swap"
       },
       {
-        // Deep charcoal · light text (dark mode)
-        bg: "#1c1c1e",
-        text: "#f0efec",
-        sub: "#666666",
-        headingFont: "Georgia, 'Times New Roman', serif",
-        subFont: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
-        googleFont: null
-      },
-      {
-        // Soft sage · EB Garamond serif
-        bg: "#eaeee8",
-        text: "#2a3028",
-        sub: "#859080",
+        // EB Garamond — classical, understated
         headingFont: "'EB Garamond', Georgia, serif",
-        subFont: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
-        googleFont: "https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400&display=swap"
+        subFont:     "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+        googleFont:  "https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400&display=swap"
       },
+
+      // — Sans-serif —
       {
-        // Warm ivory · Raleway thin sans
-        bg: "#f5f4f2",
-        text: "#1a1a1a",
-        sub: "#aaaaaa",
+        // Raleway — thin, elegant sans
         headingFont: "'Raleway', sans-serif",
-        subFont: "'Raleway', sans-serif",
-        googleFont: "https://fonts.googleapis.com/css2?family=Raleway:wght@300;400&display=swap"
+        subFont:     "'Raleway', sans-serif",
+        googleFont:  "https://fonts.googleapis.com/css2?family=Raleway:wght@300;400&display=swap"
       },
       {
-        // Cool white · Jost geometric sans
-        bg: "#ffffff",
-        text: "#111111",
-        sub: "#bbbbbb",
+        // Jost — clean geometric sans
         headingFont: "'Jost', sans-serif",
-        subFont: "'Jost', sans-serif",
-        googleFont: "https://fonts.googleapis.com/css2?family=Jost:wght@300;400&display=swap"
+        subFont:     "'Jost', sans-serif",
+        googleFont:  "https://fonts.googleapis.com/css2?family=Jost:wght@300;400&display=swap"
       },
       {
-        // Deep charcoal · Nunito light sans (dark mode)
-        bg: "#1c1c1e",
-        text: "#f0efec",
-        sub: "#555555",
+        // Nunito Light — soft modern sans
         headingFont: "'Nunito', sans-serif",
-        subFont: "'Nunito', sans-serif",
-        googleFont: "https://fonts.googleapis.com/css2?family=Nunito:wght@300;400&display=swap"
+        subFont:     "'Nunito', sans-serif",
+        googleFont:  "https://fonts.googleapis.com/css2?family=Nunito:wght@300;400&display=swap"
       }
     ];
     // ─────────────────────────────────────────────────────────────────────────
 
-    const theme = themes[Math.floor(Math.random() * themes.length)];
+    const map  = maps[Math.floor(Math.random() * maps.length)];
+    const font = fontThemes[Math.floor(Math.random() * fontThemes.length)];
 
-    if (theme.googleFont) {
+    // Load Google Font if needed
+    if (font.googleFont) {
       const link = document.createElement("link");
-      link.rel = "stylesheet";
-      link.href = theme.googleFont;
+      link.rel  = "stylesheet";
+      link.href = font.googleFont;
       document.head.appendChild(link);
     }
 
-    document.body.style.backgroundColor = theme.bg;
-    document.body.style.color = theme.text;
+    // Set page background color (matches the map's base fill so edges don't show)
+    document.body.style.backgroundColor = map.bg;
 
-    const h1 = document.querySelector("h1");
-    h1.style.fontFamily = theme.headingFont;
+    // Apply map as background image
+    document.body.style.backgroundImage = `url('lulingmaps-notext/${map.file}')`;
 
-    const p = document.querySelector("p");
-    p.style.fontFamily = theme.subFont;
-    p.style.color = theme.sub;
+    // Fade the map: overlay a semi-opaque wash of the bg color to ghost the map lines
+    document.getElementById("map-overlay").style.background = map.bg;
+    document.getElementById("map-overlay").style.opacity = map.fade;
+
+    // Apply text colors from map
+    document.querySelector("h1").style.color = map.text;
+    document.querySelector("p").style.color  = map.sub;
+
+    // Apply fonts from font theme
+    document.querySelector("h1").style.fontFamily = font.headingFont;
+    document.querySelector("p").style.fontFamily  = font.subFont;
   </script>
 </body>
 </html>
