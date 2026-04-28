@@ -67,10 +67,15 @@
       border-radius: 50%;
       z-index: 3;
       transform: translate(-50%, -50%);
+      /* Soft glow radiating outward from the dot — evokes light spreading in darkness */
+      box-shadow:
+        0 0  8px 2px currentColor,
+        0 0 28px 8px currentColor,
+        0 0 70px 20px currentColor;
       /* Smooth drift to each new position */
       transition: left 2.8s cubic-bezier(0.45, 0, 0.55, 1),
                   top  2.8s cubic-bezier(0.45, 0, 0.55, 1);
-      /* Intensity pulse: breathes between 0.55 and 1 opacity */
+      /* Intensity pulse: glow breathes between full and half strength */
       animation: dot-breathe 2.6s ease-in-out infinite;
     }
 
@@ -86,12 +91,12 @@
 
     @keyframes dot-breathe {
       0%, 100% { opacity: 1; }
-      50%       { opacity: 0.45; }
+      50%       { opacity: 0.4; }
     }
 
     @keyframes ring-pulse {
-      0%   { transform: scale(0.6); opacity: 0.7; }
-      100% { transform: scale(2.2); opacity: 0; }
+      0%   { transform: scale(0.6); opacity: 0.6; }
+      100% { transform: scale(3.5); opacity: 0; }
     }
 
     .center {
@@ -169,7 +174,7 @@
       // — Dark backgrounds —
       { enabled: false, file: "luling_blueprint.svg",      bg: "#1a3a5c", fade: 0.68, text: "#e0ecf8", sub: "#6888aa", dot: "#88bcd8" },
       { enabled: false, file: "luling_midnight_blue.svg",  bg: "#0a1628", fade: 0.68, text: "#d8e8f8", sub: "#486888", dot: "#6898c0" },
-      { enabled: true,  file: "luling_noir.svg",           bg: "#0a0a0a", fade: 0.68, text: "#e0e0e0", sub: "#a0a0a0", dot: "#909090" },
+      { enabled: true,  file: "luling_noir.svg",           bg: "#0a0a0a", fade: 0.68, text: "#e0e0e0", sub: "#a0a0a0", dot: "#f5c842" },
       { enabled: false, file: "luling_neon_cyberpunk.svg", bg: "#0d0d1a", fade: 0.68, text: "#d8d8f0", sub: "#484860", dot: "#8888c8" },
     ];
     // ─────────────────────────────────────────────────────────────────────────
