@@ -28,14 +28,30 @@
       background-repeat: no-repeat;
     }
 
-    /* Fades the map to a very subtle ghost — adjust opacity to taste (0 = invisible, 1 = full) */
+    /* SVG map fades in once loaded via JS toggling this class */
+    #map-bg {
+      position: fixed;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      opacity: 0;
+      transition: opacity 1.4s ease-in;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    #map-bg.loaded {
+      opacity: 1;
+    }
+
+    /* Sits above #map-bg and washes it with the bg color to fade the map lines */
     #map-overlay {
       position: fixed;
       inset: 0;
       pointer-events: none;
-      z-index: 0;
-      background: inherit;
-      /* This overlay is driven by the page background color set in JS */
+      z-index: 1;
     }
 
     /* ── Location dot ─────────────────────────────────────────────────────────
@@ -49,7 +65,7 @@
       width: 10px;
       height: 10px;
       border-radius: 50%;
-      z-index: 2;
+      z-index: 3;
       transform: translate(-50%, -50%);
       /* Smooth drift to each new position */
       transition: left 2.8s cubic-bezier(0.45, 0, 0.55, 1),
@@ -80,7 +96,7 @@
 
     .center {
       position: relative;
-      z-index: 1;
+      z-index: 3;
       text-align: center;
       margin-top: 33vh;  /* sits at roughly the top third of the viewport */
     }
@@ -110,6 +126,7 @@
   </style>
 </head>
 <body>
+  <div id="map-bg"></div>
   <div id="map-overlay"></div>
   <div id="locator"></div>
   <div class="center">
@@ -262,15 +279,22 @@
       document.head.appendChild(link);
     }
 
-    // Set page background color (matches the map's base fill so edges don't show)
+    // Set solid bg color immediately — visible while the SVG loads
     document.body.style.backgroundColor = map.bg;
 
-    // Apply map as background image
-    document.body.style.backgroundImage = `url('lulingmaps-notext/${map.file}')`;
+    // Load the SVG async: set it on #map-bg, then fade in once the browser has it
+    const mapBg = document.getElementById("map-bg");
+    const img = new Image();
+    img.onload = () => {
+      mapBg.style.backgroundImage = `url('lulingmaps-notext/${map.file}')`;
+      mapBg.classList.add("loaded"); // triggers the CSS opacity transition
+    };
+    img.src = `lulingmaps-notext/${map.file}`;
 
-    // Fade the map: overlay a semi-opaque wash of the bg color to ghost the map lines
-    document.getElementById("map-overlay").style.background = map.bg;
-    document.getElementById("map-overlay").style.opacity = map.fade;
+    // Overlay washes the map with the bg color to ghost the lines; sits above #map-bg
+    const overlay = document.getElementById("map-overlay");
+    overlay.style.background = map.bg;
+    overlay.style.opacity = map.fade;
 
     // Apply text colors from map
     document.querySelector(".tagline").style.color  = map.text;
