@@ -94,7 +94,7 @@
     }
 
     h1 {
-      font-size: clamp(2.5rem, 8vw, 5rem);
+      font-size: clamp(3rem, 10vw, 6.5rem);
       font-weight: 400;
       letter-spacing: 0.02em;
       line-height: 1.1;
@@ -121,38 +121,39 @@
   <script>
     // ─── Background Maps ──────────────────────────────────────────────────────
     // Each entry defines:
-    //   file – filename inside lulingmaps-notext/
-    //   bg   – page background color (must match the map's base fill)
-    //   fade – opacity of the wash laid over the map (0–1). Higher = more faded.
-    //   text – heading color
-    //   sub  – subheading color
-    //   dot  – locator dot color (should complement the map but stand out softly)
+    //   enabled – set to false to exclude from the random rotation
+    //   file    – filename inside lulingmaps-notext/
+    //   bg      – page background color (must match the map's base fill)
+    //   fade    – opacity of the wash laid over the map (0–1). Higher = more faded.
+    //   text    – heading color
+    //   sub     – subheading color
+    //   dot     – locator dot color (should complement the map but stand out softly)
 
     const maps = [
       // — Light / warm backgrounds —
-      { file: "luling_autumn.svg",        bg: "#fbf7f0", fade: 0.72, text: "#221508", sub: "#9a7a5a", dot: "#c0623a" },
-      { file: "luling_warm_beige.svg",    bg: "#f5f0e8", fade: 0.72, text: "#221508", sub: "#8a6a50", dot: "#b85c38" },
-      { file: "luling_japanese_ink.svg",  bg: "#faf8f5", fade: 0.72, text: "#1a1a1a", sub: "#888888", dot: "#7a6050" },
-      { file: "luling_sunset.svg",        bg: "#fdf5f0", fade: 0.72, text: "#280e08", sub: "#886050", dot: "#c05840" },
-      { file: "luling_pastel_dream.svg",  bg: "#faf7f2", fade: 0.72, text: "#1a1a28", sub: "#6a7a8a", dot: "#7090a8" },
-      { file: "luling_terracotta.svg",    bg: "#f5ede4", fade: 0.72, text: "#281a10", sub: "#5a7878", dot: "#c06848" },
-      { file: "luling_copper_patina.svg", bg: "#e8f0f0", fade: 0.72, text: "#1a2828", sub: "#5a7878", dot: "#6a9898" },
+      { enabled: false, file: "luling_autumn.svg",        bg: "#fbf7f0", fade: 0.72, text: "#221508", sub: "#9a7a5a", dot: "#c0623a" },
+      { enabled: false, file: "luling_warm_beige.svg",    bg: "#f5f0e8", fade: 0.72, text: "#221508", sub: "#8a6a50", dot: "#b85c38" },
+      { enabled: false, file: "luling_japanese_ink.svg",  bg: "#faf8f5", fade: 0.72, text: "#1a1a1a", sub: "#888888", dot: "#7a6050" },
+      { enabled: false, file: "luling_sunset.svg",        bg: "#fdf5f0", fade: 0.72, text: "#280e08", sub: "#886050", dot: "#c05840" },
+      { enabled: false, file: "luling_pastel_dream.svg",  bg: "#faf7f2", fade: 0.72, text: "#1a1a28", sub: "#6a7a8a", dot: "#7090a8" },
+      { enabled: false, file: "luling_terracotta.svg",    bg: "#f5ede4", fade: 0.72, text: "#281a10", sub: "#5a7878", dot: "#c06848" },
+      { enabled: false, file: "luling_copper_patina.svg", bg: "#e8f0f0", fade: 0.72, text: "#1a2828", sub: "#5a7878", dot: "#6a9898" },
 
       // — Light / cool backgrounds —
-      { file: "luling_ocean.svg",           bg: "#f0f8fa", fade: 0.72, text: "#0a1e2a", sub: "#3a6878", dot: "#3a8898" },
-      { file: "luling_forest.svg",          bg: "#f0f4f0", fade: 0.72, text: "#1a281a", sub: "#5a7870", dot: "#507868" },
-      { file: "luling_monochrome_blue.svg", bg: "#f5f8fa", fade: 0.72, text: "#0a1828", sub: "#3a5870", dot: "#4878a0" },
+      { enabled: false, file: "luling_ocean.svg",           bg: "#f0f8fa", fade: 0.72, text: "#0a1e2a", sub: "#3a6878", dot: "#3a8898" },
+      { enabled: false, file: "luling_forest.svg",          bg: "#f0f4f0", fade: 0.72, text: "#1a281a", sub: "#5a7870", dot: "#507868" },
+      { enabled: false, file: "luling_monochrome_blue.svg", bg: "#f5f8fa", fade: 0.72, text: "#0a1828", sub: "#3a5870", dot: "#4878a0" },
 
       // — White / near-white backgrounds —
-      { file: "luling_contrast_zones.svg",  bg: "#ffffff", fade: 0.78, text: "#1a1a1a", sub: "#888888", dot: "#888888" },
-      { file: "luling_feature_based.svg",   bg: "#ffffff", fade: 0.78, text: "#1a1a1a", sub: "#888888", dot: "#888888" },
-      { file: "luling_gradient_roads.svg",  bg: "#ffffff", fade: 0.78, text: "#1a1a1a", sub: "#888888", dot: "#888888" },
+      { enabled: false, file: "luling_contrast_zones.svg",  bg: "#ffffff", fade: 0.78, text: "#1a1a1a", sub: "#888888", dot: "#888888" },
+      { enabled: false, file: "luling_feature_based.svg",   bg: "#ffffff", fade: 0.78, text: "#1a1a1a", sub: "#888888", dot: "#888888" },
+      { enabled: false, file: "luling_gradient_roads.svg",  bg: "#ffffff", fade: 0.78, text: "#1a1a1a", sub: "#888888", dot: "#888888" },
 
       // — Dark backgrounds —
-      { file: "luling_blueprint.svg",      bg: "#1a3a5c", fade: 0.68, text: "#e0ecf8", sub: "#6888aa", dot: "#88bcd8" },
-      { file: "luling_midnight_blue.svg",  bg: "#0a1628", fade: 0.68, text: "#d8e8f8", sub: "#486888", dot: "#6898c0" },
-      { file: "luling_noir.svg",           bg: "#0a0a0a", fade: 0.68, text: "#e0e0e0", sub: "#a0a0a0", dot: "#909090" },
-      { file: "luling_neon_cyberpunk.svg", bg: "#0d0d1a", fade: 0.68, text: "#d8d8f0", sub: "#484860", dot: "#8888c8" },
+      { enabled: false, file: "luling_blueprint.svg",      bg: "#1a3a5c", fade: 0.68, text: "#e0ecf8", sub: "#6888aa", dot: "#88bcd8" },
+      { enabled: false, file: "luling_midnight_blue.svg",  bg: "#0a1628", fade: 0.68, text: "#d8e8f8", sub: "#486888", dot: "#6898c0" },
+      { enabled: true,  file: "luling_noir.svg",           bg: "#0a0a0a", fade: 0.68, text: "#e0e0e0", sub: "#a0a0a0", dot: "#909090" },
+      { enabled: false, file: "luling_neon_cyberpunk.svg", bg: "#0d0d1a", fade: 0.68, text: "#d8d8f0", sub: "#484860", dot: "#8888c8" },
     ];
     // ─────────────────────────────────────────────────────────────────────────
 
@@ -249,7 +250,8 @@
     ];
     // ─────────────────────────────────────────────────────────────────────────
 
-    const map  = maps[Math.floor(Math.random() * maps.length)];
+    const enabledMaps = maps.filter(m => m.enabled);
+    const map  = enabledMaps[Math.floor(Math.random() * enabledMaps.length)];
     const font = fontThemes[Math.floor(Math.random() * fontThemes.length)];
 
     // Load Google Font if needed
