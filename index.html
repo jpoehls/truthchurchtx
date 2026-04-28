@@ -109,6 +109,22 @@
       100% { transform: scale(3.5); opacity: 0; }
     }
 
+    /* Smashburger trail stamp — fades out over its lifetime then removes itself */
+    .burger-stamp {
+      position: fixed;
+      transform: translate(-50%, -50%);
+      font-size: 1.8rem;
+      line-height: 1;
+      pointer-events: none;
+      z-index: 2;
+      animation: burger-fade 12s ease-out forwards;
+    }
+
+    @keyframes burger-fade {
+      0%   { opacity: 0.9; }
+      100% { opacity: 0; }
+    }
+
     .center {
       position: relative;
       z-index: 3;
@@ -322,30 +338,23 @@
     document.querySelector("h1").style.fontFamily        = font.headingFont;
     document.querySelector(".location").style.fontFamily = font.subFont;
 
-    // ─── Locator dot ──────────────────────────────────────────────────────────
-    // Drifts to a new random position within the central region of the viewport
-    // every DRIFT_INTERVAL ms. The CSS transition handles the smooth movement.
-    // Roam area: horizontally 25–75% of viewport, vertically 30–75% of viewport.
-
-    const DRIFT_INTERVAL = 5000; // ms between position changes
-
-    const dot = document.getElementById("locator");
-    dot.style.backgroundColor = map.dot;
-    dot.style.color            = map.dot;
-
-    // ── Light trail canvas ────────────────────────────────────────────────────
-    // Each time the dot moves, we paint a soft radial glow onto the canvas at
-    // the old position. The canvas is never cleared — glows accumulate and dim
-    // very slowly via a semi-transparent fill pass each animation frame,
-    // evoking illumination spreading and slowly fading as the torch moves on.
+    // ─── Locator dot + trail ─────────────────────────────────────────────────
+    // The dot drifts to a new random position every DRIFT_INTERVAL ms.
+    // A trail strategy controls what gets painted at each departed position.
     //
-    // TRAIL_ENABLED   – master switch; set to false to disable the trail entirely.
-    // TRAIL_RADIUS    – how wide each glow patch spreads (px).
-    // FADE_RATE       – how quickly glows fade per frame (lower = slower fade).
+    // TRAIL_ENABLED    – master switch; false disables all trail rendering.
+    // DRIFT_INTERVAL   – ms between position changes.
+    // TRAIL_RADIUS     – spread of each glow patch (px), used by the glow strategy.
+    // FADE_RATE        – canvas alpha erased per frame (lower = slower fade).
+    //
+    // SMASHBURGER_MODE – activated by ?smashburger=y in the URL.
+    //                    Replaces the dot with 🍔 and leaves hamburger emojis behind.
 
-    const TRAIL_ENABLED = true;  // ← flip to false to disable the trail
-    const TRAIL_RADIUS  = 120;   // px — spread of each glow patch
-    const FADE_RATE     = 0.004; // opacity per frame — ~4s to fully fade at 60fps
+    const TRAIL_ENABLED    = true;   // ← flip to false to disable the trail
+    const DRIFT_INTERVAL   = 5000;   // ms between position changes
+    const TRAIL_RADIUS     = 120;    // px — spread of each glow patch
+    const FADE_RATE        = 0.004;  // opacity per frame — ~4s to fully fade at 60fps
+    const SMASHBURGER_MODE = new URLSearchParams(window.location.search).get("smashburger") === "y";
 
     const canvas = document.getElementById("light-trail");
     const ctx    = canvas.getContext("2d");
@@ -364,44 +373,88 @@
       return `rgba(${r},${g},${b},${alpha})`;
     }
 
-    function paintGlow(xVw, yVh) {
-      if (!TRAIL_ENABLED || !map.trailColor) return;
-      const x = (xVw / 100) * canvas.width;
-      const y = (yVh / 100) * canvas.height;
-      const grad = ctx.createRadialGradient(x, y, 0, x, y, TRAIL_RADIUS);
-      grad.addColorStop(0,   hexRgba(map.trailColor, 0.38));
-      grad.addColorStop(0.4, hexRgba(map.trailColor, 0.16));
-      grad.addColorStop(1,   hexRgba(map.trailColor, 0));
-      ctx.fillStyle = grad;
-      ctx.beginPath();
-      ctx.arc(x, y, TRAIL_RADIUS, 0, Math.PI * 2);
-      ctx.fill();
-    }
+    // ── Trail strategies ──────────────────────────────────────────────────────
+    // Each strategy implements:
+    //   paintTrail(xVw, yVh) – called when the dot departs a position
+    //   animateTrail()       – called once to start any per-frame animation loop
+    //   setupDot(dotEl)      – called once to configure the dot element's appearance
 
-    // Slowly erode painted glows by compositing with destination-out,
-    // which reduces the alpha of existing pixels rather than adding new color.
-    // The canvas stays fully transparent where nothing was painted — the map shows through.
-    function fadeCanvas() {
-      if (!TRAIL_ENABLED || !map.trailColor) return;
-      ctx.globalCompositeOperation = "destination-out";
-      ctx.fillStyle = `rgba(0,0,0,${FADE_RATE})`;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      ctx.globalCompositeOperation = "source-over";
-      requestAnimationFrame(fadeCanvas);
-    }
-    if (TRAIL_ENABLED && map.trailColor) fadeCanvas();
+    const glowTrail = {
+      setupDot(dotEl) {
+        dotEl.style.backgroundColor = map.dot;
+        dotEl.style.color           = map.dot;
+      },
+      paintTrail(xVw, yVh) {
+        if (!map.trailColor) return;
+        const x = (xVw / 100) * canvas.width;
+        const y = (yVh / 100) * canvas.height;
+        const grad = ctx.createRadialGradient(x, y, 0, x, y, TRAIL_RADIUS);
+        grad.addColorStop(0,   hexRgba(map.trailColor, 0.38));
+        grad.addColorStop(0.4, hexRgba(map.trailColor, 0.16));
+        grad.addColorStop(1,   hexRgba(map.trailColor, 0));
+        ctx.fillStyle = grad;
+        ctx.beginPath();
+        ctx.arc(x, y, TRAIL_RADIUS, 0, Math.PI * 2);
+        ctx.fill();
+      },
+      animateTrail() {
+        if (!map.trailColor) return;
+        // Erode canvas alpha each frame so glows fade back to transparent
+        const tick = () => {
+          ctx.globalCompositeOperation = "destination-out";
+          ctx.fillStyle = `rgba(0,0,0,${FADE_RATE})`;
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+          ctx.globalCompositeOperation = "source-over";
+          requestAnimationFrame(tick);
+        };
+        tick();
+      }
+    };
+
+    const smashburgerTrail = {
+      setupDot(dotEl) {
+        dotEl.style.backgroundColor = "transparent";
+        dotEl.style.boxShadow       = "none";
+        dotEl.style.width           = "auto";
+        dotEl.style.height          = "auto";
+        dotEl.style.fontSize        = "1.8rem";
+        dotEl.style.lineHeight      = "1";
+        dotEl.textContent           = "🍔";
+      },
+      paintTrail(xVw, yVh) {
+        // Stamp a DOM emoji at the departed position and let CSS fade it out
+        const stamp = document.createElement("div");
+        stamp.className  = "burger-stamp";
+        stamp.textContent = "🍔";
+        stamp.style.left = xVw + "vw";
+        stamp.style.top  = yVh + "vh";
+        document.body.appendChild(stamp);
+        // Remove from DOM once the animation ends
+        stamp.addEventListener("animationend", () => stamp.remove());
+      },
+      animateTrail() {
+        // No canvas animation needed — CSS handles the fade on each stamp
+      }
+    };
+    // ─────────────────────────────────────────────────────────────────────────
+
+    const trailStrategy = SMASHBURGER_MODE ? smashburgerTrail : glowTrail;
+
+    const dot = document.getElementById("locator");
+    trailStrategy.setupDot(dot);
+    if (TRAIL_ENABLED) trailStrategy.animateTrail();
 
     let currentX = null, currentY = null;
 
     function moveDot() {
-      if (currentX !== null) paintGlow(currentX, currentY); // mark the departing spot
+      if (TRAIL_ENABLED && currentX !== null) trailStrategy.paintTrail(currentX, currentY);
       currentX = 25 + Math.random() * 50; // 25–75 vw
       currentY = 30 + Math.random() * 45; // 30–75 vh
       dot.style.left = currentX + "vw";
       dot.style.top  = currentY + "vh";
     }
 
-    moveDot(); // place immediately on load
+    moveDot();
     setInterval(moveDot, DRIFT_INTERVAL);
     // ─────────────────────────────────────────────────────────────────────────
   </script>
