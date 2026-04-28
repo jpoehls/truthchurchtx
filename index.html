@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Truth Church in Luling, Texas</title>
-  <meta property="og:title" content="Truth Church in Luling, Texas">
-  <meta name="twitter:title" content="Truth Church in Luling, Texas">
+  <title>Truth Church</title>
+  <meta property="og:title" content="Truth Church">
+  <meta name="twitter:title" content="Truth Church">
   <style>
     *, *::before, *::after {
       box-sizing: border-box;
@@ -85,6 +85,14 @@
       margin-top: 33vh;  /* sits at roughly the top third of the viewport */
     }
 
+    .tagline {
+      font-size: clamp(0.85rem, 2vw, 1.1rem);
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
     h1 {
       font-size: clamp(2.5rem, 8vw, 5rem);
       font-weight: 400;
@@ -105,8 +113,9 @@
   <div id="map-overlay"></div>
   <div id="locator"></div>
   <div class="center">
+    <p class="tagline">Follow Jesus <span style="position:relative; top:-0.08em">&raquo;</span> Make Disciples</p>
     <h1>Truth Church</h1>
-    <p>Luling, Texas</p>
+    <p class="location">Texas</p>
   </div>
 
   <script>
@@ -142,7 +151,7 @@
       // — Dark backgrounds —
       { file: "luling_blueprint.svg",      bg: "#1a3a5c", fade: 0.68, text: "#e0ecf8", sub: "#6888aa", dot: "#88bcd8" },
       { file: "luling_midnight_blue.svg",  bg: "#0a1628", fade: 0.68, text: "#d8e8f8", sub: "#486888", dot: "#6898c0" },
-      { file: "luling_noir.svg",           bg: "#0a0a0a", fade: 0.68, text: "#e0e0e0", sub: "#585858", dot: "#909090" },
+      { file: "luling_noir.svg",           bg: "#0a0a0a", fade: 0.68, text: "#e0e0e0", sub: "#a0a0a0", dot: "#909090" },
       { file: "luling_neon_cyberpunk.svg", bg: "#0d0d1a", fade: 0.68, text: "#d8d8f0", sub: "#484860", dot: "#8888c8" },
     ];
     // ─────────────────────────────────────────────────────────────────────────
@@ -204,6 +213,38 @@
         headingFont: "'Nunito', sans-serif",
         subFont:     "'Nunito', sans-serif",
         googleFont:  "https://fonts.googleapis.com/css2?family=Nunito:wght@300;400&display=swap"
+      },
+
+      // — Slab / block serif —
+      {
+        // Roboto Slab — sturdy, neutral slab serif
+        headingFont: "'Roboto Slab', serif",
+        subFont:     "'Roboto Slab', serif",
+        googleFont:  "https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400&display=swap"
+      },
+      {
+        // Zilla Slab — modern, open slab serif
+        headingFont: "'Zilla Slab', serif",
+        subFont:     "'Zilla Slab', serif",
+        googleFont:  "https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@300;400&display=swap"
+      },
+      {
+        // Arvo — compact, strong slab serif
+        headingFont: "'Arvo', serif",
+        subFont:     "'Arvo', serif",
+        googleFont:  "https://fonts.googleapis.com/css2?family=Arvo:wght@400&display=swap"
+      },
+      {
+        // Alfa Slab One — bold display slab, heading only; Jost for sub
+        headingFont: "'Alfa Slab One', serif",
+        subFont:     "'Jost', sans-serif",
+        googleFont:  "https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Jost:wght@300;400&display=swap"
+      },
+      {
+        // Courier Prime — monospaced slab, understated and distinctive
+        headingFont: "'Courier Prime', monospace",
+        subFont:     "'Courier Prime', monospace",
+        googleFont:  "https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400&display=swap"
       }
     ];
     // ─────────────────────────────────────────────────────────────────────────
@@ -230,12 +271,14 @@
     document.getElementById("map-overlay").style.opacity = map.fade;
 
     // Apply text colors from map
-    document.querySelector("h1").style.color = map.text;
-    document.querySelector("p").style.color  = map.sub;
+    document.querySelector(".tagline").style.color  = map.text;
+    document.querySelector("h1").style.color        = map.text;
+    document.querySelector(".location").style.color = map.sub;
 
-    // Apply fonts from font theme
-    document.querySelector("h1").style.fontFamily = font.headingFont;
-    document.querySelector("p").style.fontFamily  = font.subFont;
+    // Apply fonts from font theme — tagline and location always share subFont
+    document.querySelector(".tagline").style.fontFamily  = font.subFont;
+    document.querySelector("h1").style.fontFamily        = font.headingFont;
+    document.querySelector(".location").style.fontFamily = font.subFont;
 
     // ─── Locator dot ──────────────────────────────────────────────────────────
     // Drifts to a new random position within the central region of the viewport
