@@ -54,6 +54,16 @@
       z-index: 1;
     }
 
+    /* Canvas for persistent light trail — sits between the map overlay and the dot */
+    #light-trail {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 2;
+    }
+
     /* ── Location dot ─────────────────────────────────────────────────────────
        A small GPS-style pin that drifts to a new spot every few seconds.
        Position and color are set by JS; only the pulse animation lives here.
@@ -133,6 +143,7 @@
 <body>
   <div id="map-bg"></div>
   <div id="map-overlay"></div>
+  <canvas id="light-trail"></canvas>
   <div id="locator"></div>
   <div class="center">
     <p class="tagline">Follow Jesus <span style="position:relative; top:-0.08em">&raquo;</span> Make Disciples</p>
@@ -174,7 +185,7 @@
       // — Dark backgrounds —
       { enabled: false, file: "luling_blueprint.svg",      bg: "#1a3a5c", fade: 0.68, text: "#e0ecf8", sub: "#6888aa", dot: "#88bcd8" },
       { enabled: false, file: "luling_midnight_blue.svg",  bg: "#0a1628", fade: 0.68, text: "#d8e8f8", sub: "#486888", dot: "#6898c0" },
-      { enabled: true,  file: "luling_noir.svg",           bg: "#0a0a0a", fade: 0.68, text: "#e0e0e0", sub: "#a0a0a0", dot: "#f5c842" },
+      { enabled: true,  file: "luling_noir.svg",           bg: "#0a0a0a", fade: 0.68, text: "#e0e0e0", sub: "#a0a0a0", dot: "#f5c842", trailColor: "#f5c842" },
       { enabled: false, file: "luling_neon_cyberpunk.svg", bg: "#0d0d1a", fade: 0.68, text: "#d8d8f0", sub: "#484860", dot: "#8888c8" },
     ];
     // ─────────────────────────────────────────────────────────────────────────
@@ -320,13 +331,74 @@
 
     const dot = document.getElementById("locator");
     dot.style.backgroundColor = map.dot;
-    dot.style.color            = map.dot; // drives the ::after ring color via currentColor
+    dot.style.color            = map.dot;
+
+    // ── Light trail canvas ────────────────────────────────────────────────────
+    // Each time the dot moves, we paint a soft radial glow onto the canvas at
+    // the old position. The canvas is never cleared — glows accumulate and dim
+    // very slowly via a semi-transparent fill pass each animation frame,
+    // evoking illumination spreading and slowly fading as the torch moves on.
+    //
+    // TRAIL_ENABLED   – master switch; set to false to disable the trail entirely.
+    // TRAIL_RADIUS    – how wide each glow patch spreads (px).
+    // FADE_RATE       – how quickly glows fade per frame (lower = slower fade).
+
+    const TRAIL_ENABLED = true;  // ← flip to false to disable the trail
+    const TRAIL_RADIUS  = 120;   // px — spread of each glow patch
+    const FADE_RATE     = 0.004; // opacity per frame — ~4s to fully fade at 60fps
+
+    const canvas = document.getElementById("light-trail");
+    const ctx    = canvas.getContext("2d");
+
+    function resizeCanvas() {
+      canvas.width  = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener("resize", resizeCanvas);
+
+    // Parse a hex color string into an rgba() string with the given alpha
+    function hexRgba(hex, alpha) {
+      const n = parseInt(hex.replace("#", ""), 16);
+      const r = (n >> 16) & 255, g = (n >> 8) & 255, b = n & 255;
+      return `rgba(${r},${g},${b},${alpha})`;
+    }
+
+    function paintGlow(xVw, yVh) {
+      if (!TRAIL_ENABLED || !map.trailColor) return;
+      const x = (xVw / 100) * canvas.width;
+      const y = (yVh / 100) * canvas.height;
+      const grad = ctx.createRadialGradient(x, y, 0, x, y, TRAIL_RADIUS);
+      grad.addColorStop(0,   hexRgba(map.trailColor, 0.38));
+      grad.addColorStop(0.4, hexRgba(map.trailColor, 0.16));
+      grad.addColorStop(1,   hexRgba(map.trailColor, 0));
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.arc(x, y, TRAIL_RADIUS, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // Slowly erode painted glows by compositing with destination-out,
+    // which reduces the alpha of existing pixels rather than adding new color.
+    // The canvas stays fully transparent where nothing was painted — the map shows through.
+    function fadeCanvas() {
+      if (!TRAIL_ENABLED || !map.trailColor) return;
+      ctx.globalCompositeOperation = "destination-out";
+      ctx.fillStyle = `rgba(0,0,0,${FADE_RATE})`;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.globalCompositeOperation = "source-over";
+      requestAnimationFrame(fadeCanvas);
+    }
+    if (TRAIL_ENABLED && map.trailColor) fadeCanvas();
+
+    let currentX = null, currentY = null;
 
     function moveDot() {
-      const x = 25 + Math.random() * 50; // 25–75 vw
-      const y = 30 + Math.random() * 45; // 30–75 vh
-      dot.style.left = x + "vw";
-      dot.style.top  = y + "vh";
+      if (currentX !== null) paintGlow(currentX, currentY); // mark the departing spot
+      currentX = 25 + Math.random() * 50; // 25–75 vw
+      currentY = 30 + Math.random() * 45; // 30–75 vh
+      dot.style.left = currentX + "vw";
+      dot.style.top  = currentY + "vh";
     }
 
     moveDot(); // place immediately on load
