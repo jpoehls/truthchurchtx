@@ -36,6 +36,46 @@
       /* This overlay is driven by the page background color set in JS */
     }
 
+    /* ── Location dot ─────────────────────────────────────────────────────────
+       A small GPS-style pin that drifts to a new spot every few seconds.
+       Position and color are set by JS; only the pulse animation lives here.
+       dot-size: controls the diameter of the filled circle (px).
+       ring-size: controls how far the outer pulse ring expands.
+    ──────────────────────────────────────────────────────────────────────── */
+    #locator {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      z-index: 2;
+      transform: translate(-50%, -50%);
+      /* Smooth drift to each new position */
+      transition: left 2.8s cubic-bezier(0.45, 0, 0.55, 1),
+                  top  2.8s cubic-bezier(0.45, 0, 0.55, 1);
+      /* Intensity pulse: breathes between 0.55 and 1 opacity */
+      animation: dot-breathe 2.6s ease-in-out infinite;
+    }
+
+    #locator::after {
+      content: '';
+      position: absolute;
+      inset: -6px;
+      border-radius: 50%;
+      border: 1.5px solid currentColor;
+      opacity: 0;
+      animation: ring-pulse 2.6s ease-out infinite;
+    }
+
+    @keyframes dot-breathe {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.45; }
+    }
+
+    @keyframes ring-pulse {
+      0%   { transform: scale(0.6); opacity: 0.7; }
+      100% { transform: scale(2.2); opacity: 0; }
+    }
+
     .center {
       position: relative;
       z-index: 1;
@@ -61,6 +101,7 @@
 </head>
 <body>
   <div id="map-overlay"></div>
+  <div id="locator"></div>
   <div class="center">
     <h1>Truth Church</h1>
     <p>Luling, Texas</p>
@@ -69,38 +110,38 @@
   <script>
     // ─── Background Maps ──────────────────────────────────────────────────────
     // Each entry defines:
-    //   file    – filename inside lulingmaps-notext/
-    //   bg      – page background color (must match the map's base fill)
-    //   fade    – opacity of the white/dark wash laid over the map (0–1).
-    //             Higher = more faded. Tune this per map for a subtle ghost effect.
-    //   text    – heading color
-    //   sub     – subheading color
+    //   file – filename inside lulingmaps-notext/
+    //   bg   – page background color (must match the map's base fill)
+    //   fade – opacity of the wash laid over the map (0–1). Higher = more faded.
+    //   text – heading color
+    //   sub  – subheading color
+    //   dot  – locator dot color (should complement the map but stand out softly)
 
     const maps = [
       // — Light / warm backgrounds —
-      { file: "luling_autumn.svg",        bg: "#fbf7f0", fade: 0.72, text: "#221508", sub: "#9a7a5a" },
-      { file: "luling_warm_beige.svg",    bg: "#f5f0e8", fade: 0.72, text: "#221508", sub: "#8a6a50" },
-      { file: "luling_japanese_ink.svg",  bg: "#faf8f5", fade: 0.72, text: "#1a1a1a", sub: "#888888" },
-      { file: "luling_sunset.svg",        bg: "#fdf5f0", fade: 0.72, text: "#280e08", sub: "#886050" },
-      { file: "luling_pastel_dream.svg",  bg: "#faf7f2", fade: 0.72, text: "#1a1a28", sub: "#6a7a8a" },
-      { file: "luling_terracotta.svg",    bg: "#f5ede4", fade: 0.72, text: "#281a10", sub: "#5a7878" },
-      { file: "luling_copper_patina.svg", bg: "#e8f0f0", fade: 0.72, text: "#1a2828", sub: "#5a7878" },
+      { file: "luling_autumn.svg",        bg: "#fbf7f0", fade: 0.72, text: "#221508", sub: "#9a7a5a", dot: "#c0623a" },
+      { file: "luling_warm_beige.svg",    bg: "#f5f0e8", fade: 0.72, text: "#221508", sub: "#8a6a50", dot: "#b85c38" },
+      { file: "luling_japanese_ink.svg",  bg: "#faf8f5", fade: 0.72, text: "#1a1a1a", sub: "#888888", dot: "#7a6050" },
+      { file: "luling_sunset.svg",        bg: "#fdf5f0", fade: 0.72, text: "#280e08", sub: "#886050", dot: "#c05840" },
+      { file: "luling_pastel_dream.svg",  bg: "#faf7f2", fade: 0.72, text: "#1a1a28", sub: "#6a7a8a", dot: "#7090a8" },
+      { file: "luling_terracotta.svg",    bg: "#f5ede4", fade: 0.72, text: "#281a10", sub: "#5a7878", dot: "#c06848" },
+      { file: "luling_copper_patina.svg", bg: "#e8f0f0", fade: 0.72, text: "#1a2828", sub: "#5a7878", dot: "#6a9898" },
 
       // — Light / cool backgrounds —
-      { file: "luling_ocean.svg",           bg: "#f0f8fa", fade: 0.72, text: "#0a1e2a", sub: "#3a6878" },
-      { file: "luling_forest.svg",          bg: "#f0f4f0", fade: 0.72, text: "#1a281a", sub: "#5a7870" },
-      { file: "luling_monochrome_blue.svg", bg: "#f5f8fa", fade: 0.72, text: "#0a1828", sub: "#3a5870" },
+      { file: "luling_ocean.svg",           bg: "#f0f8fa", fade: 0.72, text: "#0a1e2a", sub: "#3a6878", dot: "#3a8898" },
+      { file: "luling_forest.svg",          bg: "#f0f4f0", fade: 0.72, text: "#1a281a", sub: "#5a7870", dot: "#507868" },
+      { file: "luling_monochrome_blue.svg", bg: "#f5f8fa", fade: 0.72, text: "#0a1828", sub: "#3a5870", dot: "#4878a0" },
 
       // — White / near-white backgrounds —
-      { file: "luling_contrast_zones.svg",  bg: "#ffffff", fade: 0.78, text: "#1a1a1a", sub: "#888888" },
-      { file: "luling_feature_based.svg",   bg: "#ffffff", fade: 0.78, text: "#1a1a1a", sub: "#888888" },
-      { file: "luling_gradient_roads.svg",  bg: "#ffffff", fade: 0.78, text: "#1a1a1a", sub: "#888888" },
+      { file: "luling_contrast_zones.svg",  bg: "#ffffff", fade: 0.78, text: "#1a1a1a", sub: "#888888", dot: "#888888" },
+      { file: "luling_feature_based.svg",   bg: "#ffffff", fade: 0.78, text: "#1a1a1a", sub: "#888888", dot: "#888888" },
+      { file: "luling_gradient_roads.svg",  bg: "#ffffff", fade: 0.78, text: "#1a1a1a", sub: "#888888", dot: "#888888" },
 
       // — Dark backgrounds —
-      { file: "luling_blueprint.svg",      bg: "#1a3a5c", fade: 0.68, text: "#e0ecf8", sub: "#6888aa" },
-      { file: "luling_midnight_blue.svg",  bg: "#0a1628", fade: 0.68, text: "#d8e8f8", sub: "#486888" },
-      { file: "luling_noir.svg",           bg: "#0a0a0a", fade: 0.68, text: "#e0e0e0", sub: "#585858" },
-      { file: "luling_neon_cyberpunk.svg", bg: "#0d0d1a", fade: 0.68, text: "#d8d8f0", sub: "#484860" },
+      { file: "luling_blueprint.svg",      bg: "#1a3a5c", fade: 0.68, text: "#e0ecf8", sub: "#6888aa", dot: "#88bcd8" },
+      { file: "luling_midnight_blue.svg",  bg: "#0a1628", fade: 0.68, text: "#d8e8f8", sub: "#486888", dot: "#6898c0" },
+      { file: "luling_noir.svg",           bg: "#0a0a0a", fade: 0.68, text: "#e0e0e0", sub: "#585858", dot: "#909090" },
+      { file: "luling_neon_cyberpunk.svg", bg: "#0d0d1a", fade: 0.68, text: "#d8d8f0", sub: "#484860", dot: "#8888c8" },
     ];
     // ─────────────────────────────────────────────────────────────────────────
 
@@ -193,6 +234,28 @@
     // Apply fonts from font theme
     document.querySelector("h1").style.fontFamily = font.headingFont;
     document.querySelector("p").style.fontFamily  = font.subFont;
+
+    // ─── Locator dot ──────────────────────────────────────────────────────────
+    // Drifts to a new random position within the central region of the viewport
+    // every DRIFT_INTERVAL ms. The CSS transition handles the smooth movement.
+    // Roam area: horizontally 25–75% of viewport, vertically 30–75% of viewport.
+
+    const DRIFT_INTERVAL = 5000; // ms between position changes
+
+    const dot = document.getElementById("locator");
+    dot.style.backgroundColor = map.dot;
+    dot.style.color            = map.dot; // drives the ::after ring color via currentColor
+
+    function moveDot() {
+      const x = 25 + Math.random() * 50; // 25–75 vw
+      const y = 30 + Math.random() * 45; // 30–75 vh
+      dot.style.left = x + "vw";
+      dot.style.top  = y + "vh";
+    }
+
+    moveDot(); // place immediately on load
+    setInterval(moveDot, DRIFT_INTERVAL);
+    // ─────────────────────────────────────────────────────────────────────────
   </script>
 </body>
 </html>
