@@ -20,9 +20,6 @@
       align-items: center;
       justify-content: center;
       min-height: 100vh;
-      background-color: #f5f4f2;
-      color: #1a1a1a;
-      font-family: Georgia, 'Times New Roman', serif;
     }
 
     .center {
@@ -39,10 +36,8 @@
     p {
       margin-top: 0.75rem;
       font-size: clamp(0.9rem, 2vw, 1.1rem);
-      color: #888;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       font-weight: 400;
     }
   </style>
@@ -52,5 +47,120 @@
     <h1>Truth Church</h1>
     <p>Luling, Texas</p>
   </div>
+
+  <script>
+    // ─── Themes ──────────────────────────────────────────────────────────────
+    // Each theme defines:
+    //   bg         – page background
+    //   text       – heading color
+    //   sub        – subheading color
+    //   headingFont – font-family for <h1>
+    //   subFont     – font-family for <p>
+    //   googleFont  – Google Fonts URL to load (or null)
+
+    const themes = [
+      {
+        // Warm ivory · classic serif
+        bg: "#f5f4f2",
+        text: "#1a1a1a",
+        sub: "#999",
+        headingFont: "Georgia, 'Times New Roman', serif",
+        subFont: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+        googleFont: null
+      },
+      {
+        // Cool white · modern geometric sans
+        bg: "#ffffff",
+        text: "#111111",
+        sub: "#aaaaaa",
+        headingFont: "'Cormorant Garamond', Georgia, serif",
+        subFont: "'Cormorant Garamond', Georgia, serif",
+        googleFont: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&display=swap"
+      },
+      {
+        // Slate blue-grey · elegant transitional serif
+        bg: "#e8e9ed",
+        text: "#2c2f3a",
+        sub: "#7a7f90",
+        headingFont: "'Playfair Display', Georgia, serif",
+        subFont: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+        googleFont: "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400&display=swap"
+      },
+      {
+        // Warm tan · humanist sans
+        bg: "#f0ebe3",
+        text: "#2b2218",
+        sub: "#a08c78",
+        headingFont: "'Lora', Georgia, serif",
+        subFont: "'Lora', Georgia, serif",
+        googleFont: "https://fonts.googleapis.com/css2?family=Lora:wght@400&display=swap"
+      },
+      {
+        // Deep charcoal · light text (dark mode)
+        bg: "#1c1c1e",
+        text: "#f0efec",
+        sub: "#666666",
+        headingFont: "Georgia, 'Times New Roman', serif",
+        subFont: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+        googleFont: null
+      },
+      {
+        // Soft sage · EB Garamond serif
+        bg: "#eaeee8",
+        text: "#2a3028",
+        sub: "#859080",
+        headingFont: "'EB Garamond', Georgia, serif",
+        subFont: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+        googleFont: "https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400&display=swap"
+      },
+      {
+        // Warm ivory · Raleway thin sans
+        bg: "#f5f4f2",
+        text: "#1a1a1a",
+        sub: "#aaaaaa",
+        headingFont: "'Raleway', sans-serif",
+        subFont: "'Raleway', sans-serif",
+        googleFont: "https://fonts.googleapis.com/css2?family=Raleway:wght@300;400&display=swap"
+      },
+      {
+        // Cool white · Jost geometric sans
+        bg: "#ffffff",
+        text: "#111111",
+        sub: "#bbbbbb",
+        headingFont: "'Jost', sans-serif",
+        subFont: "'Jost', sans-serif",
+        googleFont: "https://fonts.googleapis.com/css2?family=Jost:wght@300;400&display=swap"
+      },
+      {
+        // Deep charcoal · Nunito light sans (dark mode)
+        bg: "#1c1c1e",
+        text: "#f0efec",
+        sub: "#555555",
+        headingFont: "'Nunito', sans-serif",
+        subFont: "'Nunito', sans-serif",
+        googleFont: "https://fonts.googleapis.com/css2?family=Nunito:wght@300;400&display=swap"
+      }
+    ];
+    // ─────────────────────────────────────────────────────────────────────────
+
+    const theme = themes[Math.floor(Math.random() * themes.length)];
+
+    if (theme.googleFont) {
+      const link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.href = theme.googleFont;
+      document.head.appendChild(link);
+    }
+
+    document.body.style.backgroundColor = theme.bg;
+    document.body.style.color = theme.text;
+
+    const h1 = document.querySelector("h1");
+    h1.style.fontFamily = theme.headingFont;
+
+    const p = document.querySelector("p");
+    p.style.fontFamily = theme.subFont;
+    p.style.color = theme.sub;
+  </script>
 </body>
 </html>
