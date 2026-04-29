@@ -123,7 +123,7 @@
     .verse-panel {
       position: fixed;
       right: auto;
-      bottom: 14vh;
+      bottom: 8vh;
       transform: translateX(-50%);
       z-index: 4;
       inline-size: min(88vw, 720px);
@@ -448,20 +448,32 @@
       versePanel.style.borderColor = map.dot;
       versePanel.style.boxShadow = `0 0 24px 8px ${hexRgba(map.dot, 0.18)}`;
       versePanel.style.setProperty("--verse-glow-color", hexRgba(map.dot, 0.22));
+      versePanel.style.opacity = '0';
+      versePanel.style.transition = 'opacity 0.8s ease';
     } else if (!VERSE_PANEL_ENABLED && versePanel) {
       versePanel.style.display = 'none';
     }
 
     let currentVerseIndex = Math.floor(Math.random() * bibleVerses.length);
+    let isFirstVerse = true;
 
     function updateVersePanel() {
       if (!VERSE_PANEL_ENABLED || !verseContent) return;
       const verse = bibleVerses[currentVerseIndex];
-      verseContent.classList.add("fade-out");
-      window.setTimeout(() => {
+      if (isFirstVerse) {
         verseContent.innerHTML = `<span>${verse.text}</span><strong>${verse.reference}</strong>`;
-        verseContent.classList.remove("fade-out");
-      }, 220);
+        window.setTimeout(() => {
+          versePanel.style.opacity = '1';
+          versePanel.style.transition = 'opacity 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease, height 0.5s ease';
+        }, 50);
+        isFirstVerse = false;
+      } else {
+        verseContent.classList.add("fade-out");
+        window.setTimeout(() => {
+          verseContent.innerHTML = `<span>${verse.text}</span><strong>${verse.reference}</strong>`;
+          verseContent.classList.remove("fade-out");
+        }, 220);
+      }
       currentVerseIndex = (currentVerseIndex + 1) % bibleVerses.length;
     }
 
