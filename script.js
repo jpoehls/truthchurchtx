@@ -317,13 +317,13 @@ function showSection(sectionKey, { focusBack = true } = {}) {
   });
 
   pageBody.classList.add("fading");
+  window.scrollTo(0, 0);
   setTimeout(() => {
     pageBody.hidden = true;
     pageBody.classList.remove("fading");
     contentView.removeAttribute("hidden");
     contentView.getBoundingClientRect();
     contentView.classList.add("visible");
-    requestAnimationFrame(() => window.scrollTo(0, 0));
     if (focusBack) backBtn.focus();
   }, 220);
 }
