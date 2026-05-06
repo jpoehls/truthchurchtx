@@ -253,7 +253,7 @@ setInterval(moveDot, DRIFT_INTERVAL);
 // ─── Next Gathering config ────────────────────────────────────────────────
 // Update date, time, and location each week.
 const nextGathering = {
-  date:     "Sunday, May 11, 2026",
+  date:     "Sunday, May 10, 2026",
   time:     "10:00 AM",
   location: "Edgar B. Davis South Side Clubhouse, 1035 S. Magnolia Ave., Luling, TX 78648",
   mapUrl:   "https://maps.google.com/?q=1035+S+Magnolia+Ave+Luling+TX+78648",
