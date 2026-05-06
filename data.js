@@ -57,10 +57,10 @@ const nextGathering = {
 
 // ─── Feature flags ────────────────────────────────────────────────────────────
 // Set to false to hide sections from the site.
-const SHOW_GIVE         = true;
-const SHOW_CONFESSION   = true;
-const SHOW_COVENANT     = true;
-const SHOW_CONSTITUTION = true;
+const SHOW_GIVE         = false;
+const SHOW_CONFESSION   = false;
+const SHOW_COVENANT     = false;
+const SHOW_CONSTITUTION = false;
 
 // ─── Dev flags ────────────────────────────────────────────────────────────────
 // These can also be toggled via URL query params without editing this file:

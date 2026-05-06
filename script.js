@@ -395,7 +395,11 @@ for (const [section, show] of Object.entries(exploreFlags)) {
   if (!show) document.querySelector(`.explore-btn[data-section="${section}"]`).closest(".explore-item").remove();
 }
 if (!SHOW_CONFESSION && !SHOW_COVENANT && !SHOW_CONSTITUTION) {
-  document.getElementById("explore").remove();
+  const grid = document.querySelector(".explore-grid");
+  const p = document.createElement("p");
+  p.className = "explore-coming-soon";
+  p.textContent = "More information is coming soon!";
+  grid.replaceWith(p);
 }
 
 // ─── Stale gathering detector ─────────────────────────────────────────────
