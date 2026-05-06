@@ -48,10 +48,10 @@ const nextGathering = {
     { name: "Prayer of Confession" },
     { name: "Sermon", title: "Tradition vs. Scripture", bibleRef: "Matthew 15:1–9", person: "Eric" },
     { name: "Prayer of Thanksgiving" },
-    { name: "Song",   title: "TBD",                                                   person: "Walter" },
+    { name: "Song",   title: "Lord I Need You",                                                   person: "Walter" },
     { name: "Corporate Prayer",                                                       person: "Eric" },
     { name: "Ordination of Pastor Eric",                                              person: "Joshua, Walter, Joey" },
-    { name: "Dismissal" },
+    { name: "Announcements" },
   ],
 };
 
