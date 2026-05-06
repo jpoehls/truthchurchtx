@@ -274,6 +274,10 @@ function getSectionContent(key) {
 }
 
 // ─── Content view transition ──────────────────────────────────────────────
+let _lastInputWasKeyboard = false;
+window.addEventListener("pointerdown", () => { _lastInputWasKeyboard = false; }, true);
+window.addEventListener("keydown",     () => { _lastInputWasKeyboard = true;  }, true);
+
 const pageBody    = document.getElementById("page-body");
 const contentView = document.getElementById("content-view");
 const contentBody = document.getElementById("content-body");
@@ -306,7 +310,7 @@ function showSection(sectionKey, { focusBack = true } = {}) {
     contentView.removeAttribute("hidden");
     contentView.getBoundingClientRect();
     contentView.classList.add("visible");
-    if (focusBack) backBtn.focus();
+    if (focusBack && _lastInputWasKeyboard) backBtn.focus({ preventScroll: true });
   }, 220);
 }
 
