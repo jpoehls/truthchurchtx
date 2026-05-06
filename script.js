@@ -89,8 +89,8 @@ heroLocation.style.fontFamily = font.subFont;
 
 
 // ─── Locator dot + canvas trail ───────────────────────────────────────────
-const SMASHBURGER_MODE    = new URLSearchParams(window.location.search).get("smashburger") === "y";
-const VERSE_PANEL_ENABLED = new URLSearchParams(window.location.search).get("verse") === "y";
+const _qs                 = new URLSearchParams(window.location.search);
+const SMASHBURGER_MODE = DEV_SMASHBURGER || _qs.get("smashburger") === "y";
 
 const TRAIL_ENABLED  = true;
 const DRIFT_INTERVAL = 8000;
@@ -181,92 +181,13 @@ function moveDot() {
   currentY = 20 + Math.random() * 60; // 20–80%
   dot.style.left = `${currentX}%`;
   dot.style.top  = `${currentY}%`;
-  if (VERSE_PANEL_ENABLED) updateVersePanel();
 }
 
-// ─── Verse panel ──────────────────────────────────────────────────────────
-// Declared before moveDot() is called to avoid a TDZ crash when ?verse=y
-const bibleVerses = [
-  { text: "Go, therefore, and make disciples of all nations, baptizing them in the name of the Father and of the Son and of the Holy Spirit, teaching them to observe everything I have commanded you. And remember, I am with you always, to the end of the age.", reference: "Matthew 28:19–20" },
-  { text: "Christ Jesus came into the world to save sinners.", reference: "1 Timothy 1:15" },
-  { text: "For God loved the world in this way: He gave his one and only Son, so that everyone who believes in him will not perish but have eternal life.", reference: "John 3:16" },
-  { text: "Light shines in the darkness for the upright. He is gracious, compassionate, and righteous.", reference: "Psalm 112:4" },
-  { text: "Everyone who calls on the name of the Lord will be saved.", reference: "Romans 10:13" },
-  { text: "For all have sinned and fall short of the glory of God, and all are justified freely by his grace through the redemption that came by Christ Jesus.", reference: "Romans 3:23–24" },
-  { text: "\"I am the light of the world. Anyone who follows me will never walk in the darkness but will have the light of life.\" —Jesus", reference: "John 8:12" },
-  { text: "If we walk in the light as he himself is in the light, we have fellowship with one another, and the blood of Jesus his Son cleanses us from all sin.", reference: "1 John 1:7" },
-  { text: "\"I have come as light into the world, so that everyone who believes in me would not remain in darkness.\" —Jesus", reference: "John 12:46" },
-  { text: "You were once darkness, but now you are light in the Lord. Walk as children of light.", reference: "Ephesians 5:8" },
-  { text: "\"Whoever hears my word and believes him who sent me has eternal life and will not be judged but has crossed over from death to life.\" —Jesus", reference: "John 5:24" },
-  { text: "God has given us eternal life, and this life is in his Son. The one who has the Son has life. The one who does not have the Son of God does not have life.", reference: "1 John 5:11–12" },
-  { text: "The people walking in darkness have seen a great light; a light has dawned on those living in the land of darkness.", reference: "Isaiah 9:2" },
-  { text: "Your word is a lamp for my feet and a light on my path.", reference: "Psalm 119:105" },
-];
-
-const versePanel   = document.querySelector(".verse-panel");
-const verseContent = document.querySelector(".verse-content");
-
-if (VERSE_PANEL_ENABLED && versePanel && verseContent) {
-  const baseFontSize = parseFloat(getComputedStyle(heroTagline).fontSize);
-  const scaledSize   = `${baseFontSize * (font.verseTextSize || 1)}px`;
-  versePanel.style.fontFamily   = font.subFont;
-  versePanel.style.fontSize     = scaledSize;
-  verseContent.style.fontFamily = font.subFont;
-  verseContent.style.fontSize   = scaledSize;
-  versePanel.style.color        = map.text;
-  versePanel.style.borderColor  = map.dot;
-  versePanel.style.boxShadow    = `0 0 24px 8px ${hexRgba(map.dot, 0.18)}`;
-  versePanel.style.setProperty("--verse-glow-color", hexRgba(map.dot, 0.22));
-  versePanel.style.opacity      = "0";
-  versePanel.style.transition   = "opacity 0.8s ease";
-} else if (!VERSE_PANEL_ENABLED && versePanel) {
-  versePanel.style.display = "none";
-}
-
-let currentVerseIndex = Math.floor(Math.random() * bibleVerses.length);
-let isFirstVerse = true;
-
-function updateVersePanel() {
-  if (!VERSE_PANEL_ENABLED || !verseContent) return;
-  const verse = bibleVerses[currentVerseIndex];
-  if (isFirstVerse) {
-    verseContent.innerHTML = `<span>${verse.text}</span><strong>${verse.reference}</strong>`;
-    setTimeout(() => {
-      versePanel.style.opacity    = "1";
-      versePanel.style.transition = "opacity 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease, height 0.5s ease";
-    }, 50);
-    isFirstVerse = false;
-  } else {
-    verseContent.classList.add("fade-out");
-    setTimeout(() => {
-      verseContent.innerHTML = `<span>${verse.text}</span><strong>${verse.reference}</strong>`;
-      verseContent.classList.remove("fade-out");
-    }, 220);
-  }
-  currentVerseIndex = (currentVerseIndex + 1) % bibleVerses.length;
-}
-
-// Start dot movement after verse panel is fully set up
 moveDot();
 setInterval(moveDot, DRIFT_INTERVAL);
 
-// ─── Next Gathering config ────────────────────────────────────────────────
-// Update date, time, and location each week.
-const nextGathering = {
-  date:     "Sunday, May 10, 2026",
-  time:     "10:00 AM",
-  location: "Edgar B. Davis South Side Clubhouse, 1035 S. Magnolia Ave., Luling, TX 78648",
-  mapUrl:   "https://maps.google.com/?q=1035+S+Magnolia+Ave+Luling+TX+78648",
-};
-
-// ─── Recent Sermon config ─────────────────────────────────────────────────
-// Replace TODO_VIDEO_ID with the YouTube video ID (e.g. "dQw4w9WgXcQ").
-const recentSermonVideoId = "TODO_VIDEO_ID";
-
-// ─── Dev flags ───────────────────────────────────────────────────────────
-// Set DEV_FORCE_STALE_GATHERING = true, or append ?stale=y to the URL.
-const DEV_FORCE_STALE_GATHERING =
-  false || new URLSearchParams(window.location.search).get("stale") === "y";
+// ─── Dev flag — also toggleable via ?stale=y in the URL ──────────────────
+const _forceStale = DEV_FORCE_STALE_GATHERING || _qs.get("stale") === "y";
 
 // ─── Section content via HTML templates ──────────────────────────────────
 function getSectionContent(key) {
@@ -274,18 +195,79 @@ function getSectionContent(key) {
   if (!tmpl) return null;
   const frag = tmpl.content.cloneNode(true);
 
-  if (key === "worship" && nextGathering._stale) {
-    const slot = frag.querySelector(".stale-callout-slot");
-    if (slot) {
-      const callout = document.createElement("div");
-      callout.className = "stale-callout";
-      callout.setAttribute("role", "note");
-      callout.innerHTML = `<strong>Heads up:</strong> This is the Order of Worship from our previous gathering on ${nextGathering.date}. The upcoming order of worship will be posted soon.`;
-      slot.replaceWith(callout);
+  if (key === "worship") {
+    const dateEl = frag.querySelector("[data-worship-date]");
+    if (dateEl) dateEl.textContent = nextGathering.date;
+
+    const list = frag.querySelector(".ow-list");
+    if (list && nextGathering.orderOfWorship) {
+      for (const item of nextGathering.orderOfWorship) {
+        const li = document.createElement("li");
+        li.className = "ow-item";
+
+        const main = document.createElement("div");
+        main.className = "ow-main";
+
+        const nameEl = document.createElement("span");
+        nameEl.className = "ow-title";
+        nameEl.textContent = item.name;
+        main.appendChild(nameEl);
+
+        if (item.title || item.bibleRef) {
+          const detailEl = document.createElement("span");
+          detailEl.className = "ow-detail";
+          const parts = [];
+          if (item.title)    parts.push(`"${item.title}"`);
+          if (item.bibleRef) parts.push(item.bibleRef.replace(/-/g, "–"));
+          detailEl.textContent = parts.join(" — ");
+          main.appendChild(detailEl);
+        }
+
+        li.appendChild(main);
+
+        if (item.person) {
+          const personEl = document.createElement("span");
+          personEl.className = "ow-person";
+          personEl.textContent = item.person;
+          li.appendChild(personEl);
+        }
+
+        list.appendChild(li);
+      }
     }
-  } else {
-    const slot = frag.querySelector(".stale-callout-slot");
-    if (slot) slot.remove();
+  }
+
+  if (key === "worship") {
+    const infoSlot = frag.querySelector(".worship-info-slot");
+    if (infoSlot) {
+      if (nextGathering._stale) {
+        const callout = document.createElement("div");
+        callout.className = "worship-info-box stale-callout";
+        callout.setAttribute("role", "note");
+        callout.innerHTML = `<strong>Heads up:</strong> This is the Order of Worship from our previous gathering on ${nextGathering.date}. The upcoming order of worship will be posted soon.`;
+        infoSlot.replaceWith(callout);
+      } else if (nextGathering.location) {
+        const box = document.createElement("p");
+        box.className = "worship-info-box worship-location";
+        box.setAttribute("role", "note");
+        box.appendChild(document.createTextNode(`Gathering at ${nextGathering.time}`));
+        box.appendChild(document.createElement("br"));
+        if (nextGathering.mapUrl && nextGathering.mapUrl !== "#") {
+          const a = document.createElement("a");
+          a.href        = nextGathering.mapUrl;
+          a.target      = "_blank";
+          a.rel         = "noopener";
+          a.className   = "panel-link";
+          a.textContent = nextGathering.location;
+          box.appendChild(a);
+        } else {
+          box.appendChild(document.createTextNode(nextGathering.location));
+        }
+        infoSlot.replaceWith(box);
+      } else {
+        infoSlot.remove();
+      }
+    }
   }
 
   return frag;
@@ -380,6 +362,9 @@ const initialKey = hashToSection[window.location.hash.toLowerCase()];
 if (initialKey) showSection(initialKey, { focusBack: false });
 
 // ─── Render panels ────────────────────────────────────────────────────────
+if (facebookUrl !== "#")       document.getElementById("link-facebook").href = facebookUrl;
+if (youtubeChannelUrl !== "#") document.getElementById("link-youtube").href  = youtubeChannelUrl;
+
 document.getElementById("gathering-date").textContent     = nextGathering.date;
 document.getElementById("gathering-time").textContent     = nextGathering.time;
 
@@ -410,7 +395,7 @@ document.getElementById("footer-year").textContent = new Date().getFullYear();
   const gatheringDay = new Date(parsed.getFullYear(), parsed.getMonth(), parsed.getDate());
   const todayDay     = new Date(today.getFullYear(),  today.getMonth(),  today.getDate());
 
-  if (!DEV_FORCE_STALE_GATHERING && gatheringDay >= todayDay) return; // upcoming or today — nothing to do
+  if (!_forceStale && gatheringDay >= todayDay) return; // upcoming or today — nothing to do
 
   // Mark gathering config as stale so the Order of Worship view can pick it up
   nextGathering._stale = true;
@@ -448,7 +433,7 @@ handleHash(window.location.hash, { focusBack: false });
 window.addEventListener("hashchange", () => handleHash(window.location.hash));
 
 const sermonIframe = document.getElementById("sermon-iframe");
-if (recentSermonVideoId !== "TODO_VIDEO_ID") {
+if (recentSermonVideoId) {
   sermonIframe.src = `https://www.youtube.com/embed/${recentSermonVideoId}`;
 } else {
   const placeholder = document.createElement("p");

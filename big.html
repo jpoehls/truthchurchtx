@@ -26,7 +26,7 @@
       <article class="panel" id="panel-who">
         <h2>Who Are We</h2>
         <p>Truth Church is a congregation of believers in Luling, Texas committed to following Jesus and making disciples. We are a people of the Word, shaped by the gospel, and sent into our community and the world.</p>
-        <p>Follow our community on <a class="panel-link" href="#" target="_blank" rel="noopener">Facebook</a>.</p>
+        <p>Follow our community on <a id="link-facebook" class="panel-link" href="#" target="_blank" rel="noopener">Facebook</a>.</p>
       </article>
 
       <article class="panel" id="panel-gathering">
@@ -62,7 +62,7 @@
             loading="lazy"
           ></iframe>
         </div>
-        <p>Watch more on our <a class="panel-link" href="#" target="_blank" rel="noopener">YouTube channel</a>.</p>
+        <p>Watch more on our <a id="link-youtube" class="panel-link" href="#" target="_blank" rel="noopener">YouTube channel</a>.</p>
       </article>
     </section>
 
@@ -101,17 +101,15 @@
     <p>Follow Jesus &raquo; Make Disciples</p>
   </footer>
 
-  <div class="verse-panel" aria-live="polite">
-    <div class="verse-content"></div>
-  </div>
-
   <!-- ── Section content templates ─────────────────────────────────────── -->
 
   <template id="tmpl-worship">
-    <h2 class="content-view-title">Order of Worship</h2>
-    <div class="stale-callout-slot"></div>
-    <p>The Order of Worship for our next gathering will be posted here each week. It outlines the flow of our service — Scripture readings, hymns, prayers, and the sermon text — so you can come prepared to worship.</p>
-    <p><em>Order of Worship coming soon. Check back before Sunday.</em></p>
+    <h2 class="content-view-title" data-worship-date></h2>
+    <div class="worship-body">
+      <div class="worship-info-slot"></div>
+      <p><em>Order of Worship</em></p>
+      <ol class="ow-list"></ol>
+    </div>
   </template>
 
   <template id="tmpl-confession">
@@ -204,6 +202,7 @@
     <p><em>Online giving link coming soon. In the meantime, you may give in person at any gathering.</em></p>
   </template>
 
+  <script src="data.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
