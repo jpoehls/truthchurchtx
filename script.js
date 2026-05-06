@@ -383,6 +383,17 @@ if (nextGathering.mapUrl && nextGathering.mapUrl !== "#") {
 // Footer year
 document.getElementById("footer-year").textContent = new Date().getFullYear();
 
+// ─── Feature flag visibility ──────────────────────────────────────────────
+if (!SHOW_GIVE) document.querySelector(".footer-give-btn").remove();
+
+const exploreFlags = { confession: SHOW_CONFESSION, covenant: SHOW_COVENANT, constitution: SHOW_CONSTITUTION };
+for (const [section, show] of Object.entries(exploreFlags)) {
+  if (!show) document.querySelector(`.explore-btn[data-section="${section}"]`).closest(".explore-item").remove();
+}
+if (!SHOW_CONFESSION && !SHOW_COVENANT && !SHOW_CONSTITUTION) {
+  document.getElementById("explore").remove();
+}
+
 // ─── Stale gathering detector ─────────────────────────────────────────────
 // If the date in nextGathering is yesterday or older, overlay the panel with
 // a notice so visitors know the details are being updated.
