@@ -323,6 +323,7 @@ function showSection(sectionKey, { focusBack = true } = {}) {
     contentView.removeAttribute("hidden");
     contentView.getBoundingClientRect();
     contentView.classList.add("visible");
+    window.scrollTo({ top: 0, behavior: "instant" });
     if (focusBack) backBtn.focus();
   }, 220);
 }
