@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Truth Church</title>
+  <meta property="og:title" content="Truth Church">
+  <meta name="twitter:title" content="Truth Church">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header id="site-header">
+    <div id="map-bg" aria-hidden="true"></div>
+    <div id="map-overlay" aria-hidden="true"></div>
+    <canvas id="light-trail" aria-hidden="true"></canvas>
+    <div id="locator" aria-hidden="true"></div>
+    <div class="hero-content">
+      <p class="tagline">Follow Jesus <span aria-hidden="true" class="tagline-arrow">&raquo;</span> Make Disciples</p>
+      <h1>Truth Church</h1>
+      <p class="location">Texas</p>
+    </div>
+  </header>
+
+  <main id="page-body">
+    <section id="panels" aria-label="About us">
+      <article class="panel" id="panel-who">
+        <h2>Who Are We</h2>
+        <p>Truth Church is a congregation of believers in Luling, Texas committed to following Jesus and making disciples. We are a people of the Word, shaped by the gospel, and sent into our community and the world.</p>
+        <p>Follow our community on <a class="panel-link" href="#" target="_blank" rel="noopener">Facebook</a>.</p>
+      </article>
+
+      <article class="panel" id="panel-gathering">
+        <h2>Our Next Gathering</h2>
+        <dl class="gathering-details">
+          <div class="gathering-row">
+            <dt>Date</dt>
+            <dd id="gathering-date"></dd>
+          </div>
+          <div class="gathering-row">
+            <dt>Time</dt>
+            <dd id="gathering-time"></dd>
+          </div>
+          <div class="gathering-row">
+            <dt>Location</dt>
+            <dd id="gathering-location"></dd>
+          </div>
+        </dl>
+        <a id="gathering-worship-link" class="worship-link" href="#worship">
+          Order of Worship &rarr;
+        </a>
+      </article>
+
+      <article class="panel" id="panel-sermon">
+        <h2>Recent Sermon</h2>
+        <div class="sermon-embed">
+          <iframe
+            id="sermon-iframe"
+            src=""
+            title="Recent sermon"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+            loading="lazy"
+          ></iframe>
+        </div>
+        <p>Watch more on our <a class="panel-link" href="#" target="_blank" rel="noopener">YouTube channel</a>.</p>
+      </article>
+    </section>
+
+    <section id="explore" aria-label="Learn more">
+      <h2 class="explore-heading">Explore Truth Church</h2>
+      <div class="explore-grid">
+        <div class="explore-item">
+          <p class="explore-desc">We hold to an adapted version of the New Hampshire Confession of Faith. Read our full doctrinal statement to understand what we believe.</p>
+          <button class="explore-btn" data-section="confession" aria-expanded="false">Our Confession</button>
+        </div>
+        <div class="explore-item">
+          <p class="explore-desc">Our covenant describes the commitments we make to God and to one another as members of this body.</p>
+          <button class="explore-btn" data-section="covenant" aria-expanded="false">Our Covenant</button>
+        </div>
+        <div class="explore-item">
+          <p class="explore-desc">Our church constitution outlines how we are governed, how we make decisions, and how we operate together.</p>
+          <button class="explore-btn" data-section="constitution" aria-expanded="false">Our Constitution</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="content-view" hidden aria-live="polite">
+    <button id="back-btn" aria-label="Back to main page">
+      <span aria-hidden="true">&larr;</span> Back
+    </button>
+    <div id="content-body"></div>
+    <button id="return-top-btn" aria-label="Return to top">
+      <span aria-hidden="true">&uarr;</span> Back to top
+    </button>
+  </div>
+
+  <footer id="site-footer">
+    <p>&copy; <span id="footer-year"></span> Truth Church Texas</p>
+    <p>
+      <button class="footer-give-btn explore-btn" data-section="give">Give</button>
+    </p>
+    <p>Follow Jesus &raquo; Make Disciples</p>
+  </footer>
+
+  <div class="verse-panel" aria-live="polite">
+    <div class="verse-content"></div>
+  </div>
+
+  <!-- ── Section content templates ─────────────────────────────────────── -->
+
+  <template id="tmpl-worship">
+    <h2 class="content-view-title">Order of Worship</h2>
+    <div class="stale-callout-slot"></div>
+    <p>The Order of Worship for our next gathering will be posted here each week. It outlines the flow of our service — Scripture readings, hymns, prayers, and the sermon text — so you can come prepared to worship.</p>
+    <p><em>Order of Worship coming soon. Check back before Sunday.</em></p>
+  </template>
+
+  <template id="tmpl-confession">
+    <h2 class="content-view-title">Our Confession</h2>
+    <p><em>Adapted from the 1853 New Hampshire Confession of Faith</em></p>
+
+    <h3 class="content-article-heading">I. The Scriptures</h3>
+    <p>We believe the Holy Bible was written by people who were divinely inspired, and that it is a perfect treasure of heavenly instruction. God is its author, salvation is its purpose, and truth, without any mixture of error, is its content. Scripture reveals the principles by which God will judge us. Therefore, it is now, and will be to the end of the world, the true center of Christian union and the supreme standard for evaluating all human conduct, creeds, and opinions.</p>
+
+    <h3 class="content-article-heading">II. The True God</h3>
+    <p>We believe there is one and only one living and true God—an infinite, intelligent Spirit. His name is the LORD, the Maker and Supreme Ruler of heaven and earth. He is inexpressibly glorious in holiness and is worthy of all possible honor, confidence, and love. In the unity of the Godhead there are three persons: the Father, the Son, and the Holy Spirit. They are equal in every divine perfection, and they carry out distinct but harmonious offices in the great work of redemption.</p>
+
+    <h3 class="content-article-heading">III. Humanity and the Fall</h3>
+    <p>We believe humanity is the special creation of God, made in his own image. God created them male and female as the crowning work of His creation. The gift of gender is thus part of the goodness of God's creation. The gift of marriage consists of the uniting of one man and one woman in covenant commitment for a lifetime, and this gift models the way God relates to His people. God created the human race in holiness under his law. By voluntary transgression, however, humanity fell from that holy and happy state. As a result, all people are now sinners, not by external compulsion but by choice. They by nature entirely lack the holiness that is required by the law of God and are actively inclined to evil. Therefore, they are under just condemnation to a sentence of eternal ruin, without defense or excuse.</p>
+
+    <h3 class="content-article-heading">IV. The Way of Salvation</h3>
+    <p>We believe the salvation of God's people is completely by grace, through the mediatorial offices of the Son of God. By the appointment of the Father, he freely took to himself our nature but without sin. He honored the divine law by his personal obedience and made a full atonement for our sins by his substitutionary death, satisfying God's wrath. He rose from the dead and is now enthroned in heaven. Jesus, the Son, unites in his wonderful person the tenderest sympathies with divine perfections and, as such, is qualified in every way to be a suitable, compassionate, and all-sufficient Savior.</p>
+
+    <h3 class="content-article-heading">V. Justification</h3>
+    <p>We believe the great gospel blessing that Christ secures to those who believe in him is justification. Justification includes the pardon of sin, righteous standing before God and his people, and the promise of eternal life founded on principles of righteousness. It is not given because of any works of righteousness we have done but only through faith in the Redeemer's blood. By virtue of this faith his perfect righteousness is freely imputed to us by God. Justification immediately brings us into a state of most blessed peace and favor with God and secures every other blessing we need for time and eternity.</p>
+
+    <h3 class="content-article-heading">VI. The Freeness of Salvation</h3>
+    <p>We believe the blessings of salvation are made free to all by the gospel. It is the immediate duty of all to accept them by a heartfelt, penitent, and obedient faith. Preventing this salvation is every sinner's inherent depravity and rejection of the gospel, a rejection that aggravates a sinner's condemnation.</p>
+
+    <h3 class="content-article-heading">VII. Grace in Regeneration</h3>
+    <p>We believe sinners must be regenerated, or born again, in order to be saved. Regeneration consists of God's gift of a holy inclination to the mind. It is accomplished in a way that is beyond our comprehension. It is carried out by the power of the Holy Spirit using divine truth to obtain our voluntary obedience to the gospel. The proper evidence of regeneration appears in the holy fruits of repentance, faith, and newness of life.</p>
+
+    <h3 class="content-article-heading">VIII. Repentance and Faith</h3>
+    <p>We believe repentance and faith are sacred duties as well as inseparable graces. They are produced in our souls by the regenerating Spirit of God, who convinces us of our guilt, danger, helplessness, and the way of salvation by Christ. And they consist of turning to God with genuine sorrow, confession, and a petition for mercy; receiving heartily the Lord Jesus Christ as Prophet, Priest and King; and relying on him alone as the only and all-sufficient Savior.</p>
+
+    <h3 class="content-article-heading">IX. God's Purpose of Grace</h3>
+    <p>We believe election is the eternal purpose of God according to which he graciously regenerates, sanctifies, and saves sinners. Election is perfectly consistent with human free agency and includes all the means necessary to achieve God's purpose. It is a most glorious display of God's sovereign goodness, which is infinitely free, wise, holy, and unchangeable. Election completely rules out boasting and promotes humility, love, prayer, praise, trust in God, and the active imitation of his free mercy. It encourages the greatest possible exercise of human responsibility. The election of individuals to life may be confirmed by its effects in everyone who truly believes the gospel. Election is the foundation of Christian assurance, and confirming our election deserves our greatest diligence.</p>
+
+    <h3 class="content-article-heading">X. Sanctification</h3>
+    <p>We believe sanctification is the process by which we are made partakers of God's holiness, according to his purpose. Sanctification is a progressive work. It begins in regeneration and continues in the hearts of believers by the presence and power of the Holy Spirit and by God's appointed means. These means include the word of God, self-examination, self-denial, watchfulness, prayer, and the oversight and fellowship of the visible church.</p>
+
+    <h3 class="content-article-heading">XI. The Perseverance of Saints</h3>
+    <p>We believe all genuine believers endure to the end. Their persevering obedience to Christ and attachment to his people are the primary mark distinguishing them from superficial professors. A special providence watches over their welfare, and they are kept by the power of God through faith to salvation.</p>
+
+    <h3 class="content-article-heading">XII. The Harmony of the Law and the Gospel</h3>
+    <p>We believe the law of God is the eternal and unchangeable rule of his moral governance. It is holy, just, and good. Fallen human beings are unable to fulfill the precepts of the law, which the Scriptures attribute entirely to their love of sin. A chief purpose of the gospel is to deliver people from this love and to restore them through a mediator to a sincere obedience to the holy law. The visible church's means of grace share this great purpose.</p>
+
+    <h3 class="content-article-heading">XIII. A Gospel Church</h3>
+    <p>We believe a visible church of Christ is a congregation of baptized believers, joined together by covenant in the faith and fellowship of the gospel. A visible church observes the ordinances of Christ, submits to his laws, and exercises the gifts, rights, and privileges invested in them by his word. The only scriptural officers of the church are elders (also called overseers or pastors) and deacons, whose qualifications and duties are defined in the epistles to Timothy and to Titus.</p>
+
+    <h3 class="content-article-heading">XIV. Baptism and the Lord's Supper</h3>
+    <p>We believe that Christian baptism is the immersion of a believer in water into the name of the Father, the Son, and the Holy Spirit. It is a solemn and beautiful emblem that declares our faith in the crucified, buried, and risen Savior as well as our union with him in death to sin and resurrection to a new life. Baptism is a prerequisite to the privileges of church membership and the Lord's Supper. We likewise believe that the Supper is a symbolic act of obedience whereby the members of the church, following earnest self-examination, use bread and the cup in a sacred manner to commemorate together the dying love of Christ. The ordinances belong to the gathered church, marking off believers from unbelievers and making the church visible on earth.</p>
+
+    <h3 class="content-article-heading">XV. The Lord's Day</h3>
+    <p>We believe the first day of the week is the Lord's Day. It is a Christian institution for regular observance. It commemorates the resurrection of Christ from the dead and points to the rest that awaits the people of God. It should include exercises of worship and spiritual devotion, both public and private. Activities on the Lord's Day should be commensurate with the Christian's conscience under the lordship of Jesus Christ.</p>
+
+    <h3 class="content-article-heading">XVI. Civil Government</h3>
+    <p>We believe civil government exists by divine appointment for the benefit and good order of human society. Government officials are to be prayed for, conscientiously honored, and obeyed. The principle exception is for matters contrary to the will of our Lord Jesus Christ, who is the only Lord of the conscience, and the Prince of the kings of the earth.</p>
+
+    <h3 class="content-article-heading">XVII. The Righteous and the Wicked</h3>
+    <p>We believe there is a radical and essential difference between the righteous and the wicked. Only those who are justified by faith in the name of the Lord Jesus and sanctified by the Spirit of our God are truly righteous in his judgment. In contrast, all those who continue in impenitence and unbelief are wicked in his sight and under the curse. This distinction among people holds both at death and afterward.</p>
+
+    <h3 class="content-article-heading">XVIII. The World to Come</h3>
+    <p>We believe the end of the world is approaching. At the last day Christ will descend from heaven and raise the dead from the grave to final retribution. A public separation will then take place, in which the wicked will be justly assigned to endless punishment and the righteous to endless joy. This judgment will determine forever on principles of righteousness the final state of people in heaven or hell.</p>
+
+    <p class="content-credit">Adapted with gratitude from the confession of Cheverly Baptist Church in Hyattsville, MD.</p>
+  </template>
+
+  <template id="tmpl-covenant">
+    <h2 class="content-view-title">Our Covenant</h2>
+    <p>By God's grace, we are gathered as those who have repented and believed in the Lord Jesus Christ. We have given ourselves to him and affirmed one another as citizens of his kingdom through baptism and the Lord's Supper. Relying on his gracious aid, we do now solemnly and joyfully renew our covenant with each other.</p>
+    <p>We will work and pray for the unity of the Spirit and the bond of peace.</p>
+    <p>We will walk together in love as Christ commands, caring for each other, watching over each other, and encouraging and admonishing one another as occasion requires.</p>
+    <p>We will regularly attend the church's gatherings and faithfully pray for one another.</p>
+    <p>We will endeavor to lead those in our care in the nurture and admonition of the Lord, as well as to seek the salvation of our family and friends.</p>
+    <p>We will rejoice at each other's happiness and bear each other's burdens and sorrows.</p>
+    <p>With God's help, we will live carefully in the world, denying ungodliness and worldly desires. Our symbolic burial and resurrection in baptism testifies to this special obligation to live a new and holy life.</p>
+    <p>We will work together to maintain a faithful gospel witness in our worship, ordinances, discipline, and doctrines. We will contribute cheerfully to the expenses of the church, the needs of our neighbors, and the spread of the gospel around the world.</p>
+    <p>If we leave this congregation, we will join another gospel-preaching church as soon as possible where we can carry out the spirit of this covenant and the principles of God's Word.</p>
+    <p>May the grace of the Lord Jesus Christ, and the love of God, and the fellowship of the Holy Spirit be with us all. Amen.</p>
+    <p class="content-credit">Adapted with gratitude from the covenant of Cheverly Baptist Church in Hyattsville, MD.</p>
+  </template>
+
+  <template id="tmpl-constitution">
+    <h2 class="content-view-title">Our Constitution</h2>
+    <p>The constitution of Truth Church describes how we are organized as a body of believers — our membership, our officers, how decisions are made, and how we handle discipline and restoration.</p>
+    <p>We believe the local church is the primary expression of the kingdom of God on earth, and our constitution reflects our commitment to ordering our common life according to the pattern of the New Testament.</p>
+    <p><em>Full constitution text coming soon.</em></p>
+  </template>
+
+  <template id="tmpl-give">
+    <h2 class="content-view-title">Give</h2>
+    <p>Generous giving is an act of worship. When you give to Truth Church, you are participating in the work of the gospel in Luling and beyond — supporting preaching, discipleship, mercy ministry, and missions.</p>
+    <p>We are committed to being faithful stewards of every gift. Our finances are overseen by our elders and are available for review by any member.</p>
+    <p><em>Online giving link coming soon. In the meantime, you may give in person at any gathering.</em></p>
+  </template>
+
+  <script src="script.js"></script>
+</body>
+</html>
