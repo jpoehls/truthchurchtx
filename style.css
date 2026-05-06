@@ -127,8 +127,9 @@ body {
 }
 
 .tagline {
+  font-family: var(--body-font, sans-serif);
   font-size: clamp(0.75rem, 1.8vw, 1rem);
-  font-weight: 600;
+  font-weight: 400;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   margin-bottom: 0.5rem;
@@ -149,6 +150,7 @@ h1 {
 }
 
 .location {
+  font-family: var(--body-font, sans-serif);
   margin-top: 0.5rem;
   font-size: clamp(0.8rem, 1.8vw, 1rem);
   letter-spacing: 0.12em;
