@@ -11,7 +11,8 @@ const youtubeChannelUrl = "https://www.youtube.com/@TruthChurchTexas";
 const recentSermonVideoId = null;
 
 // ─── Known Locations ──────────────────────────────────────────────────────────
-// Each entry: { address, mapUrl }
+// Each entry: { location, mapUrl? }
+// Use locations.private for home gatherings — no map link, members-only notice.
 const locations = {
   southsideClubhouse: {
     location: "Edgar B. Davis South Side Clubhouse, 1035 S. Magnolia Ave., Luling, TX 78648",
@@ -20,6 +21,9 @@ const locations = {
   northsideClubhouse: {
     location: "Edgar B. Davis North Side Clubhouse, 300 Trinity St., Luling, TX 78648",
     mapUrl:   "https://maps.google.com/?q=300+Trinity+St+Luling+TX+78648",
+  },
+  private: {
+    location: "Meeting in a home — location shared with members in GroupMe.",
   },
 };
 

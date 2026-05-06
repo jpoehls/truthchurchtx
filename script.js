@@ -250,9 +250,9 @@ function getSectionContent(key) {
         const box = document.createElement("p");
         box.className = "worship-info-box worship-location";
         box.setAttribute("role", "note");
-        box.appendChild(document.createTextNode(`Gathering at ${nextGathering.time}`));
-        box.appendChild(document.createElement("br"));
         if (nextGathering.mapUrl && nextGathering.mapUrl !== "#") {
+          box.appendChild(document.createTextNode(`Gathering at ${nextGathering.time}`));
+          box.appendChild(document.createElement("br"));
           const a = document.createElement("a");
           a.href        = nextGathering.mapUrl;
           a.target      = "_blank";
@@ -370,7 +370,7 @@ document.getElementById("gathering-time").textContent     = nextGathering.time;
 
 const locationEl = document.getElementById("gathering-location");
 locationEl.textContent = nextGathering.location;
-if (nextGathering.mapUrl !== "#") {
+if (nextGathering.mapUrl && nextGathering.mapUrl !== "#") {
   const mapLink = document.createElement("a");
   mapLink.href      = nextGathering.mapUrl;
   mapLink.className = "panel-link";
