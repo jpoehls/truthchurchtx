@@ -26,38 +26,9 @@ const maps = [
   { enabled: false, file: "luling_neon_cyberpunk.svg", bg: "#0d0d1a", fade: 0.68, text: "#d8d8f0", sub: "#484860", dot: "#8888c8" },
 ];
 
-// ─── Font Themes ──────────────────────────────────────────────────────────
-const fontThemes = [
-  { headingFont: "Georgia, 'Times New Roman', serif",        subFont: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif", googleFont: null,                                                                                                           verseTextSize: 1.3 },
-  { headingFont: "'Cormorant Garamond', Georgia, serif",     subFont: "'Cormorant Garamond', Georgia, serif",                      googleFont: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&display=swap",                        verseTextSize: 1.4 },
-  { headingFont: "'Playfair Display', Georgia, serif",       subFont: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif", googleFont: "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400&display=swap",                            verseTextSize: 1.3 },
-  { headingFont: "'Lora', Georgia, serif",                   subFont: "'Lora', Georgia, serif",                                    googleFont: "https://fonts.googleapis.com/css2?family=Lora:wght@400&display=swap",                                          verseTextSize: 1.2 },
-  { headingFont: "'EB Garamond', Georgia, serif",            subFont: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif", googleFont: "https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400&display=swap",                                  verseTextSize: 1.3 },
-  { headingFont: "'Raleway', sans-serif",                    subFont: "'Raleway', sans-serif",                                     googleFont: "https://fonts.googleapis.com/css2?family=Raleway:wght@300;400&display=swap",                                   verseTextSize: 1.2 },
-  { headingFont: "'Jost', sans-serif",                       subFont: "'Jost', sans-serif",                                        googleFont: "https://fonts.googleapis.com/css2?family=Jost:wght@300;400&display=swap",                                      verseTextSize: 1.3 },
-  { headingFont: "'Nunito', sans-serif",                     subFont: "'Nunito', sans-serif",                                      googleFont: "https://fonts.googleapis.com/css2?family=Nunito:wght@300;400&display=swap",                                    verseTextSize: 1.3 },
-  { headingFont: "'Roboto Slab', serif",                     subFont: "'Roboto Slab', serif",                                      googleFont: "https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400&display=swap",                              verseTextSize: 1.2 },
-  { headingFont: "'Zilla Slab', serif",                      subFont: "'Zilla Slab', serif",                                       googleFont: "https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@300;400&display=swap",                               verseTextSize: 1.3 },
-  { headingFont: "'Arvo', serif",                            subFont: "'Arvo', serif",                                             googleFont: "https://fonts.googleapis.com/css2?family=Arvo:wght@400&display=swap",                                          verseTextSize: 1.2 },
-  { headingFont: "'Alfa Slab One', serif",                   subFont: "'Jost', sans-serif",                                        googleFont: "https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Jost:wght@300;400&display=swap",                verseTextSize: 1.3 },
-  { headingFont: "'Courier Prime', monospace",               subFont: "'Courier Prime', monospace",                                googleFont: "https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400&display=swap",                                  verseTextSize: 1.2 },
-];
-
 // ─── Theme selection ──────────────────────────────────────────────────────
 const enabledMaps = maps.filter(m => m.enabled);
-const map  = enabledMaps[Math.floor(Math.random() * enabledMaps.length)];
-const font = fontThemes[Math.floor(Math.random() * fontThemes.length)];
-
-if (font.googleFont) {
-  const link = document.createElement("link");
-  link.rel  = "stylesheet";
-  link.href = font.googleFont;
-  document.head.appendChild(link);
-}
-
-// Expose fonts to CSS for body sections
-document.documentElement.style.setProperty("--body-font", font.subFont);
-document.documentElement.style.setProperty("--heading-font", font.headingFont);
+const map = enabledMaps[Math.floor(Math.random() * enabledMaps.length)];
 
 // Dark header background — set on the header, not body, to avoid bleed
 const headerEl = document.getElementById("site-header");
@@ -75,17 +46,14 @@ const overlay = document.getElementById("map-overlay");
 overlay.style.background = map.bg;
 overlay.style.opacity    = map.fade;
 
-// Apply text colors and fonts to hero content
+// Apply map text colors to hero content
 const heroTagline  = document.querySelector(".tagline");
 const heroH1       = document.querySelector("h1");
 const heroLocation = document.querySelector(".location");
 
-heroTagline.style.color       = map.text;
-heroH1.style.color            = map.text;
-heroLocation.style.color      = map.sub;
-heroTagline.style.fontFamily  = font.subFont;
-heroH1.style.fontFamily       = font.headingFont;
-heroLocation.style.fontFamily = font.subFont;
+heroTagline.style.color  = map.text;
+heroH1.style.color       = map.text;
+heroLocation.style.color = map.sub;
 
 
 // ─── Locator dot + canvas trail ───────────────────────────────────────────
