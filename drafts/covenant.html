@@ -64,6 +64,38 @@
       font-weight: 500;
       margin-bottom: 1em;
     }
+
+    .toggle-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 1em;
+      padding: 8px 10px;
+      background: #f5f5f5;
+      border: 0.4pt solid #c0c0c0;
+      border-radius: 4px;
+      font-size: 10pt;
+    }
+
+    .toggle-bar label {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+      user-select: none;
+      white-space: nowrap;
+    }
+
+    .toggle-bar input[type="checkbox"] {
+      cursor: pointer;
+    }
+
+    .toggle-bar .toggle-heading {
+      font-weight: bold;
+      margin-right: 4px;
+      color: #444;
+    }
   </style>
 </head>
 
@@ -88,21 +120,27 @@
     <span>&middot;</span>
     <span style="white-space: nowrap;">Updated: 11 May 2026</span>
   </p>
+  <div class="toggle-bar">
+    <span class="toggle-heading">Show:</span>
+    <label><input type="checkbox" id="toggle-chbc" checked> Capitol Hill Baptist Church</label>
+    <label><input type="checkbox" id="toggle-cheverly" checked> Cheverly Baptist Church</label>
+    <label><input type="checkbox" id="toggle-pbp" checked> Planting by Pastoring</label>
+  </div>
   <table>
     <thead>
       <tr>
-        <th>
+        <th class="col-chbc">
           Capitol Hill Baptist Church
           <p>Capitol Hill Baptist Church, <em>Church Covenant</em>, accessed May 1, 2025, <a
               href="https://www.capitolhillbaptist.org/about-us/what-we-believe/church-covenant/">https://www.capitolhillbaptist.org/about-us/what-we-believe/church-covenant/</a>
           </p>
         </th>
-        <th>
+        <th class="col-cheverly">
           Cheverly Baptist Church
           <p>Cheverly Baptist Church, <em>Church Covenant</em>, accessed May 1, 2025, <a
               href="https://cheverlybaptist.org/church-covenant">https://cheverlybaptist.org/church-covenant</a></p>
         </th>
-        <th>
+        <th class="col-pbp">
           Planting by Pastoring
           <p>Nathan Knight, <em>Planting by Pastoring</em> (Crossway, 2023), pp. 139–141.</p>
         </th>
@@ -111,7 +149,7 @@
     <tbody>
       <!-- Row 1: Introductory paragraph -->
       <tr>
-        <td>
+        <td class="col-chbc">
           <p>CHBC has worshiped together under a covenant, or statement on how we agree to live as a church, since our
             earliest days in 1878. The church covenant is equal parts promise, summary of expectations, ethical
             statement, and biblical standard. We summarize how we promise to live together in the covenant. It forms the
@@ -125,12 +163,12 @@
             light of a greater covenant, one initiated by love, sealed by sacrifice, and kept for eternity by our
             Savior, Jesus Christ.</p>
         </td>
-        <td>
+        <td class="col-cheverly">
           <p>While our statement of faith summarizes what we believe, our church covenant summarizes how we intend to
             live together. Our acceptance of this covenant follows the practice of believers throughout the centuries
             who have pledged to God and one another to live out the gospel in community.</p>
         </td>
-        <td>
+        <td class="col-pbp">
           <p>Having, as we trust, been brought by divine grace to repent and
             believe in the Lord Jesus Christ and to give up ourselves to him, and
             having been baptized upon our profession of faith, in the name of
@@ -140,7 +178,7 @@
       </tr>
       <!-- Row 2: Body of covenant -->
       <tr>
-        <td>
+        <td class="col-chbc">
           <h2>Church Covenant</h2>
           <p>Having, as we trust, been brought by divine grace to repent and believe in the Lord Jesus Christ and to
             give up ourselves to him, and having been baptized upon our profession of faith, in the name of the Father
@@ -157,7 +195,7 @@
           <p>We will endeavor to bring up such as may at any time be under our care, in the nurture and admonition of
             the Lord, and by a pure and loving example to seek the salvation of our family and friends. (Deut 6:1-12;
             11:18-20; Matt 6:6; Eph 6:4; Mk 5:19; Lk 5:19; Matt 5:16; Eph 5:15)</p>
-          <p>We will rejoice at each others’ happiness and endeavor with tenderness and sympathy to bear each other’s
+          <p>We will rejoice at each others' happiness and endeavor with tenderness and sympathy to bear each other's
             burdens and sorrows. (Rom 12:15; Gal 6:2)</p>
           <p>We will seek, by Divine aid, to live carefully in the world, denying ungodliness and worldly lusts, and
             remembering that, as we have been voluntarily buried by baptism and raised again from the symbolic grave, so
@@ -170,34 +208,34 @@
             5; Acts 2:42; 2 Jn 1:9-11; Matt 10:10; Gal 6:6; Mal 3:8-10; Acts 11:29; 2 Cor 8:1-5, Lk 24:46-48; Acts 1:8)
           </p>
           <p>We will, when we move from this place, as soon as possible, unite with some other church where we can carry
-            out the spirit of this covenant and the principles of God’s Word. (Acts 18:27-28; Rom 16:1-2; 1 Cor 15:58;
+            out the spirit of this covenant and the principles of God's Word. (Acts 18:27-28; Rom 16:1-2; 1 Cor 15:58;
             Col 3:23; Heb 10:24-25)</p>
           <p>May the grace of the Lord Jesus Christ, and the love of God, and the fellowship of the Holy Spirit be with
             us all. Amen. (2 Cor 13:14)</p>
         </td>
-        <td>
+        <td class="col-cheverly">
           <h2>Church Covenant</h2>
-          <p>By God’s grace, we are gathered as those who have repented and believed in the Lord Jesus Christ. We have
-            given ourselves to him and affirmed one another as citizens of his kingdom through baptism and the Lord’s
+          <p>By God's grace, we are gathered as those who have repented and believed in the Lord Jesus Christ. We have
+            given ourselves to him and affirmed one another as citizens of his kingdom through baptism and the Lord's
             Supper. Relying on his gracious aid, we do now solemnly and joyfully renew our covenant with each other.</p>
           <p>We will work and pray for the unity of the Spirit and the bond of peace.</p>
           <p>We will walk together in love as Christ commands, caring for each other, watching over each other, and
             encouraging and admonishing one another as occasion requires.</p>
-          <p>We will regularly attend the church’s gatherings and faithfully pray for one another.</p>
+          <p>We will regularly attend the church's gatherings and faithfully pray for one another.</p>
           <p>We will endeavor to lead those in our care in the nurture and admonition of the Lord, as well as to seek
             the salvation of our family and friends.</p>
           <p>We will rejoice at each other's happiness and bear each other's burdens and sorrows.</p>
-          <p>With God’s help, we will live carefully in the world, denying ungodliness and worldly desires. Our symbolic
+          <p>With God's help, we will live carefully in the world, denying ungodliness and worldly desires. Our symbolic
             burial and resurrection in baptism testifies to this special obligation to live a new and holy life.</p>
           <p>We will work together to maintain a faithful gospel witness in our worship, ordinances, discipline, and
             doctrines. We will contribute cheerfully to the expenses of the church, the needs of our neighbors, and the
             spread of the gospel around the world.</p>
           <p>If we leave this congregation, we will join another gospel-preaching church as soon as possible where we
-            can carry out the spirit of this covenant and the principles of God’s Word.</p>
+            can carry out the spirit of this covenant and the principles of God's Word.</p>
           <p>May the grace of the Lord Jesus Christ, and the love of God, and the fellowship of the Holy Spirit be with
             us all. Amen.</p>
         </td>
-        <td>
+        <td class="col-pbp">
           <h2>Mutual Commitments</h2>
           <p>We will work and pray for the unity of the Spirit in the bond of
             peace. (Eph. 4:1–3; Phil. 2:1–4; Col. 3:12–15)</p>
@@ -215,7 +253,7 @@
             and admonition of the Lord, and by a pure and loving example to
             seek the salvation of our family and friends. (Deut. 6:1–4; Matt.
             28:19–20; Eph. 6:1–4; Jude 22–23)</p>
-          <p>We will rejoice at each other’s happiness and endeavor with tenderness and sympathy to bear each other’s
+          <p>We will rejoice at each other's happiness and endeavor with tenderness and sympathy to bear each other's
             burdens and sorrows.
             (Rom. 12:15; 1 Cor. 12:26; Gal. 6:2)</p>
           <p>We will seek, by divine aid, to live carefully in the world, denying
@@ -239,13 +277,12 @@
             5:1–12; 2 Tim. 4:2; Jude 3)</p>
           <p>We will, when we move from this place, as soon as possible, unite
             with some other church where we can carry out the spirit of this
-            cove­nant and the principles of God’s word. (Heb. 10:24–25)</p>
+            cove­nant and the principles of God's word. (Heb. 10:24–25)</p>
         </td>
       </tr>
     </tbody>
   </table>
   <script>
-    // Get bible version from query string, default to the selected option in template
     var urlParams = new URLSearchParams(window.location.search);
     var templateSelect = document.querySelector('#bible-version-select-template option[selected]');
     var defaultVersion = templateSelect ? templateSelect.value : 'NKJV';
@@ -268,7 +305,6 @@
       }(document, 'script'));
     }
 
-    // Inject bible version select into the element with js-translation class
     var template = document.getElementById('bible-version-select-template');
     var translationContainer = document.querySelector('.js-translation');
 
@@ -276,18 +312,36 @@
       var clone = template.content.cloneNode(true);
       translationContainer.appendChild(clone);
 
-      // Add change handler to the select
       var select = document.querySelector('.bible-version-select');
       if (select) {
         select.value = initialVersion;
         select.addEventListener('change', function () {
-          // Update URL with new translation and reload
           var newUrl = new URL(window.location);
           newUrl.searchParams.set('v', this.value);
           window.location.href = newUrl.toString();
         });
       }
     }
+
+    function updateColumns() {
+      var showChbc = document.getElementById('toggle-chbc').checked;
+      var showCheverly = document.getElementById('toggle-cheverly').checked;
+      var showPbp = document.getElementById('toggle-pbp').checked;
+
+      document.querySelectorAll('.col-chbc').forEach(function (el) {
+        el.style.display = showChbc ? '' : 'none';
+      });
+      document.querySelectorAll('.col-cheverly').forEach(function (el) {
+        el.style.display = showCheverly ? '' : 'none';
+      });
+      document.querySelectorAll('.col-pbp').forEach(function (el) {
+        el.style.display = showPbp ? '' : 'none';
+      });
+    }
+
+    document.getElementById('toggle-chbc').addEventListener('change', updateColumns);
+    document.getElementById('toggle-cheverly').addEventListener('change', updateColumns);
+    document.getElementById('toggle-pbp').addEventListener('change', updateColumns);
 
     loadRefTagger();
   </script>
