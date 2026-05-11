@@ -1,204 +1,266 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://fonts.googleapis.com/css2?family=Spectral:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-      body {
-        margin-top: 0;
-        font-family: 'Spectral', serif;
-        font-size: 12pt;
-      }
-      td {
-        vertical-align: top;
-        border: 0.4pt solid #a0a0a0;
-        padding: 8px;
-      }
-      th {
-        background-color: #ebebeb;
-        border: 0.4pt solid #a0a0a0;
-        padding: 8px;
-      }
-      th > p {
-        margin: 0;
-        font-weight: normal;
-        font-size: 0.8em;
-      }
-      table {
-        border-collapse: collapse;
-        width: 100%;
-      }
-      a {
-        text-decoration: none;
-      }
-      a:hover {
-        background-color: rgba(255, 255, 0, 0.4);
-        text-decoration: underline;
-      }
-      td p {
-        margin-top: 0;
-      }
-      td p:last-child {
-        margin-bottom: 0;
-      }
-      section[role="doc-endnotes"] ol {
-        padding-left: 0;
-        font-size: 0.8em;
-        margin: 0;
-      }
-      h2 {
-        text-align: center;
-        font-size: 1.4em;
-        font-weight: 500;
-        margin-bottom: 1em;
-      }
-    </style>
-  </head>
-  <body>
-    <template id="bible-version-select-template">
-      <div style="display: inline;">
-        <label for="bible-version">Translation: </label>
-        <select class="bible-version-select">
-          <option value="ESV">ESV</option>
-          <option value="NLT">NLT</option>
-          <option value="NKJV" selected>NKJV</option>
-          <option value="NASB95">NASB (1995)</option>
-          <option value="CSB">CSB</option>
-          <option value="LSB">LSB</option>
-        </select>
-      </div>
-    </template>
-    <p>
-      <span style="white-space: nowrap;" class="js-translation"></span>
-      <span>&middot;</span>
-      <span>Comparison of various church membership covenants</span>
-      <span>&middot;</span>
-      <span style="white-space: nowrap;">Updated: 11 May 2026</span>
-    </p>
-    <table>
-      <thead>
-        <tr>
-          <th>
-            Capitol Hill Baptist Church
-            <p>Capitol Hill Baptist Church, <em>Church Covenant</em>, accessed May 1, 2025, <a href="https://www.capitolhillbaptist.org/about-us/what-we-believe/church-covenant/">https://www.capitolhillbaptist.org/about-us/what-we-believe/church-covenant/</a></p>
-          </th>
-          <th>
-            Cheverly Baptist Church
-            <p>Cheverly Baptist Church, <em>Church Covenant</em>, accessed May 1, 2025, <a href="https://cheverlybaptist.org/church-covenant">https://cheverlybaptist.org/church-covenant</a></p>
-          </th>
-          <th>
-            Planting by Pastoring
-            <p>Nathan Knight, <em>Planting by Pastoring</em> (Crossway, 2023), pp. 139–141.</p>
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Row 1: Introductory paragraph -->
-        <tr>
-          <td>
-            <p>CHBC has worshiped together under a covenant, or statement on how we agree to live as a church, since our earliest days in 1878. The church covenant is equal parts promise, summary of expectations, ethical statement, and biblical standard. We summarize how we promise to live together in the covenant. It forms the ethics, or the moral principles, of our worldview and holds out a biblical standard by which we live. Our acceptance of this multifaceted document follows the practice of believers throughout the centuries who have pledged to God and one another to live out the gospel in community.</p>
-            <p>We use our covenant in two key ways today. We require all new members to sign it before joining the church. We also reaffirm our commitment to the covenant at all members meetings and before taking communion, when we stand as a body and recommit ourselves to it. By featuring the covenant in our life together, we strive to protect ourselves from individual and corporate sin. Of equal importance, we spur one another on to live in light of a greater covenant, one initiated by love, sealed by sacrifice, and kept for eternity by our Savior, Jesus Christ.</p>
-          </td>
-          <td>
-            <p>While our statement of faith summarizes what we believe, our church covenant summarizes how we intend to live together. Our acceptance of this covenant follows the practice of believers throughout the centuries who have pledged to God and one another to live out the gospel in community.</p>
-          </td>
-          <td>
-            <p>Having, as we trust, been brought by divine grace to repent and
-believe in the Lord Jesus Christ and to give up ourselves to him, and
-having been baptized upon our profession of faith, in the name of
-the Father and of the Son and of the Holy Spirit, we do now, relying
-on his gracious aid, solemnly and joyfully cove­nant with each other.</p>
-          </td>
-        </tr>
-        <!-- Row 2: Body of covenant -->
-        <tr>
-          <td>
-            <h2>Church Covenant</h2>
-            <p>Having, as we trust, been brought by divine grace to repent and believe in the Lord Jesus Christ and to give up ourselves to him, and having been baptized upon our profession of faith, in the name of the Father and of the Son and the Holy Spirit, we do now, relying on His gracious aid, solemnly and joyfully renew our covenant with each other. (Jn 6:63; 16:7-11; 1:12; 1 Thess 2:13; Acts 2:41; 8:38; Matt 28:19; 1 Cor 12:12-13; Acts 2:42)</p>
-            <p>We will work and pray for the unity of the Spirit in the bond of peace. (Eph 4:1-3)</p>
-            <p>We will walk together in brotherly love, as becomes the members of a Christian Church, exercise an affectionate care and watchfulness over each other and faithfully admonish and entreat one another as occasion may require. (Rom 12:10, 16:17-18; Gal 6:1-2; Matt 18:15-17; Jas 5:19-20; Col 3:16; Heb 3:12-13; 1 Thess 5:11; 1 Cor 5)</p>
-            <p>We will not forsake the assembling of ourselves together, nor neglect to pray for ourselves and others. (Heb 10:23-25; Eph 6:18; 1 Thess 5:17, 25)</p>
-            <p>We will endeavor to bring up such as may at any time be under our care, in the nurture and admonition of the Lord, and by a pure and loving example to seek the salvation of our family and friends. (Deut 6:1-12; 11:18-20; Matt 6:6; Eph 6:4; Mk 5:19; Lk 5:19; Matt 5:16; Eph 5:15)</p>
-            <p>We will rejoice at each others’ happiness and endeavor with tenderness and sympathy to bear each other’s burdens and sorrows. (Rom 12:15; Gal 6:2)</p>
-            <p>We will seek, by Divine aid, to live carefully in the world, denying ungodliness and worldly lusts, and remembering that, as we have been voluntarily buried by baptism and raised again from the symbolic grave, so there is on us a special obligation now to lead a new and holy life. (Eph 5:15; Tit 2:12; Rom 6:4; 1 Thess 4:7; 1 Pet 1:13-25)</p>
-            <p>We will work together for the continuance of a faithful evangelical ministry in this church, as we sustain its worship, ordinances, discipline, and doctrines. We will contribute cheerfully and regularly to the support of the ministry, the expenses of the church, the relief of the poor, and the spread of the Gospel through all nations. (Eph 2:21-22; Heb 10:25; Matt. 28:19-20; 1 Cor 11:24-34; Rom 16:17; 2 Thess 3:6; 1 Cor 5; Acts 2:42; 2 Jn 1:9-11; Matt 10:10; Gal 6:6; Mal 3:8-10; Acts 11:29; 2 Cor 8:1-5, Lk 24:46-48; Acts 1:8)</p>
-            <p>We will, when we move from this place, as soon as possible, unite with some other church where we can carry out the spirit of this covenant and the principles of God’s Word. (Acts 18:27-28; Rom 16:1-2; 1 Cor 15:58; Col 3:23; Heb 10:24-25)</p>
-            <p>May the grace of the Lord Jesus Christ, and the love of God, and the fellowship of the Holy Spirit be with us all. Amen. (2 Cor 13:14)</p>
-          </td>
-          <td>
-            <h2>Church Covenant</h2>
-            <p>By God’s grace, we are gathered as those who have repented and believed in the Lord Jesus  Christ. We have given ourselves to him and affirmed one another as citizens of his kingdom  through baptism and the Lord’s Supper. Relying on his gracious aid, we do now solemnly and  joyfully renew our covenant with each other.</p>
-            <p>We will work and pray for the unity of the Spirit and the bond of peace.</p>
-            <p>We will walk together in love as Christ commands, caring for each other, watching over each  other, and encouraging and admonishing one another as occasion requires.</p>
-            <p>We will regularly attend the church’s gatherings and faithfully pray for one another.</p>
-            <p>We will endeavor to lead those in our care in the nurture and admonition of the Lord, as well as  to seek the salvation of our family and friends.</p>
-            <p>We will rejoice at each other's happiness and bear each other's burdens and sorrows.</p>
-            <p>With God’s help, we will live carefully in the world, denying ungodliness and worldly desires.  Our symbolic burial and resurrection in baptism testifies to this special obligation to live a new  and holy life.</p>
-            <p>We will work together to maintain a faithful gospel witness in our worship, ordinances,  discipline, and doctrines. We will contribute cheerfully to the expenses of the church, the needs  of our neighbors, and the spread of the gospel around the world.</p>
-            <p>If we leave this congregation, we will join another gospel-preaching church as soon as possible  where we can carry out the spirit of this covenant and the principles of God’s Word.</p>
-            <p>May the grace of the Lord Jesus Christ, and the love of God, and the fellowship of the Holy Spirit be with us all. Amen.</p>
-          </td>
-          <td>
-            <h2>Mutual Commitments</h2>
-            <p>We will work and pray for the unity of the Spirit in the bond of
-peace. (Eph. 4:1–3; Phil. 2:1–4; Col. 3:12–15)</p>
-            <p>We will walk together in brotherly love, exercise an affectionate
-care and watchfulness over each other, and faithfully admonish and
-entreat one another as occasion may require. (Rom. 12:9–16; Gal.
-6:1–10; 1 Thess. 5:11–15)</p>
-            <p>We will gladly cooperate with and submit ourselves to the elders
-of this church for the care of our souls, which is for our good.
-(Heb. 13:7, 17)</p>
-            <p>We will not forsake the assembling of ourselves together, nor neglect to pray for ourselves and others. (Heb.10:24–25; Eph. 6:18;
-James 5:16)</p>
-            <p>We will endeavor to raise the children under our care in the nurture
-and admonition of the Lord, and by a pure and loving example to
-seek the salvation of our family and friends. (Deut. 6:1–4; Matt.
-28:19–20; Eph. 6:1–4; Jude 22–23)</p>
-<p>We will rejoice at each other’s happiness and endeavor with tenderness and sympathy to bear each other’s burdens and sorrows.
-(Rom. 12:15; 1 Cor. 12:26; Gal. 6:2)</p>
-<p>We will seek, by divine aid, to live carefully in the world, denying
-ungodliness and worldly lusts, and remembering that, as we have
-been voluntarily buried by baptism and raised again from the
-symbolic grave, so there is on us a special obligation now to lead a
-new and holy life. (Rom. 6:4; 12:1–2; Phil. 2:12; 1 Thess. 5:21–22;
-Titus 2:11–14; 1 Pet. 1:14–16)</p>
-<p>We will work together for the continuance of a faithful evangelical ministry in this church, as we sustain its worship, ordinances,
-discipline, and doctrines. (Phil. 1:27; Jude 3)</p>
-<p>We will responsibly steward our spiritual gifts to the service of this
-church and the community at large. (Rom. 12:3–8; 1 Cor. 12:4–26;
-Eph. 4:11–16; 1 Pet. 4:10–11)</p>
-<p>We will contribute cheerfully and regularly to the support of the
-ministry, the expenses of the church, the relief of the poor, and the spread of the gospel through all nations. (1 Cor. 16:1–2; 2 Cor.
-8:1–3; 9:6–7; Gal. 6:10; 1 Tim. 5:17–18)</p>
-<p>We will agree to the Statement of Beliefs and the Restorative Church
-Discipline policy as defined by this church. (Matt. 18:15–20; 1 Cor.
-5:1–12; 2 Tim. 4:2; Jude 3)</p>
-<p>We will, when we move from this place, as soon as possible, unite
-with some other church where we can carry out the spirit of this
-cove­nant and the principles of God’s word. (Heb. 10:24–25)</p>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <script>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=Spectral:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin-top: 0;
+      font-family: 'Spectral', serif;
+      font-size: 12pt;
+    }
+
+    td {
+      vertical-align: top;
+      border: 0.4pt solid #a0a0a0;
+      padding: 8px;
+    }
+
+    th {
+      background-color: #ebebeb;
+      border: 0.4pt solid #a0a0a0;
+      padding: 8px;
+    }
+
+    th>p {
+      margin: 0;
+      font-weight: normal;
+      font-size: 0.8em;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    a:hover {
+      background-color: rgba(255, 255, 0, 0.4);
+      text-decoration: underline;
+    }
+
+    td p {
+      margin-top: 0;
+    }
+
+    td p:last-child {
+      margin-bottom: 0;
+    }
+
+    section[role="doc-endnotes"] ol {
+      padding-left: 0;
+      font-size: 0.8em;
+      margin: 0;
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 1.4em;
+      font-weight: 500;
+      margin-bottom: 1em;
+    }
+  </style>
+</head>
+
+<body>
+  <template id="bible-version-select-template">
+    <div style="display: inline;">
+      <label for="bible-version">Translation: </label>
+      <select class="bible-version-select">
+        <option value="ESV">ESV</option>
+        <option value="NLT">NLT</option>
+        <option value="NKJV" selected>NKJV</option>
+        <option value="NASB95">NASB (1995)</option>
+        <option value="CSB">CSB</option>
+        <option value="LSB">LSB</option>
+      </select>
+    </div>
+  </template>
+  <p>
+    <span style="white-space: nowrap;" class="js-translation"></span>
+    <span>&middot;</span>
+    <span>Comparison of various church membership covenants</span>
+    <span>&middot;</span>
+    <span style="white-space: nowrap;">Updated: 11 May 2026</span>
+  </p>
+  <table>
+    <thead>
+      <tr>
+        <th>
+          Capitol Hill Baptist Church
+          <p>Capitol Hill Baptist Church, <em>Church Covenant</em>, accessed May 1, 2025, <a
+              href="https://www.capitolhillbaptist.org/about-us/what-we-believe/church-covenant/">https://www.capitolhillbaptist.org/about-us/what-we-believe/church-covenant/</a>
+          </p>
+        </th>
+        <th>
+          Cheverly Baptist Church
+          <p>Cheverly Baptist Church, <em>Church Covenant</em>, accessed May 1, 2025, <a
+              href="https://cheverlybaptist.org/church-covenant">https://cheverlybaptist.org/church-covenant</a></p>
+        </th>
+        <th>
+          Planting by Pastoring
+          <p>Nathan Knight, <em>Planting by Pastoring</em> (Crossway, 2023), pp. 139–141.</p>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Row 1: Introductory paragraph -->
+      <tr>
+        <td>
+          <p>CHBC has worshiped together under a covenant, or statement on how we agree to live as a church, since our
+            earliest days in 1878. The church covenant is equal parts promise, summary of expectations, ethical
+            statement, and biblical standard. We summarize how we promise to live together in the covenant. It forms the
+            ethics, or the moral principles, of our worldview and holds out a biblical standard by which we live. Our
+            acceptance of this multifaceted document follows the practice of believers throughout the centuries who have
+            pledged to God and one another to live out the gospel in community.</p>
+          <p>We use our covenant in two key ways today. We require all new members to sign it before joining the church.
+            We also reaffirm our commitment to the covenant at all members meetings and before taking communion, when we
+            stand as a body and recommit ourselves to it. By featuring the covenant in our life together, we strive to
+            protect ourselves from individual and corporate sin. Of equal importance, we spur one another on to live in
+            light of a greater covenant, one initiated by love, sealed by sacrifice, and kept for eternity by our
+            Savior, Jesus Christ.</p>
+        </td>
+        <td>
+          <p>While our statement of faith summarizes what we believe, our church covenant summarizes how we intend to
+            live together. Our acceptance of this covenant follows the practice of believers throughout the centuries
+            who have pledged to God and one another to live out the gospel in community.</p>
+        </td>
+        <td>
+          <p>Having, as we trust, been brought by divine grace to repent and
+            believe in the Lord Jesus Christ and to give up ourselves to him, and
+            having been baptized upon our profession of faith, in the name of
+            the Father and of the Son and of the Holy Spirit, we do now, relying
+            on his gracious aid, solemnly and joyfully cove­nant with each other.</p>
+        </td>
+      </tr>
+      <!-- Row 2: Body of covenant -->
+      <tr>
+        <td>
+          <h2>Church Covenant</h2>
+          <p>Having, as we trust, been brought by divine grace to repent and believe in the Lord Jesus Christ and to
+            give up ourselves to him, and having been baptized upon our profession of faith, in the name of the Father
+            and of the Son and the Holy Spirit, we do now, relying on His gracious aid, solemnly and joyfully renew our
+            covenant with each other. (Jn 6:63; 16:7-11; 1:12; 1 Thess 2:13; Acts 2:41; 8:38; Matt 28:19; 1 Cor
+            12:12-13; Acts 2:42)</p>
+          <p>We will work and pray for the unity of the Spirit in the bond of peace. (Eph 4:1-3)</p>
+          <p>We will walk together in brotherly love, as becomes the members of a Christian Church, exercise an
+            affectionate care and watchfulness over each other and faithfully admonish and entreat one another as
+            occasion may require. (Rom 12:10, 16:17-18; Gal 6:1-2; Matt 18:15-17; Jas 5:19-20; Col 3:16; Heb 3:12-13; 1
+            Thess 5:11; 1 Cor 5)</p>
+          <p>We will not forsake the assembling of ourselves together, nor neglect to pray for ourselves and others.
+            (Heb 10:23-25; Eph 6:18; 1 Thess 5:17, 25)</p>
+          <p>We will endeavor to bring up such as may at any time be under our care, in the nurture and admonition of
+            the Lord, and by a pure and loving example to seek the salvation of our family and friends. (Deut 6:1-12;
+            11:18-20; Matt 6:6; Eph 6:4; Mk 5:19; Lk 5:19; Matt 5:16; Eph 5:15)</p>
+          <p>We will rejoice at each others’ happiness and endeavor with tenderness and sympathy to bear each other’s
+            burdens and sorrows. (Rom 12:15; Gal 6:2)</p>
+          <p>We will seek, by Divine aid, to live carefully in the world, denying ungodliness and worldly lusts, and
+            remembering that, as we have been voluntarily buried by baptism and raised again from the symbolic grave, so
+            there is on us a special obligation now to lead a new and holy life. (Eph 5:15; Tit 2:12; Rom 6:4; 1 Thess
+            4:7; 1 Pet 1:13-25)</p>
+          <p>We will work together for the continuance of a faithful evangelical ministry in this church, as we sustain
+            its worship, ordinances, discipline, and doctrines. We will contribute cheerfully and regularly to the
+            support of the ministry, the expenses of the church, the relief of the poor, and the spread of the Gospel
+            through all nations. (Eph 2:21-22; Heb 10:25; Matt. 28:19-20; 1 Cor 11:24-34; Rom 16:17; 2 Thess 3:6; 1 Cor
+            5; Acts 2:42; 2 Jn 1:9-11; Matt 10:10; Gal 6:6; Mal 3:8-10; Acts 11:29; 2 Cor 8:1-5, Lk 24:46-48; Acts 1:8)
+          </p>
+          <p>We will, when we move from this place, as soon as possible, unite with some other church where we can carry
+            out the spirit of this covenant and the principles of God’s Word. (Acts 18:27-28; Rom 16:1-2; 1 Cor 15:58;
+            Col 3:23; Heb 10:24-25)</p>
+          <p>May the grace of the Lord Jesus Christ, and the love of God, and the fellowship of the Holy Spirit be with
+            us all. Amen. (2 Cor 13:14)</p>
+        </td>
+        <td>
+          <h2>Church Covenant</h2>
+          <p>By God’s grace, we are gathered as those who have repented and believed in the Lord Jesus Christ. We have
+            given ourselves to him and affirmed one another as citizens of his kingdom through baptism and the Lord’s
+            Supper. Relying on his gracious aid, we do now solemnly and joyfully renew our covenant with each other.</p>
+          <p>We will work and pray for the unity of the Spirit and the bond of peace.</p>
+          <p>We will walk together in love as Christ commands, caring for each other, watching over each other, and
+            encouraging and admonishing one another as occasion requires.</p>
+          <p>We will regularly attend the church’s gatherings and faithfully pray for one another.</p>
+          <p>We will endeavor to lead those in our care in the nurture and admonition of the Lord, as well as to seek
+            the salvation of our family and friends.</p>
+          <p>We will rejoice at each other's happiness and bear each other's burdens and sorrows.</p>
+          <p>With God’s help, we will live carefully in the world, denying ungodliness and worldly desires. Our symbolic
+            burial and resurrection in baptism testifies to this special obligation to live a new and holy life.</p>
+          <p>We will work together to maintain a faithful gospel witness in our worship, ordinances, discipline, and
+            doctrines. We will contribute cheerfully to the expenses of the church, the needs of our neighbors, and the
+            spread of the gospel around the world.</p>
+          <p>If we leave this congregation, we will join another gospel-preaching church as soon as possible where we
+            can carry out the spirit of this covenant and the principles of God’s Word.</p>
+          <p>May the grace of the Lord Jesus Christ, and the love of God, and the fellowship of the Holy Spirit be with
+            us all. Amen.</p>
+        </td>
+        <td>
+          <h2>Mutual Commitments</h2>
+          <p>We will work and pray for the unity of the Spirit in the bond of
+            peace. (Eph. 4:1–3; Phil. 2:1–4; Col. 3:12–15)</p>
+          <p>We will walk together in brotherly love, exercise an affectionate
+            care and watchfulness over each other, and faithfully admonish and
+            entreat one another as occasion may require. (Rom. 12:9–16; Gal.
+            6:1–10; 1 Thess. 5:11–15)</p>
+          <p>We will gladly cooperate with and submit ourselves to the elders
+            of this church for the care of our souls, which is for our good.
+            (Heb. 13:7, 17)</p>
+          <p>We will not forsake the assembling of ourselves together, nor neglect to pray for ourselves and others.
+            (Heb.10:24–25; Eph. 6:18;
+            James 5:16)</p>
+          <p>We will endeavor to raise the children under our care in the nurture
+            and admonition of the Lord, and by a pure and loving example to
+            seek the salvation of our family and friends. (Deut. 6:1–4; Matt.
+            28:19–20; Eph. 6:1–4; Jude 22–23)</p>
+          <p>We will rejoice at each other’s happiness and endeavor with tenderness and sympathy to bear each other’s
+            burdens and sorrows.
+            (Rom. 12:15; 1 Cor. 12:26; Gal. 6:2)</p>
+          <p>We will seek, by divine aid, to live carefully in the world, denying
+            ungodliness and worldly lusts, and remembering that, as we have
+            been voluntarily buried by baptism and raised again from the
+            symbolic grave, so there is on us a special obligation now to lead a
+            new and holy life. (Rom. 6:4; 12:1–2; Phil. 2:12; 1 Thess. 5:21–22;
+            Titus 2:11–14; 1 Pet. 1:14–16)</p>
+          <p>We will work together for the continuance of a faithful evangelical ministry in this church, as we sustain
+            its worship, ordinances,
+            discipline, and doctrines. (Phil. 1:27; Jude 3)</p>
+          <p>We will responsibly steward our spiritual gifts to the service of this
+            church and the community at large. (Rom. 12:3–8; 1 Cor. 12:4–26;
+            Eph. 4:11–16; 1 Pet. 4:10–11)</p>
+          <p>We will contribute cheerfully and regularly to the support of the
+            ministry, the expenses of the church, the relief of the poor, and the spread of the gospel through all
+            nations. (1 Cor. 16:1–2; 2 Cor.
+            8:1–3; 9:6–7; Gal. 6:10; 1 Tim. 5:17–18)</p>
+          <p>We will agree to the Statement of Beliefs and the Restorative Church
+            Discipline policy as defined by this church. (Matt. 18:15–20; 1 Cor.
+            5:1–12; 2 Tim. 4:2; Jude 3)</p>
+          <p>We will, when we move from this place, as soon as possible, unite
+            with some other church where we can carry out the spirit of this
+            cove­nant and the principles of God’s word. (Heb. 10:24–25)</p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <script>
     // Get bible version from query string, default to the selected option in template
     var urlParams = new URLSearchParams(window.location.search);
     var templateSelect = document.querySelector('#bible-version-select-template option[selected]');
     var defaultVersion = templateSelect ? templateSelect.value : 'NKJV';
     var initialVersion = urlParams.get('v') || defaultVersion;
-    
+
     var refTagger = {
       settings: {
         bibleVersion: initialVersion
       }
-    }; 
+    };
 
     function loadRefTagger() {
-      (function(d, t) {
-        var n=d.querySelector('[nonce]');
-        refTagger.settings.nonce = n && (n.nonce||n.getAttribute('nonce'));
+      (function (d, t) {
+        var n = d.querySelector('[nonce]');
+        refTagger.settings.nonce = n && (n.nonce || n.getAttribute('nonce'));
         var g = d.createElement(t), s = d.getElementsByTagName(t)[0];
         g.src = 'https://api.reftagger.com/v2/RefTagger.js';
         g.nonce = refTagger.settings.nonce;
@@ -209,16 +271,16 @@ cove­nant and the principles of God’s word. (Heb. 10:24–25)</p>
     // Inject bible version select into the element with js-translation class
     var template = document.getElementById('bible-version-select-template');
     var translationContainer = document.querySelector('.js-translation');
-    
+
     if (translationContainer) {
       var clone = template.content.cloneNode(true);
       translationContainer.appendChild(clone);
-      
+
       // Add change handler to the select
       var select = document.querySelector('.bible-version-select');
       if (select) {
         select.value = initialVersion;
-        select.addEventListener('change', function() {
+        select.addEventListener('change', function () {
           // Update URL with new translation and reload
           var newUrl = new URL(window.location);
           newUrl.searchParams.set('v', this.value);
@@ -228,6 +290,7 @@ cove­nant and the principles of God’s word. (Heb. 10:24–25)</p>
     }
 
     loadRefTagger();
-    </script>
-  </body>
+  </script>
+</body>
+
 </html>
