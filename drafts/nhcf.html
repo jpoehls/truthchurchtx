@@ -60,6 +60,32 @@
         padding-left: 0;
         font-size: 0.8em;
       }
+      .minor-change {
+        color: green;
+        /* background-color: rgba(0, 208, 255, 0.4); */
+      }
+      .major-change {
+        color: rgb(198, 0, 0);
+        /* background-color: rgba(255, 0, 0, 0.4); */
+      }
+      .legend {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        align-items: top;
+        margin-bottom: 1em;
+        padding: 8px 10px;
+        background: #f5f5f5;
+        border: 0.4pt solid #c0c0c0;
+        border-radius: 4px;
+        font-size: 10pt;
+      }
+
+      .legend .legend-heading {
+        font-weight: bold;
+        margin-right: 4px;
+        color: #444;
+      }
     </style>
   </head>
   <body>
@@ -83,6 +109,13 @@
       <span>&middot;</span>
       <span style="white-space: nowrap;">Updated: 11 May 2026</span>
     </p>
+    <div class="legend">
+      <span class="legend-heading">Comparison Legend</span>
+      <ul>
+        <li><span>Trivial</span>: Rephrasing which does not change the meaning</li>
+        <li><span class="minor-change">Minor</span>: Notable changes which may change the meaning</li>
+        <li><span class="major-change">Major</span>: Significant additions or removals</li>
+    </div>
     <table>
       <thead>
         <tr>
@@ -128,12 +161,12 @@
         <tr>
           <td>
             <h2>II. Of The True God</h2>
-            <p>We believe that there is one, and only one, living and true God, an infinite, intelligent Spirit, whose name is JEHOVAH, the Maker and Supreme Ruler of heaven and earth; inexpressibly glorious in holiness, and worthy of all possible honor, confidence, and love; that in the unity of the Godhead there are three persons, the Father, the Son, and the Holy Ghost; equal in every divine perfection, and executing distinct but harmonious offices in the great work of redemption.</p>
+            <p>We believe that there is one, and only one, living and true God, an infinite, intelligent Spirit, whose name is <span class="minor-change">JEHOVAH</span>, the Maker and Supreme Ruler of heaven and earth; inexpressibly glorious in holiness, and worthy of all possible honor, confidence, and love; that in the unity of the Godhead there are three persons, the Father, the Son, and the <span class="minor-change">Holy Ghost</span>; equal in every divine perfection, and executing distinct but harmonious offices in the great work of redemption.</p>
           </td>
           <td>
             <h2>II. The True God</h2>
-            <p>We believe there is one and only one living and true God—an infinite, intelligent Spirit. His name is the LORD, the Maker and Supreme Ruler of heaven and earth. He is inexpressibly glorious in holiness and is worthy of all possible honor, confidence, and love. In the unity of the Godhead there are three persons:</p>
-            <p>the Father, the Son, and the Holy Spirit. They are equal in every divine perfection, and they carry out distinct but harmonious offices in the great work of redemption.</p>
+            <p>We believe there is one and only one living and true God—an infinite, intelligent Spirit. His name is <span class="minor-change">the LORD</span>, the Maker and Supreme Ruler of heaven and earth. He is inexpressibly glorious in holiness and is worthy of all possible honor, confidence, and love. In the unity of the Godhead there are three persons:</p>
+            <p>the Father, the Son, and the <span class="minor-change">Holy Spirit</span>. They are equal in every divine perfection, and they carry out distinct but harmonious offices in the great work of redemption.</p>
           </td>
         </tr>
         <tr class="refs">
@@ -148,7 +181,7 @@
           </td>
           <td>
             <h2>III. Humanity and the Fall</h2>
-            <p>We believe humanity is the special creation of God, made in his own image. God created them male and female as the crowning work of His creation. The gift of gender is thus part of the goodness of God’s creation. The gift of marriage consists of the uniting of one man and one woman in covenant commitment for a lifetime, and this gift models the way God relates to His people. God created the human race in holiness under his law. By voluntary transgression, however, humanity fell from that holy and happy state. As a result, all people are now sinners, not by external compulsion but by choice. They by nature entirely lack the holiness that is required by the law of God and are actively inclined to evil. Therefore, they are under just condemnation to a sentence of eternal ruin, without defense or excuse.</p>
+            <p><span class="major-change">We believe humanity is the special creation of God, made in his own image. God created them male and female as the crowning work of His creation. The gift of gender is thus part of the goodness of God’s creation. The gift of marriage consists of the uniting of one man and one woman in covenant commitment for a lifetime, and this gift models the way God relates to His people.</span> God created the human race in holiness under his law. By voluntary transgression, however, humanity fell from that holy and happy state. As a result, all people are now sinners, not by external compulsion but by choice. They by nature entirely lack the holiness that is required by the law of God and are actively inclined to evil. Therefore, they are under just condemnation to a sentence of eternal ruin, without defense or excuse.</p>
           </td>
         </tr>
         <tr class="refs">
@@ -163,7 +196,7 @@
           </td>
           <td>
             <h2>IV. The Way of Salvation</h2>
-            <p>We believe the salvation of God’s people is completely by grace, through the mediatorial offices of the Son of God. By the appointment of the Father, he freely took to himself our nature but without sin. He honored the divine law by his personal obedience and made a full atonement for our sins by his substitutionary death, satisfying God’s wrath. He rose from the dead and is now enthroned in heaven. Jesus, the Son, unites in his wonderful person the tenderest sympathies with divine perfections and, as such, is qualified in every way to be a suitable, compassionate, and all-sufficient Savior.</p>
+            <p>We believe the salvation of God’s people is completely by grace, through the mediatorial offices of the Son of God. By the appointment of the Father, he freely took to himself our nature but without sin. He honored the divine law by his personal obedience and made a full atonement for our sins by his substitutionary death, satisfying God’s wrath. He rose from the dead and is now enthroned in heaven. <span class="major-change">Jesus</span>, the Son, unites in his wonderful person the tenderest sympathies with divine perfections and, as such, is qualified in every way to be a suitable, compassionate, and all-sufficient Savior.</p>
           </td>
         </tr>
         <tr class="refs">
@@ -178,7 +211,7 @@
           </td>
           <td>
             <h2>V. Justification</h2>
-            <p>We believe the great gospel blessing that Christ secures to those who believe in him is justification. Justification includes the pardon of sin, righteous standing before God and his people, and the promise of eternal life founded on principles of righteousness. It is not given because of any works of righteousness we have done but only through faith in the Redeemer’s blood. By virtue of this faith his perfect righteousness is freely imputed to us by God. Justification immediately brings us into a state of most blessed peace and favor with God and secures every other blessing we need for time and eternity.</p>
+            <p>We believe the great gospel blessing that Christ secures to those who believe in him is justification. Justification includes the pardon of sin, <span class="major-change">righteous standing before God</span> and his people, and the promise of eternal life founded on principles of righteousness. It is not given because of any works of righteousness we have done but only through faith in the Redeemer’s blood. By virtue of this faith his perfect righteousness is freely imputed to us by God. Justification immediately brings us into a state of most blessed peace and favor with God and secures every other blessing we need for time and eternity.</p>
           </td>
         </tr>
         <tr class="refs">
@@ -189,11 +222,11 @@
         <tr>
           <td>
             <h2>VI. Of The Freeness Of Salvation</h2>
-            <p>We believe that the blessings of salvation are made free to all by the gospel; that it is the immediate duty of all to accept them by a cordial, penitent, and obedient faith; and that nothing prevents the salvation of the greatest sinner on earth, but his own inherent depravity and voluntary rejection of the gospel; which rejection involves him in an aggravated condemnation.</p>
+            <p>We believe that the blessings of salvation are made free to all by the gospel; that it is the immediate duty of all to accept them by a <span class="minor-change">cordial</span>, penitent, and obedient faith; and that <span class="minor-change">nothing prevents the salvation</span> of the greatest sinner on earth, but his own inherent depravity and voluntary rejection of the gospel; which rejection involves him in an aggravated condemnation.</p>
           </td>
           <td>
             <h2>VI. The Freeness of Salvation</h2>
-            <p>We believe the blessings of salvation are made free to all by the gospel. It is the immediate duty of all to accept them by a heartfelt, penitent, and obedient faith. Preventing this salvation is every sinner’s inherent depravity and rejection of the gospel, a rejection that aggravates a sinner’s condemnation.</p>
+            <p>We believe the blessings of salvation are made free to all by the gospel. It is the immediate duty of all to accept them by a <span class="minor-change">heartfelt</span>, penitent, and obedient faith. <span class="minor-change">Preventing this salvation is</span> every sinner’s inherent depravity and rejection of the gospel, a rejection that aggravates a sinner’s condemnation.</p>
           </td>
         </tr>
         <tr class="refs">
@@ -219,11 +252,11 @@
         <tr>
           <td>
             <h2>VIII. Of Repentance And Faith</h2>
-            <p>We believe that Repentance and Faith are sacred duties, and also inseparable graces, wrought in our souls by the regenerating Spirit of God; whereby being deeply convinced of our guilt, danger and helplessness, and of the way of salvation by Christ, we turn to God with unfeigned contrition, confession, and supplication for mercy; at the same time heartily receiving the Lord Jesus Christ as our Prophet, Priest and King, and relying on Him alone as the only and all sufficient Savior.</p>
+            <p>We believe that Repentance and Faith are sacred duties, and also inseparable graces, wrought in our souls by the regenerating Spirit of God; whereby being deeply convinced of our guilt, danger and helplessness, and of the way of salvation by Christ, we turn to God with <span class="minor-change">unfeigned contrition</span>, confession, and supplication for mercy; at the same time heartily receiving the Lord Jesus Christ as our Prophet, Priest and King, and relying on Him alone as the only and all sufficient Savior.</p>
           </td>
           <td>
             <h2>VIII. Repentance and Faith</h2>
-            <p>We believe repentance and faith are sacred duties as well as inseparable graces. They are produced in our souls by the regenerating Spirit of God, who convinces us of our guilt, danger, helplessness, and the way of salvation by Christ. And they consist of turning to God with genuine sorrow, confession, and a petition for mercy; receiving heartily the Lord Jesus Christ as Prophet, Priest and King; and relying on him alone as the only and all-sufficient Savior.</p>
+            <p>We believe repentance and faith are sacred duties as well as inseparable graces. They are produced in our souls by the regenerating Spirit of God, who convinces us of our guilt, danger, helplessness, and the way of salvation by Christ. And they consist of turning to God with <span class="minor-change">genuine sorrow</span>, confession, and a petition for mercy; receiving heartily the Lord Jesus Christ as Prophet, Priest and King; and relying on him alone as the only and all-sufficient Savior.</p>
           </td>
         </tr>
         <tr class="refs">
@@ -234,11 +267,11 @@
         <tr>
           <td>
             <h2>IX. Of God’s Purpose Of Grace</h2>
-            <p>We believe that Election is the eternal purpose of God, according to which He graciously regenerates, sanctifies, and saves sinners; that being perfectly consistent with the free agency of man, it comprehends all the means in connection with the end; that it is a most glorious display of God’s sovereign goodness, being infinitely free, wise, holy and unchangeable; that it utterly excludes boasting, and promotes humility, love, prayer, praise, trust in God, and active imitation of his free mercy; that it encourages the use of means in the highest degree; that it may be ascertained by its effects in all who truly believe the Gospel; that it is the foundation of Christian assurance; and that to ascertain it with regard to ourselves demands and deserves the utmost diligence.</p>
+            <p>We believe that Election is the eternal purpose of God, according to which He graciously regenerates, sanctifies, and saves sinners; that being perfectly consistent with the free agency of man, it comprehends all the means in connection with the end; that it is a most glorious display of God’s sovereign goodness, being infinitely free, wise, holy and unchangeable; that it utterly excludes boasting, and promotes humility, love, prayer, praise, trust in God, and active imitation of his free mercy; that <span class="minor-change">it encourages the use of means in the highest degree;</span> that it may be ascertained by its effects in all who truly believe the Gospel; that it is the foundation of Christian assurance; and that to ascertain it with regard to ourselves <span class="major-change">demands and</span> deserves the utmost diligence.</p>
           </td>
           <td>
             <h2>IX. God’s Purpose of Grace</h2>
-            <p>We believe election is the eternal purpose of God according to which he graciously regenerates, sanctifies, and saves sinners. Election is perfectly consistent with human free agency and includes all the means necessary to achieve God’s purpose. It is a most glorious display of God’s sovereign goodness, which is infinitely free, wise, holy, and unchangeable. Election completely rules out boasting and promotes humility, love, prayer, praise, trust in God, and the active imitation of his free mercy. It encourages the greatest possible exercise of human responsibility. The election of individuals to life may be confirmed by its effects in everyone who truly believes the gospel. Election is the foundation of Christian assurance, and confirming our election deserves our greatest diligence.</p>
+            <p>We believe election is the eternal purpose of God according to which he graciously regenerates, sanctifies, and saves sinners. Election is perfectly consistent with human free agency and includes all the means necessary to achieve God’s purpose. It is a most glorious display of God’s sovereign goodness, which is infinitely free, wise, holy, and unchangeable. Election completely rules out boasting and promotes humility, love, prayer, praise, trust in God, and the active imitation of his free mercy. <span class="minor-change">It encourages the greatest possible exercise of human responsibility.</span> The election of individuals to life may be confirmed by its effects in everyone who truly believes the gospel. Election is the foundation of Christian assurance, and confirming our election deserves our greatest diligence.</p>
           </td>
         </tr>
         <tr class="refs">
@@ -249,11 +282,11 @@
         <tr>
           <td>
             <h2>X. Of Sanctification</h2>
-            <p>We believe that Sanctification is the process by which, according to the will of God, we are made partakers of his holiness; that it is a progressive work; that it is begun in regeneration; and that it is carried on in the hearts of believers by the presence and power of the Holy Spirit, the Sealer and Comforter, in the continual use of the appointed means, – especially, the word of God, self-examination, self-denial, watchfulness and prayer.</p>
+            <p>We believe that Sanctification is the process by which, <span class="minor-change">according to the will of God</span>, we are made partakers of his holiness; that it is a progressive work; that it is begun in regeneration; and that it is carried on in the hearts of believers by the presence and power of the Holy Spirit, <span class="major-change">the Sealer and Comforter,</span> in the continual use of the appointed means, – especially, the word of God, self-examination, self-denial, watchfulness and prayer.</p>
           </td>
           <td>
             <h2>X. Sanctification</h2>
-            <p>We believe sanctification is the process by which we are made partakers of God’s holiness, according to his purpose. Sanctification is a progressive work. It begins in regeneration and continues in the hearts of believers by the presence and power of the Holy Spirit and by God’s appointed means. These means include the word of God, self-examination, self-denial, watchfulness, prayer, and the oversight and fellowship of the visible church.</p>
+            <p>We believe sanctification is the process by which we are made partakers of God’s holiness, <span class="minor-change">according to his purpose</span>. Sanctification is a progressive work. It begins in regeneration and continues in the hearts of believers by the presence and power of the Holy Spirit and by God’s appointed means. These means include the word of God, self-examination, self-denial, watchfulness, prayer, <span class="major-change">and the oversight and fellowship of the visible church.</span></p>
           </td>
         </tr>
         <tr class="refs">
@@ -264,11 +297,11 @@
         <tr>
           <td>
             <h2>XI. Of The Perseverance Of Saints</h2>
-            <p>We believe that such only are real believers as endure unto the end; that their persevering attachment to Christ is the grand mark which distinguishes them from superficial professors; that a special Providence watches over their welfare; and they are kept by the power of God through faith unto salvation.</p>
+            <p>We believe that such only are <span class="minor-change">real</span> believers as endure unto the end; that their persevering <span class="major-change">attachment to Christ</span> is the grand mark which distinguishes them from superficial professors; that a special Providence watches over their welfare; and they are kept by the power of God through faith unto salvation.</p>
           </td>
           <td>
             <h2>XI. The Perseverance of Saints</h2>
-            <p>We believe all genuine believers endure to the end. Their persevering obedience to Christ and attachment to his people are the primary mark distinguishing them from superficial professors. A special providence watches over their welfare, and they are kept by the power of God through faith to salvation.</p>
+            <p>We believe all <span class="minor-change">genuine</span> believers endure to the end. Their persevering <span class="major-change">obedience to Christ and attachment to his people</span> are the primary mark distinguishing them from superficial professors. A special providence watches over their welfare, and they are kept by the power of God through faith to salvation.</p>
           </td>
         </tr>
         <tr class="refs">
@@ -279,11 +312,11 @@
         <tr>
           <td>
             <h2>XII. Of The Harmony Of The Law And The Gospel</h2>
-            <p>We believe that the Law of God is the eternal and unchangeable rule of His moral government; that it is holy, just, and good; and that the inability which the Scriptures ascribe to fallen men to fulfill its precepts, arises entirely from their love of sin: to deliver them from which, and to restore them through a Mediator to unfeigned obedience to the holy Law, is one great end of the Gospel, and of the Means of Grace connected with the establishment of the visible church.</p>
+            <p>We believe that the Law of God is the eternal and unchangeable rule of His moral government; that it is holy, just, and good; and that the inability which the Scriptures ascribe to fallen men to fulfill its precepts, arises entirely from their love of sin: to deliver them from which, and to restore them through a Mediator to <span class="minor-change">unfeigned</span> obedience to the holy Law, is one great end of the Gospel, and of the Means of Grace connected with the establishment of the visible church.</p>
           </td>
           <td>
             <h2>XII. The Harmony of the Law and the Gospel</h2>
-            <p>We believe the law of God is the eternal and unchangeable rule of his moral governance. It is holy, just, and good. Fallen human beings are unable to fulfill the precepts of the law, which the Scriptures attribute entirely to their love of sin. A chief purpose of the gospel is to deliver people from this love and to restore them through a mediator to a sincere obedience to the holy law. The visible church’s means of grace share this great purpose.</p>
+            <p>We believe the law of God is the eternal and unchangeable rule of his moral governance. It is holy, just, and good. Fallen human beings are unable to fulfill the precepts of the law, which the Scriptures attribute entirely to their love of sin. A chief purpose of the gospel is to deliver people from this love and to restore them through a mediator to a <span class="minor-change">sincere</span> obedience to the holy law. The visible church’s means of grace share this great purpose.</p>
           </td>
         </tr>
         <tr class="refs">
@@ -294,11 +327,11 @@
         <tr>
           <td>
             <h2>XIII. Of A Gospel Church</h2>
-            <p>We believe that a visible church of Christ is a congregation of baptized believers, associated by covenant in the faith and fellowship of the Gospel; observing the ordinances of Christ; governed by His laws; and exercising the gifts, rights, and privileges invested in them by His word; that its only scriptural officers are Bishops or Pastors, and Deacons, whose qualifications, claims, and duties are defined in the Epistles to Timothy and Titus.</p>
+            <p>We believe that a visible church of Christ is a congregation of baptized believers, associated by covenant in the faith and fellowship of the Gospel; observing the ordinances of Christ; <span class="minor-change">governed by</span> His laws; and exercising the gifts, rights, and privileges invested in them by His word; that its only scriptural officers are <span class="minor-change">Bishops or Pastors</span>, and Deacons, whose qualifications, <span class="major-change">claims,</span> and duties are defined in the Epistles to Timothy and Titus.</p>
           </td>
           <td>
             <h2>XIII. A Gospel Church</h2>
-            <p>We believe a visible church of Christ is a congregation of baptized believers, joined together by covenant in the faith and fellowship of the gospel. A visible church observes the ordinances of Christ, submits to his laws, and exercises the gifts, rights, and privileges invested in them by his word. The only scriptural officers of the church are elders (also called overseers or pastors) and deacons, whose qualifications and duties are defined in the epistles to Timothy and to Titus.</p>
+            <p>We believe a visible church of Christ is a congregation of baptized believers, joined together by covenant in the faith and fellowship of the gospel. A visible church observes the ordinances of Christ, <span class="minor-change">submits to</span> his laws, and exercises the gifts, rights, and privileges invested in them by his word. The only scriptural officers of the church are <span class="major-change">elders</span> <span class="minor-change">(also called overseers or pastors)</span> and deacons, whose qualifications and duties are defined in the epistles to Timothy and to Titus.</p>
           </td>
         </tr>
         <tr class="refs">
@@ -309,11 +342,11 @@
         <tr>
           <td>
             <h2>XIV. Of Baptism And The Lord’s Supper</h2>
-            <p>We believe that Christian Baptism is the immersion in water of a believer, into the name of the Father, and Son, and Holy Ghost; to show forth in a solemn and beautiful emblem, our faith in the crucified, buried, and risen Savior, with its effect, in our death to sin and resurrection to a new life; that it is pre-requisite to the privileges of a church relation; and to the Lord’s Supper, in which the members of the church by the sacred use of bread and wine, are to commemorate together the dying love of Christ; preceded always by solemn self-examination.</p>
+            <p>We believe that Christian Baptism is the immersion in water of a believer, into the name of the Father, and Son, and <span class="minor-change">Holy Ghost</span>; to show forth in a solemn and beautiful emblem, our faith in the crucified, buried, and risen Savior, <span class="major-change">with its effect</span>, in our death to sin and resurrection to a new life; that it is pre-requisite to the privileges of <span class="minor-change">a church relation</span>; and to the Lord’s Supper, in which the members of the church by the sacred use of <span class="major-change">bread and wine</span>, are to commemorate together the dying love of Christ; preceded always by <span class="minor-change">solemn</span> self-examination.</p>
           </td>
           <td>
             <h2>XIV. Baptism and the Lord’s Supper</h2>
-            <p>We believe that Christian baptism is the immersion of a believer in water into the name of the Father, the Son, and the Holy Spirit. It is a solemn and beautiful emblem that declares our faith in the crucified, buried, and risen Savior as well as our union with him in death to sin and resurrection to a new life. Baptism is a prerequisite to the privileges of church membership and the Lord’s Supper. We likewise believe that the Supper is a symbolic act of obedience whereby the members of the church, following earnest self-examination, use bread and the cup in a sacred manner to commemorate together the dying love of Christ. The ordinances belong to the gathered church, marking off believers from unbelievers and making the church visible on earth.</p>
+            <p>We believe that Christian baptism is the immersion of a believer in water into the name of the Father, the Son, and the <span class="minor-change">Holy Spirit</span>. It is a solemn and beautiful emblem that declares our faith in the crucified, buried, and risen Savior <span class="major-change">as well as our union with him</span> in death to sin and resurrection to a new life. Baptism is a prerequisite to the privileges of <span class="minor-change">church membership</span> and the Lord’s Supper. We likewise believe that the Supper <span class="major-change">is a symbolic act of obedience</span> whereby the members of the church, following <span class="minor-change">earnest</span> self-examination, use <span class="major-change">bread and the cup</span> in a sacred manner to commemorate together the dying love of Christ. <span class="major-change">The ordinances belong to the gathered church, marking off believers from unbelievers and making the church visible on earth.</span></p>
           </td>
         </tr>
         <tr class="refs">
