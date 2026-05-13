@@ -126,6 +126,7 @@
   </p>
   <div class="toggle-bar">
     <span class="toggle-heading">Show:</span>
+    <label><input type="checkbox" id="toggle-cbc" checked> Central Baptist Church</label>
     <label><input type="checkbox" id="toggle-chbc" checked> Capitol Hill Baptist Church</label>
     <label><input type="checkbox" id="toggle-cheverly" checked> Cheverly Baptist Church</label>
     <label><input type="checkbox" id="toggle-pbp" checked> Planting by Pastoring</label>
@@ -135,6 +136,10 @@
   <table>
     <thead>
       <tr>
+        <th class="col-cbc">
+          Central Baptist Church
+          <p>Central Baptist Church of Luling, Texas, <em>Member Covenant</em>, adopted April 21, 2024.</p>
+        </th>
         <th class="col-chbc">
           Capitol Hill Baptist Church
           <p>Capitol Hill Baptist Church, <em><a
@@ -159,6 +164,11 @@
     <tbody>
       <!-- Row 1: Introductory paragraph -->
       <tr>
+        <td class="col-cbc">
+          <p>Covenant membership is a mutual commitment to encourage, support, and help one another follow Jesus. Covenant members work together to make disciples of Jesus by giving our time, talents, and treasure to serve one another and support the ministries of the Church.</p>
+          <p>Under the Lordship of Christ, the congregation retains ultimate governing authority in the Church, the Church’s ministries, assets, governing documents, leaders, and all other matters.</p>
+          <p>2 Chronicles 15:12, <em>"They entered into the covenant to seek the Lord God of their fathers with all their heart and soul…"</em></p>
+        </td>
         <td class="col-chbc">
           <p>CHBC has worshiped together under a covenant, or statement on how we agree to live as a church, since our
             earliest days in 1878. The church covenant is equal parts promise, summary of expectations, ethical
@@ -185,6 +195,17 @@
       </tr>
       <!-- Row 2: Body of covenant -->
       <tr>
+        <td class="col-cbc">
+          <h2>Member Covenant</h2>
+          <p>As born again, baptized members of the body of Christ, we affirm our unity to each other in Christ and commit to love one another in obedience to Him. To honor this covenant:</p>
+          <p>1. We will grow in our relationship with the Lord through regular Bible study, prayer, and fellowship<span class="ref"> (Acts 2:42; 17:11)</span>.</p>
+          <p>2. We will walk together in love as Christ commands, caring for, encouraging, and admonishing each other—rejoicing in each other’s happiness and bearing each other’s burdens<span class="ref"> (1 Thess 5:11)</span>.</p>
+          <p>3. We will regularly attend the Church’s corporate worship and participate in the ministries of the Church<span class="ref"> (Heb 10:24–25)</span>.</p>
+          <p>4. We will work together to maintain a faithful gospel witness in our worship, ordinances (the Lord’s Supper and Baptism), discipline, and doctrines.</p>
+          <p>5. We will practice joyful, faithful stewardship of all that God has generously given us<span class="ref"> (1 Cor 12–13; 1 Tim 6:17–19; Gal 6:6–10)</span>.</p>
+          <p>6. We will carry out the great commission by making disciples of all nations, baptizing them in the name of the Father, the Son, and the Holy Spirit—teaching them to observe all that Christ has commanded<span class="ref"> (Matt 28:19–20)</span>.</p>
+          <p>May the grace of the Lord Jesus Christ, the love of God the Father, and the fellowship of the Holy Spirit be with us all. Amen.</p>
+        </td>
         <td class="col-chbc">
           <h2>Church Covenant</h2>
           <p>Having, as we trust, been brought by divine grace to repent and believe in the Lord Jesus Christ and to
@@ -308,6 +329,9 @@
         </td>
       </tr>
       <tr>
+        <td class="col-cbc word-count">
+          189 words
+        </td>
         <td class="col-chbc word-count">
           357 words
         </td>
@@ -365,12 +389,16 @@
     }
 
     function updateColumns() {
+      var showCbc = document.getElementById('toggle-cbc').checked;
       var showChbc = document.getElementById('toggle-chbc').checked;
       var showCheverly = document.getElementById('toggle-cheverly').checked;
       var showPbp = document.getElementById('toggle-pbp').checked;
       var showKeach = document.getElementById('toggle-keach').checked;
       var showRefs = document.getElementById('toggle-refs').checked;
 
+      document.querySelectorAll('.col-cbc').forEach(function (el) {
+        el.style.display = showCbc ? '' : 'none';
+      });      
       document.querySelectorAll('.col-chbc').forEach(function (el) {
         el.style.display = showChbc ? '' : 'none';
       });
@@ -388,6 +416,7 @@
       });
     }
 
+    document.getElementById('toggle-cbc').addEventListener('change', updateColumns);
     document.getElementById('toggle-chbc').addEventListener('change', updateColumns);
     document.getElementById('toggle-cheverly').addEventListener('change', updateColumns);
     document.getElementById('toggle-pbp').addEventListener('change', updateColumns);
