@@ -6,10 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://fonts.googleapis.com/css2?family=Spectral:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    body {
-      margin-top: 0;
+    body, button, select, input {
       font-family: 'Spectral', serif;
+    }
+
+    body {
       font-size: 12pt;
+      margin-top: 0;
     }
 
     td {
@@ -97,6 +100,22 @@
       color: #444;
     }
 
+    .toggle-all {
+      font-weight: bold;
+      font-size: 0.9em;
+      cursor: pointer;
+      user-select: none;
+      background: #e0e0e0;
+      border: 0.4pt solid #b0b0b0;
+      border-radius: 3px;
+      padding: 1px 6px;
+      margin-left: 4px;
+    }
+
+    .toggle-all:hover {
+      background: #d0d0d0;
+    }
+
     .word-count {
       text-align: center;
     }
@@ -125,12 +144,13 @@
     <span style="white-space: nowrap;">Updated: 13 May 2026</span>
   </p>
   <div class="toggle-bar">
-    <span class="toggle-heading">Show:</span>
+    <span class="toggle-heading"><button type="button" class="toggle-all" id="toggle-all">Show/Hide All</button></span>
     <label><input type="checkbox" id="toggle-cbc" checked> Central Baptist Church</label>
     <label><input type="checkbox" id="toggle-chbc" checked> Capitol Hill Baptist Church</label>
     <label><input type="checkbox" id="toggle-cheverly" checked> Cheverly Baptist Church</label>
     <label><input type="checkbox" id="toggle-pbp" checked> Planting by Pastoring</label>
     <label><input type="checkbox" id="toggle-keach" checked> Benjamin Keach</label>
+    <div style="flex-basis: 100%; height: 0;"></div>
     <label style="font-weight: bold;"><input type="checkbox" id="toggle-refs"> Scripture References</label>
   </div>
   <table>
@@ -416,11 +436,17 @@
       });
     }
 
-    document.getElementById('toggle-cbc').addEventListener('change', updateColumns);
-    document.getElementById('toggle-chbc').addEventListener('change', updateColumns);
-    document.getElementById('toggle-cheverly').addEventListener('change', updateColumns);
-    document.getElementById('toggle-pbp').addEventListener('change', updateColumns);
-    document.getElementById('toggle-keach').addEventListener('change', updateColumns);
+    var columnToggles = ['toggle-cbc', 'toggle-chbc', 'toggle-cheverly', 'toggle-pbp', 'toggle-keach'];
+
+    document.getElementById('toggle-all').addEventListener('click', function () {
+      var allChecked = columnToggles.every(function (id) { return document.getElementById(id).checked; });
+      columnToggles.forEach(function (id) { document.getElementById(id).checked = !allChecked; });
+      updateColumns();
+    });
+
+    columnToggles.forEach(function (id) {
+      document.getElementById(id).addEventListener('change', updateColumns);
+    });
     document.getElementById('toggle-refs').addEventListener('change', updateColumns);
 
     loadRefTagger();
