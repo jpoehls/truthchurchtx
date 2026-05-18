@@ -22,7 +22,7 @@ const maps = [
   // — Dark —
   { enabled: false, file: "luling_blueprint.svg",      bg: "#1a3a5c", fade: 0.68, text: "#e0ecf8", sub: "#6888aa", dot: "#88bcd8" },
   { enabled: false, file: "luling_midnight_blue.svg",  bg: "#0a1628", fade: 0.68, text: "#d8e8f8", sub: "#486888", dot: "#6898c0" },
-  { enabled: true,  file: "luling_noir2.svg",           bg: "#0f121a", fade: 0.68, text: "#e0e0e0", sub: "#a0a0a0", dot: colorGold, trailColor: colorStreetlight },
+  { enabled: true,  file: "dale_noir_20000m.svg",           bg: "#0f121a", fade: 0.68, text: "#e0e0e0", sub: "#a0a0a0", dot: colorGold, trailColor: colorStreetlight },
   { enabled: false, file: "luling_neon_cyberpunk.svg", bg: "#0d0d1a", fade: 0.68, text: "#d8d8f0", sub: "#484860", dot: "#8888c8" },
 ];
 
@@ -37,10 +37,10 @@ headerEl.style.backgroundColor = map.bg;
 const mapBg = document.getElementById("map-bg");
 const imgLoader = new Image();
 imgLoader.onload = () => {
-  mapBg.style.backgroundImage = `url('lulingmaps-notext/${map.file}')`;
+  mapBg.style.backgroundImage = `url('dalemaps/${map.file}')`;
   mapBg.classList.add("loaded");
 };
-imgLoader.src = `lulingmaps-notext/${map.file}`;
+imgLoader.src = `dalemaps/${map.file}`;
 
 const overlay = document.getElementById("map-overlay");
 overlay.style.background = map.bg;
@@ -135,10 +135,19 @@ if (dot) {
 
 let currentX = null, currentY = null;
 
+let isFirstMove = true;
+
 function moveDot() {
   if (TRAIL_ENABLED && currentX !== null) trailStrategy.paintTrail(currentX, currentY);
   currentX = 20 + Math.random() * 60; // 20–80%
   currentY = 20 + Math.random() * 60; // 20–80%
+
+  if (isFirstMove) {
+    // Start on the primary church location.
+    currentX = 20 + 0.5 * 60;
+    currentY = 20 + 0.5 * 60;
+    isFirstMove = false;
+  }
   if (dot) {
     dot.style.left = `${currentX}%`;
     dot.style.top  = `${currentY}%`;
