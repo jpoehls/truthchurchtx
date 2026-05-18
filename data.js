@@ -22,6 +22,10 @@ const locations = {
     location: "Edgar B. Davis North Side Clubhouse, 300 Trinity St., Luling, TX 78648",
     mapUrl:   "https://maps.google.com/?q=300+Trinity+St+Luling+TX+78648",
   },
+  dale: {
+    location: "Truth Church, 180 Packard St., Dale, TX 78616",
+    mapUrl: "https://www.google.com/maps/place/180+Packard+Dr,+Dale,+TX+78616",
+  },
   private: {
     location: "Meeting in a home — location shared with members in GroupMe.",
   },
@@ -29,9 +33,9 @@ const locations = {
 
 // ─── Next Gathering ───────────────────────────────────────────────────────────
 const nextGathering = {
-  date:     "Sunday, May 10, 2026",
+  date:     "Sunday, May 17, 2026",
   time:     "10:00 AM",
-  ...locations.southsideClubhouse,
+  ...locations.dale,
 
   // Each item: { name, title?, bibleRef?, person? }
   // name     — the bold label (e.g. "Sermon", "Song", "Welcome")
@@ -39,18 +43,17 @@ const nextGathering = {
   // bibleRef — scripture reference (e.g. "Matthew 15:1–9")
   // person   — who is leading this item; shown right-aligned
   orderOfWorship: [
-    { name: "Welcome",                                                                person: "Eric" },
-    { name: "Call to Worship",                                                        person: "Walter" },
+    { name: "Call to Worship", bibleRef: "Revelation 19:5–6",                                                        person: "Walter" },
     { name: "Prayer of Adoration" },
-    { name: "Song",   title: "TBD" },
-    { name: "Song",   title: "TBD" },
-    { name: "Song",   title: "TBD" },
+    { name: "Song",   title: "Glorious Day" },
+    { name: "Song",   title: "Firm Foundation" },
+    { name: "Song",   title: "Holy Forever" },
     { name: "Prayer of Confession" },
-    { name: "Sermon", title: "Tradition vs. Scripture", bibleRef: "Matthew 15:1–9", person: "Eric" },
+    { name: "Preaching of the Word", title: "What Defiles A Man", bibleRef: "Matthew 15:10–20", person: "Eric" },
     { name: "Prayer of Thanksgiving" },
-    { name: "Song",   title: "Lord I Need You",                                                   person: "Walter" },
-    { name: "Corporate Prayer",                                                       person: "Eric" },
-    { name: "Ordination of Pastor Eric",                                              person: "Joshua, Walter, Joey" },
+    { name: "Song",   title: "Great Are You Lord",                                                   person: "Walter" },
+    { name: "Corporate Prayer" },
+    { name: "Ordination Candidate — Eric",                                              person: "Joshua, Walter, Joey" },
     { name: "Announcements" },
   ],
 };
