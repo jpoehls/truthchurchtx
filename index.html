@@ -6,6 +6,12 @@
   <title>Truth Church</title>
   <meta property="og:title" content="Truth Church">
   <meta name="twitter:title" content="Truth Church">
+  
+  <!-- Single Font Load -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
   <style>
     *, *::before, *::after {
       box-sizing: border-box;
@@ -26,6 +32,11 @@
       background-position: center;
       background-attachment: fixed;
       background-repeat: no-repeat;
+      
+      /* Hardcoded Map Colors & Fonts */
+      background-color: #0a0a0a;
+      font-family: 'Inter', sans-serif;
+      color: #e0e0e0;
     }
 
     /* SVG map fades in once loaded via JS toggling this class */
@@ -50,11 +61,13 @@
     #map-overlay {
       position: fixed;
       inset: 0;
+      background-color: #0a0a0a;
+      opacity: 0.68;
       pointer-events: none;
       z-index: 1;
     }
 
-    /* Canvas for persistent light trail — sits between the map overlay and the dot */
+    /* Canvas for persistent light trail */
     #light-trail {
       position: fixed;
       inset: 0;
@@ -64,12 +77,7 @@
       z-index: 2;
     }
 
-    /* ── Location dot ─────────────────────────────────────────────────────────
-       A small GPS-style pin that drifts to a new spot every few seconds.
-       Position and color are set by JS; only the pulse animation lives here.
-       dot-size: controls the diameter of the filled circle (px).
-       ring-size: controls how far the outer pulse ring expands.
-    ──────────────────────────────────────────────────────────────────────── */
+    /* Location dot */
     #locator {
       position: fixed;
       width: 10px;
@@ -77,15 +85,12 @@
       border-radius: 50%;
       z-index: 3;
       transform: translate(-50%, -50%);
-      /* Soft glow radiating outward from the dot — evokes light spreading in darkness */
       box-shadow:
         0 0  8px 2px currentColor,
         0 0 28px 8px currentColor,
         0 0 70px 20px currentColor;
-      /* Smooth drift to each new position */
       transition: left 2.8s cubic-bezier(0.45, 0, 0.55, 1),
                   top  2.8s cubic-bezier(0.45, 0, 0.55, 1);
-      /* Intensity pulse: glow breathes between full and half strength */
       animation: dot-breathe 2.6s ease-in-out infinite;
     }
 
@@ -130,11 +135,18 @@
       max-inline-size: 720px;
       padding: 1.25rem 1.4rem;
       border-radius: 34px;
-      border: 1.5px solid currentColor;
-      color: inherit;
-      box-shadow: 0 22px 60px -26px rgba(0, 0, 0, 0.42);
-      opacity: 1;
-      transition: border-color 0.22s ease, box-shadow 0.22s ease, height 0.5s ease;
+      border: 1.5px solid #f5c842; /* Map dot color */
+      color: #e0e0e0;
+      background: transparent;
+      
+      /* Replaces the JS size calculation (clamp * 1.3 multiplier) */
+      font-size: clamp(1.1rem, 2.6vw, 1.43rem); 
+      
+      box-shadow: 0 0 24px 8px rgba(245, 200, 66, 0.18);
+      --verse-glow-color: rgba(245, 200, 66, 0.22);
+      
+      opacity: 0; /* JS handles fade in */
+      transition: opacity 0.8s ease, border-color 0.22s ease, box-shadow 0.22s ease, height 0.5s ease;
       animation: bubble-pulse 2.6s ease-in-out infinite;
       overflow: hidden;
     }
@@ -164,7 +176,7 @@
       opacity: 0.92;
     }
 
-    /* Smashburger trail stamp — fades out over its lifetime then removes itself */
+    /* Smashburger trail stamp */
     .burger-stamp {
       position: fixed;
       transform: translate(-50%, -50%);
@@ -184,30 +196,34 @@
       position: relative;
       z-index: 3;
       text-align: center;
-      margin-top: 23vh;  /* sits at roughly the top third of the viewport */
+      margin-top: 23vh;
     }
 
-    .tagline {
-      font-size: clamp(0.85rem, 2vw, 1.1rem);
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-bottom: 1rem;
+    /* ── Social Links Styling ────────────────────────────────────────────────── */
+    .social-links {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 3rem;
+      margin-top: 2.5rem;
+      position: relative;
     }
 
-    h1 {
-      font-size: clamp(3rem, 10vw, 6.5rem);
-      font-weight: 400;
-      letter-spacing: 0.02em;
-      line-height: 1.1;
+    .social-links a {
+      color: #e0e0e0;
+      transition: color 0.2s ease, transform 0.2s ease;
+      display: inline-flex;
     }
 
-    p {
-      margin-top: 0.75rem;
-      font-size: clamp(0.9rem, 2vw, 1.1rem);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      font-weight: 400;
+    .social-links a:hover {
+      color: #B69E71; /* d4af37 or c99f2e or b38f1d or B69E71 (official) */
+      transform: scale(1.15) translateY(-2px);
+    }
+
+    .social-links svg {
+      width: 36px;
+      height: 36px;
+      fill: currentColor;
     }
   </style>
 </head>
@@ -217,9 +233,33 @@
   <canvas id="light-trail"></canvas>
   <div id="locator"></div>
   <div class="center">
-    <p class="tagline">Follow Jesus <span style="position:relative; top:-0.08em">&raquo;</span> Make Disciples</p>
-    <h1>Truth Church</h1>
-    <p class="location">Texas</p>
+    <img src="img/tc-wide-white.svg" alt="Truth Church logo" style="width: 100%; max-width: 70vw; margin-bottom: 1.4rem">
+    
+    <!-- Social Links -->
+    <div class="social-links">
+      <a href="https://www.youtube.com/@truthchurchtexas" target="_blank" aria-label="YouTube" title="YouTube">
+        <svg viewBox="0 0 24 24">
+          <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+        </svg>
+      </a>
+      <a href="https://www.facebook.com/truthchurchtx" target="_blank" aria-label="Facebook" title="Facebook">
+        <svg viewBox="0 0 24 24">
+          <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+        </svg>
+      </a>
+      <a href="https://groupme.com/join_group/114571097/sni1lv1a" target="_blank" aria-label="GroupMe" title="GroupMe">
+        <!-- Hashtag inside a chat bubble to represent GroupMe -->
+        <svg viewBox="0 0 24 24">
+          <path d="M11.996 0A12 12 0 0 0 0 12a11.96 11.96 0 0 0 2.378 7.185l-1.325 4.39a.48.48 0 0 0 .6.6l4.392-1.324A11.96 11.96 0 0 0 12 24c6.628 0 12-5.373 12-12S18.624 0 11.996 0Zm-2.73 18.067a3.02 3.02 0 0 1-3.02-3.02v-6.04a3.02 3.02 0 0 1 3.02-3.02h5.46a3.02 3.02 0 0 1 3.02 3.02v6.04a3.02 3.02 0 0 1-3.02 3.02Z"/>
+        </svg>
+      </a>
+      <a href="https://truthchurchtx.churchcenter.com" target="_blank" aria-label="Planning Center" title="Church Center App">
+        <!-- Location pin with a cross cut out for Church Center -->
+        <svg viewBox="0 0 24 24">
+          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm-1 9V9H9V7h2V5h2v2h2v2h-2v2h-2z"/>
+        </svg>
+      </a>
+    </div>
   </div>
 
   <div class="verse-panel" aria-live="polite">
@@ -227,194 +267,22 @@
   </div>
 
   <script>
-    // ─── Background Maps ──────────────────────────────────────────────────────
-    // Each entry defines:
-    //   enabled – set to false to exclude from the random rotation
-    //   file    – filename inside lulingmaps-notext/
-    //   bg      – page background color (must match the map's base fill)
-    //   fade    – opacity of the wash laid over the map (0–1). Higher = more faded.
-    //   text    – heading color
-    //   sub     – subheading color
-    //   dot     – locator dot color (should complement the map but stand out softly)
-
-    const colorGold = "#f5c842"; // a warm gold used for the locator dot and trail on some maps
-    const colorStreetlight = "#a8c8f0"; // a bright cyan-blue used for the locator and trail on darker maps (alt: #88bcd8)
-
-    const maps = [
-      // — Light / warm backgrounds —
-      { enabled: false, file: "luling_autumn.svg",        bg: "#fbf7f0", fade: 0.72, text: "#221508", sub: "#9a7a5a", dot: "#c0623a" },
-      { enabled: false, file: "luling_warm_beige.svg",    bg: "#f5f0e8", fade: 0.72, text: "#221508", sub: "#8a6a50", dot: "#b85c38" },
-      { enabled: false, file: "luling_japanese_ink.svg",  bg: "#faf8f5", fade: 0.72, text: "#1a1a1a", sub: "#888888", dot: "#7a6050" },
-      { enabled: false, file: "luling_sunset.svg",        bg: "#fdf5f0", fade: 0.72, text: "#280e08", sub: "#886050", dot: "#c05840" },
-      { enabled: false, file: "luling_pastel_dream.svg",  bg: "#faf7f2", fade: 0.72, text: "#1a1a28", sub: "#6a7a8a", dot: "#7090a8" },
-      { enabled: false, file: "luling_terracotta.svg",    bg: "#f5ede4", fade: 0.72, text: "#281a10", sub: "#5a7878", dot: "#c06848" },
-      { enabled: false, file: "luling_copper_patina.svg", bg: "#e8f0f0", fade: 0.72, text: "#1a2828", sub: "#5a7878", dot: "#6a9898" },
-
-      // — Light / cool backgrounds —
-      { enabled: false, file: "luling_ocean.svg",           bg: "#f0f8fa", fade: 0.72, text: "#0a1e2a", sub: "#3a6878", dot: "#3a8898" },
-      { enabled: false, file: "luling_forest.svg",          bg: "#f0f4f0", fade: 0.72, text: "#1a281a", sub: "#5a7870", dot: "#507868" },
-      { enabled: false, file: "luling_monochrome_blue.svg", bg: "#f5f8fa", fade: 0.72, text: "#0a1828", sub: "#3a5870", dot: "#4878a0" },
-
-      // — White / near-white backgrounds —
-      { enabled: false, file: "luling_contrast_zones.svg",  bg: "#ffffff", fade: 0.78, text: "#1a1a1a", sub: "#888888", dot: "#888888" },
-      { enabled: false, file: "luling_feature_based.svg",   bg: "#ffffff", fade: 0.78, text: "#1a1a1a", sub: "#888888", dot: "#888888" },
-      { enabled: false, file: "luling_gradient_roads.svg",  bg: "#ffffff", fade: 0.78, text: "#1a1a1a", sub: "#888888", dot: "#888888" },
-
-      // — Dark backgrounds —
-      { enabled: false, file: "luling_blueprint.svg",      bg: "#1a3a5c", fade: 0.68, text: "#e0ecf8", sub: "#6888aa", dot: "#88bcd8" },
-      { enabled: false, file: "luling_midnight_blue.svg",  bg: "#0a1628", fade: 0.68, text: "#d8e8f8", sub: "#486888", dot: "#6898c0" },
-      { enabled: true,  file: "luling_noir.svg",           bg: "#0a0a0a", fade: 0.68, text: "#e0e0e0", sub: "#a0a0a0", dot: colorGold, trailColor: colorStreetlight },
-      { enabled: false, file: "luling_neon_cyberpunk.svg", bg: "#0d0d1a", fade: 0.68, text: "#d8d8f0", sub: "#484860", dot: "#8888c8" },
-    ];
-    // ─────────────────────────────────────────────────────────────────────────
-
-    // ─── Font Themes ──────────────────────────────────────────────────────────
-    // Each entry defines only typography — colors come from the map above.
-    //   headingFont – font-family for <h1>
-    //   subFont     – font-family for <p>
-    //   googleFont  – Google Fonts URL to load (or null for system fonts)
-
-    const fontThemes = [
-      // — Serif —
-      {
-        // Classic serif
-        headingFont: "Georgia, 'Times New Roman', serif",
-        subFont:     "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
-        googleFont:  null,
-        verseTextSize: 1.3
-      },
-      {
-        // Cormorant Garamond — refined, high-contrast
-        headingFont: "'Cormorant Garamond', Georgia, serif",
-        subFont:     "'Cormorant Garamond', Georgia, serif",
-        googleFont:  "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&display=swap",
-        verseTextSize: 1.4
-      },
-      {
-        // Playfair Display — elegant editorial
-        headingFont: "'Playfair Display', Georgia, serif",
-        subFont:     "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
-        googleFont:  "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400&display=swap",
-        verseTextSize: 1.3
-      },
-      {
-        // Lora — warm literary serif
-        headingFont: "'Lora', Georgia, serif",
-        subFont:     "'Lora', Georgia, serif",
-        googleFont:  "https://fonts.googleapis.com/css2?family=Lora:wght@400&display=swap",
-        verseTextSize: 1.2
-      },
-      {
-        // EB Garamond — classical, understated
-        headingFont: "'EB Garamond', Georgia, serif",
-        subFont:     "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
-        googleFont:  "https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400&display=swap",
-        verseTextSize: 1.3
-      },
-
-      // — Sans-serif —
-      {
-        // Raleway — thin, elegant sans
-        headingFont: "'Raleway', sans-serif",
-        subFont:     "'Raleway', sans-serif",
-        googleFont:  "https://fonts.googleapis.com/css2?family=Raleway:wght@300;400&display=swap",
-        verseTextSize: 1.2
-      },
-      {
-        // Jost — clean geometric sans
-        headingFont: "'Jost', sans-serif",
-        subFont:     "'Jost', sans-serif",
-        googleFont:  "https://fonts.googleapis.com/css2?family=Jost:wght@300;400&display=swap",
-        verseTextSize: 1.3
-      },
-      {
-        // Nunito Light — soft modern sans
-        headingFont: "'Nunito', sans-serif",
-        subFont:     "'Nunito', sans-serif",
-        googleFont:  "https://fonts.googleapis.com/css2?family=Nunito:wght@300;400&display=swap",
-        verseTextSize: 1.3
-      },
-
-      // — Slab / block serif —
-      {
-        // Roboto Slab — sturdy, neutral slab serif
-        headingFont: "'Roboto Slab', serif",
-        subFont:     "'Roboto Slab', serif",
-        googleFont:  "https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400&display=swap",
-        verseTextSize: 1.2
-      },
-      {
-        // Zilla Slab — modern, open slab serif
-        headingFont: "'Zilla Slab', serif",
-        subFont:     "'Zilla Slab', serif",
-        googleFont:  "https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@300;400&display=swap",
-        verseTextSize: 1.3
-      },
-      {
-        // Arvo — compact, strong slab serif
-        headingFont: "'Arvo', serif",
-        subFont:     "'Arvo', serif",
-        googleFont:  "https://fonts.googleapis.com/css2?family=Arvo:wght@400&display=swap",
-        verseTextSize: 1.2
-      },
-      {
-        // Alfa Slab One — bold display slab, heading only; Jost for sub
-        headingFont: "'Alfa Slab One', serif",
-        subFont:     "'Jost', sans-serif",
-        googleFont:  "https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Jost:wght@300;400&display=swap",
-        verseTextSize: 1.3
-      },
-      {
-        // Courier Prime — monospaced slab, understated and distinctive
-        headingFont: "'Courier Prime', monospace",
-        subFont:     "'Courier Prime', monospace",
-        googleFont:  "https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400&display=swap",
-        verseTextSize: 1.2
-      }
-    ];
-    // ─────────────────────────────────────────────────────────────────────────
-
-    const enabledMaps = maps.filter(m => m.enabled);
-    const map  = enabledMaps[Math.floor(Math.random() * enabledMaps.length)];
-    const font = fontThemes[Math.floor(Math.random() * fontThemes.length)];
-
-    // Load Google Font if needed
-    if (font.googleFont) {
-      const link = document.createElement("link");
-      link.rel  = "stylesheet";
-      link.href = font.googleFont;
-      document.head.appendChild(link);
-    }
-
-    // Set solid bg color immediately — visible while the SVG loads
-    document.body.style.backgroundColor = map.bg;
-
-    // Load the SVG async: set it on #map-bg, then fade in once the browser has it
+    // ─── Configuration ────────────────────────────────────────────────────────
+    const MAP_FILE    = "dale_noir_20000m.svg";
+    const DOT_COLOR   = "#f5c842"; // colorGold
+    const TRAIL_COLOR = "#a8c8f0"; // colorStreetlight
+    
+    // Load the SVG async
     const mapBg = document.getElementById("map-bg");
     const img = new Image();
     img.onload = () => {
-      mapBg.style.backgroundImage = `url('lulingmaps-notext/${map.file}')`;
-      mapBg.classList.add("loaded"); // triggers the CSS opacity transition
+      mapBg.style.backgroundImage = `url('dalemaps/${MAP_FILE}')`;
+      mapBg.classList.add("loaded"); 
     };
-    img.src = `lulingmaps-notext/${map.file}`;
+    img.src = `dalemaps/${MAP_FILE}`;
 
-    // Overlay washes the map with the bg color to ghost the lines; sits above #map-bg
-    const overlay = document.getElementById("map-overlay");
-    overlay.style.background = map.bg;
-    overlay.style.opacity = map.fade;
-
-    // Apply text colors from map
-    document.querySelector(".tagline").style.color  = map.text;
-    document.querySelector("h1").style.color        = map.text;
-    document.querySelector(".location").style.color = map.sub;
-
-    // Apply fonts from font theme — tagline and location always share subFont
-    document.querySelector(".tagline").style.fontFamily  = font.subFont;
-    document.querySelector("h1").style.fontFamily        = font.headingFont;
-    document.querySelector(".location").style.fontFamily = font.subFont;
-
-    const SMASHBURGER_MODE = new URLSearchParams(window.location.search).get("smashburger") === "y";
-    const VERSE_PANEL_ENABLED = new URLSearchParams(window.location.search).get("verse") === "y"; // enable with ?verse=y
+    // ─── Verse Panel Logic ───────────────────────────────────────────────────
+    const VERSE_PANEL_ENABLED = new URLSearchParams(window.location.search).get("verse") === "y";
     const bibleVerses = [
       { text: "Go, therefore, and make disciples of all nations, baptizing them in the name of the Father and of the Son and of the Holy Spirit, teaching them to observe everything I have commanded you. And remember, I am with you always, to the end of the age.", reference: "Matthew 28:19–20" },
       { text: "Christ Jesus came into the world to save sinners.", reference: "1 Timothy 1:15" },
@@ -434,23 +302,8 @@
 
     const versePanel = document.querySelector(".verse-panel");
     const verseContent = document.querySelector(".verse-content");
-    if (VERSE_PANEL_ENABLED && versePanel && verseContent) {
-      const taglineStyle = getComputedStyle(document.querySelector(".tagline"));
-      const baseFontSize = taglineStyle.fontSize;
-      const verseTextSizeMultiplier = font.verseTextSize || 1;
-      const parsedSize = parseFloat(baseFontSize);
-      const scaledFontSize = (parsedSize * verseTextSizeMultiplier) + "px";
-      versePanel.style.fontFamily = font.subFont;
-      versePanel.style.fontSize   = scaledFontSize;
-      verseContent.style.fontFamily = font.subFont;
-      verseContent.style.fontSize   = scaledFontSize;
-      versePanel.style.color      = map.text;
-      versePanel.style.borderColor = map.dot;
-      versePanel.style.boxShadow = `0 0 24px 8px ${hexRgba(map.dot, 0.18)}`;
-      versePanel.style.setProperty("--verse-glow-color", hexRgba(map.dot, 0.22));
-      versePanel.style.opacity = '0';
-      versePanel.style.transition = 'opacity 0.8s ease';
-    } else if (!VERSE_PANEL_ENABLED && versePanel) {
+    
+    if (!VERSE_PANEL_ENABLED && versePanel) {
       versePanel.style.display = 'none';
     }
 
@@ -460,12 +313,10 @@
     function updateVersePanel() {
       if (!VERSE_PANEL_ENABLED || !verseContent) return;
       const verse = bibleVerses[currentVerseIndex];
+      
       if (isFirstVerse) {
         verseContent.innerHTML = `<span>${verse.text}</span><strong>${verse.reference}</strong>`;
-        window.setTimeout(() => {
-          versePanel.style.opacity = '1';
-          versePanel.style.transition = 'opacity 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease, height 0.5s ease';
-        }, 50);
+        window.setTimeout(() => versePanel.style.opacity = '1', 50);
         isFirstVerse = false;
       } else {
         verseContent.classList.add("fade-out");
@@ -478,21 +329,11 @@
     }
 
     // ─── Locator dot + trail ─────────────────────────────────────────────────
-    // The dot drifts to a new random position every DRIFT_INTERVAL ms.
-    // A trail strategy controls what gets painted at each departed position.
-    //
-    // TRAIL_ENABLED    – master switch; false disables all trail rendering.
-    // DRIFT_INTERVAL   – ms between position changes.
-    // TRAIL_RADIUS     – spread of each glow patch (px), used by the glow strategy.
-    // FADE_RATE        – canvas alpha erased per frame (lower = slower fade).
-    //
-    // SMASHBURGER_MODE – activated by ?smashburger=y in the URL.
-    //                    Replaces the dot with 🍔 and leaves hamburger emojis behind.
-
-    const TRAIL_ENABLED    = true;   // ← flip to false to disable the trail
-    const DRIFT_INTERVAL   = 8000;   // ms between position changes
-    const TRAIL_RADIUS     = 120;    // px — spread of each glow patch
-    const FADE_RATE        = 0.004;  // opacity per frame — ~4s to fully fade at 60fps
+    const SMASHBURGER_MODE = new URLSearchParams(window.location.search).get("smashburger") === "y";
+    const TRAIL_ENABLED    = true;   
+    const DRIFT_INTERVAL   = 8000;   
+    const TRAIL_RADIUS     = 120;    
+    const FADE_RATE        = 0.004;  
 
     const canvas = document.getElementById("light-trail");
     const ctx    = canvas.getContext("2d");
@@ -504,40 +345,30 @@
     resizeCanvas();
     window.addEventListener("resize", resizeCanvas);
 
-    // Parse a hex color string into an rgba() string with the given alpha
     function hexRgba(hex, alpha) {
       const n = parseInt(hex.replace("#", ""), 16);
       const r = (n >> 16) & 255, g = (n >> 8) & 255, b = n & 255;
       return `rgba(${r},${g},${b},${alpha})`;
     }
 
-    // ── Trail strategies ──────────────────────────────────────────────────────
-    // Each strategy implements:
-    //   paintTrail(xVw, yVh) – called when the dot departs a position
-    //   animateTrail()       – called once to start any per-frame animation loop
-    //   setupDot(dotEl)      – called once to configure the dot element's appearance
-
     const glowTrail = {
       setupDot(dotEl) {
-        dotEl.style.backgroundColor = map.dot;
-        dotEl.style.color           = map.dot;
+        dotEl.style.backgroundColor = DOT_COLOR;
+        dotEl.style.color           = DOT_COLOR;
       },
       paintTrail(xVw, yVh) {
-        if (!map.trailColor) return;
         const x = (xVw / 100) * canvas.width;
         const y = (yVh / 100) * canvas.height;
         const grad = ctx.createRadialGradient(x, y, 0, x, y, TRAIL_RADIUS);
-        grad.addColorStop(0,   hexRgba(map.trailColor, 0.38));
-        grad.addColorStop(0.4, hexRgba(map.trailColor, 0.16));
-        grad.addColorStop(1,   hexRgba(map.trailColor, 0));
+        grad.addColorStop(0,   hexRgba(TRAIL_COLOR, 0.38));
+        grad.addColorStop(0.4, hexRgba(TRAIL_COLOR, 0.16));
+        grad.addColorStop(1,   hexRgba(TRAIL_COLOR, 0));
         ctx.fillStyle = grad;
         ctx.beginPath();
         ctx.arc(x, y, TRAIL_RADIUS, 0, Math.PI * 2);
         ctx.fill();
       },
       animateTrail() {
-        if (!map.trailColor) return;
-        // Erode canvas alpha each frame so glows fade back to transparent
         const tick = () => {
           ctx.globalCompositeOperation = "destination-out";
           ctx.fillStyle = `rgba(0,0,0,${FADE_RATE})`;
@@ -560,34 +391,38 @@
         dotEl.textContent           = "🍔";
       },
       paintTrail(xVw, yVh) {
-        // Stamp a DOM emoji at the departed position and let CSS fade it out
         const stamp = document.createElement("div");
-        stamp.className  = "burger-stamp";
+        stamp.className   = "burger-stamp";
         stamp.textContent = "🍔";
-        stamp.style.left = xVw + "vw";
-        stamp.style.top  = yVh + "vh";
+        stamp.style.left  = xVw + "vw";
+        stamp.style.top   = yVh + "vh";
         document.body.appendChild(stamp);
-        // Remove from DOM once the animation ends
         stamp.addEventListener("animationend", () => stamp.remove());
       },
-      animateTrail() {
-        // No canvas animation needed — CSS handles the fade on each stamp
-      }
+      animateTrail() {}
     };
-    // ─────────────────────────────────────────────────────────────────────────
 
     const trailStrategy = SMASHBURGER_MODE ? smashburgerTrail : glowTrail;
-
     const dot = document.getElementById("locator");
+    
     trailStrategy.setupDot(dot);
     if (TRAIL_ENABLED) trailStrategy.animateTrail();
 
     let currentX = null, currentY = null;
+    let isFirstMove = true;
 
     function moveDot() {
       if (TRAIL_ENABLED && currentX !== null) trailStrategy.paintTrail(currentX, currentY);
-      currentX = 25 + Math.random() * 50; // 25–75 vw
-      currentY = 30 + Math.random() * 45; // 30–75 vh
+      
+      currentX = 25 + Math.random() * 50; 
+      currentY = 30 + Math.random() * 45; 
+
+      if (isFirstMove) {
+        currentX = 25 + 0.5 * 50;
+        currentY = 30 + 0.45 * 45;
+        isFirstMove = false;
+      }
+
       dot.style.left = currentX + "vw";
       dot.style.top  = currentY + "vh";
       if (VERSE_PANEL_ENABLED) updateVersePanel();
@@ -595,7 +430,6 @@
 
     moveDot();
     setInterval(moveDot, DRIFT_INTERVAL);
-    // ─────────────────────────────────────────────────────────────────────────
   </script>
 </body>
 </html>
