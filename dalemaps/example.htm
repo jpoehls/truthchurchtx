@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Map Example</title>
+<style>
+  .map-container svg {
+    height: 350px;
+    width: auto;
+  }
+  #map-marker use {
+    fill: #00ff66 !important;
+    stroke: #00ff66 !important;
+  }
+</style>
+</head>
+<body>
+  <div class="map-container" data-src="dale_noir_4000m.svg"></div>
+  <script>
+    document.querySelectorAll('.map-container[data-src]').forEach(el => {
+      fetch(el.dataset.src)
+        .then(r => r.text())
+        .then(svg => { el.innerHTML = svg; });
+    });
+  </script>
+</body>
+</html>
