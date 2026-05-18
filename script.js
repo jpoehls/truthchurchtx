@@ -22,7 +22,7 @@ const maps = [
   // — Dark —
   { enabled: false, file: "luling_blueprint.svg",      bg: "#1a3a5c", fade: 0.68, text: "#e0ecf8", sub: "#6888aa", dot: "#88bcd8" },
   { enabled: false, file: "luling_midnight_blue.svg",  bg: "#0a1628", fade: 0.68, text: "#d8e8f8", sub: "#486888", dot: "#6898c0" },
-  { enabled: true,  file: "luling_noir.svg",           bg: "#0a0a0a", fade: 0.68, text: "#e0e0e0", sub: "#a0a0a0", dot: colorGold, trailColor: colorStreetlight },
+  { enabled: true,  file: "luling_noir2.svg",           bg: "#0f121a", fade: 0.68, text: "#e0e0e0", sub: "#a0a0a0", dot: colorGold, trailColor: colorStreetlight },
   { enabled: false, file: "luling_neon_cyberpunk.svg", bg: "#0d0d1a", fade: 0.68, text: "#d8d8f0", sub: "#484860", dot: "#8888c8" },
 ];
 
@@ -46,19 +46,9 @@ const overlay = document.getElementById("map-overlay");
 overlay.style.background = map.bg;
 overlay.style.opacity    = map.fade;
 
-// Apply map text colors to hero content
-const heroTagline  = document.querySelector(".tagline");
-const heroH1       = document.querySelector("h1");
-const heroLocation = document.querySelector(".location");
-
-heroTagline.style.color  = map.text;
-heroH1.style.color       = map.text;
-heroLocation.style.color = map.sub;
-
-
 // ─── Locator dot + canvas trail ───────────────────────────────────────────
 const _qs                 = new URLSearchParams(window.location.search);
-const SMASHBURGER_MODE = DEV_SMASHBURGER || _qs.get("smashburger") === "y";
+const SMASHBURGER_MODE = (typeof DEV_SMASHBURGER !== "undefined" && DEV_SMASHBURGER) || _qs.get("smashburger") === "y";
 
 const TRAIL_ENABLED  = true;
 const DRIFT_INTERVAL = 8000;
@@ -138,8 +128,10 @@ const smashburgerTrail = {
 
 const trailStrategy = SMASHBURGER_MODE ? smashburgerTrail : glowTrail;
 const dot = document.getElementById("locator");
-trailStrategy.setupDot(dot);
-if (TRAIL_ENABLED) trailStrategy.animateTrail();
+if (dot) {
+  trailStrategy.setupDot(dot);
+  if (TRAIL_ENABLED) trailStrategy.animateTrail();
+}
 
 let currentX = null, currentY = null;
 
@@ -147,15 +139,19 @@ function moveDot() {
   if (TRAIL_ENABLED && currentX !== null) trailStrategy.paintTrail(currentX, currentY);
   currentX = 20 + Math.random() * 60; // 20–80%
   currentY = 20 + Math.random() * 60; // 20–80%
-  dot.style.left = `${currentX}%`;
-  dot.style.top  = `${currentY}%`;
+  if (dot) {
+    dot.style.left = `${currentX}%`;
+    dot.style.top  = `${currentY}%`;
+  }
 }
 
-moveDot();
-setInterval(moveDot, DRIFT_INTERVAL);
+if (dot) {
+  moveDot();
+  setInterval(moveDot, DRIFT_INTERVAL);
+}
 
 // ─── Dev flag — also toggleable via ?stale=y in the URL ──────────────────
-const _forceStale = DEV_FORCE_STALE_GATHERING || _qs.get("stale") === "y";
+const _forceStale = (typeof DEV_FORCE_STALE_GATHERING !== "undefined" && DEV_FORCE_STALE_GATHERING) || _qs.get("stale") === "y";
 
 // ─── Section content via HTML templates ──────────────────────────────────
 function getSectionContent(key) {

@@ -1,14 +1,41 @@
 /* ── Custom properties ───────────────────────────────────────────────────── */
 :root {
-  --header-height: clamp(160px, 30vh, 280px);
+  /* Header tall enough for 350px logo + ~20-30px vertical padding; responsive */
+  --header-height: clamp(450px, 30vh, 440px);
 
-  --color-body-bg: #f8f7f4;
-  --color-body-text: #1a1a1a;
-  --color-body-sub: #555550;
-  --color-dark: #0a0a0a;
-  --color-gold: #f5c842;
-  --color-gold-muted: rgba(245, 200, 66, 0.18);
-  --color-border: rgba(26, 26, 26, 0.10);
+  /* Deep canvas header/footer + light page body */
+  --color-header-footer-bg: #0f121a; /* deep dark for header/footer */
+  --color-header-text: #f5ebd4; /* parchment for header/footer text */
+
+  --color-body-bg: #FBFBFA; /* Soft Alabaster - main page body */
+  --color-body-text: #222222; /* deep charcoal for main content */
+  --color-body-sub: #6b665d;
+  --color-heading: #000000;
+  --color-dark: #14110c;
+
+  /* Primary CTA gold and accent tones */
+  --color-button-highlight: #d4af37; /* primary metallic gold */
+  --color-button-highlight-muted: rgba(212, 175, 55, 0.18);
+  --color-button-border: #000000; /* use black for button grounding on light pages */
+  --color-button-hover: #c99f2e; /* slightly deeper gold for hover */
+  --color-button-shadow: rgba(212, 175, 55, 0.14);
+  --color-button-text: #000000; /* text color used on gold buttons */
+  --color-overlay-light: rgba(251, 251, 250, 0.92);
+  --color-link-gold: #B38F1D; /* stronger gold for inline text links */
+  --color-link-underline: var(--color-link-gold);
+  --color-link-underline-thickness: 1px;
+
+  --color-secondary-gold: #b69e71; /* header bottom border bridge */
+  --color-card-bg: #ffffff; /* panel / card background on light body */
+
+  /* Surface cards and overlays */
+  --color-surface: rgba(15, 18, 26, 0.02);
+  --color-surface-alt: rgba(15, 18, 26, 0.04);
+  --color-border: rgba(212, 175, 55, 0.18);
+
+  /* legacy aliases */
+  --color-gold: var(--color-button-highlight);
+  --color-gold-muted: var(--color-button-highlight-muted);
 
   --transition-fast: 0.22s ease;
   --transition-med: 0.44s ease;
@@ -33,6 +60,8 @@ body {
   min-height: 100dvh;
   background-color: var(--color-body-bg);
   color: var(--color-body-text);
+  font-family: var(--body-font, inherit);
+  font-weight: 300;
   font-size: clamp(1rem, 1.5vw, 1.125rem);
   line-height: 1.6;
 }
@@ -41,8 +70,15 @@ body {
 #site-header {
   position: relative;
   width: 100%;
-  height: var(--header-height);
+  min-height: var(--header-height);
   overflow: hidden;
+}
+
+/* Keep header visually deep and add gold border bridge */
+#site-header {
+  background-color: var(--color-header-footer-bg);
+  color: var(--color-header-text);
+  border-bottom: 1px solid var(--color-secondary-gold);
 }
 
 /* ── Map layers — absolute inside header ─────────────────────────────────── */
@@ -86,6 +122,7 @@ body {
   border-radius: 50%;
   z-index: 3;
   transform: translate(-50%, -50%);
+  color: var(--color-button-highlight);
   box-shadow:
     0 0  8px 2px currentColor,
     0 0 28px 8px currentColor,
@@ -126,39 +163,6 @@ body {
   justify-content: center;
 }
 
-.tagline {
-  font-family: var(--body-font, sans-serif);
-  font-size: clamp(0.75rem, 1.8vw, 1rem);
-  font-weight: 400;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  margin-bottom: 0.5rem;
-  text-align: center;
-}
-
-.tagline-arrow {
-  position: relative;
-  top: -0.08em;
-}
-
-h1 {
-  font-size: clamp(2rem, 7vw, 4.5rem);
-  font-weight: 400;
-  letter-spacing: 0.02em;
-  line-height: 1.1;
-  text-align: center;
-}
-
-.location {
-  font-family: var(--body-font, sans-serif);
-  margin-top: 0.5rem;
-  font-size: clamp(0.8rem, 1.8vw, 1rem);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  font-weight: 400;
-  text-align: center;
-}
-
 /* ── Main page body ──────────────────────────────────────────────────────── */
 #page-body {
   background-color: var(--color-body-bg);
@@ -192,13 +196,13 @@ h1 {
 .content-view-title {
   font-family: var(--heading-font, inherit);
   font-size: clamp(1.75rem, 4vw, 2.75rem);
-  font-weight: 400;
+  font-weight: 700;
   line-height: 1.2;
-  color: var(--color-body-text);
+  color: var(--color-heading);
   letter-spacing: 0.01em;
   margin-bottom: 1.75rem;
   padding-bottom: 0.75rem;
-  border-bottom: 1px solid var(--color-gold-muted);
+  border-bottom: 1px solid var(--color-button-highlight-muted);
 }
 
 #content-body p {
@@ -229,7 +233,7 @@ h1 {
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--color-body-sub);
+  color: var(--color-heading);
   margin-top: 2rem;
   margin-bottom: 0.6rem;
   max-width: 65ch;
@@ -299,7 +303,7 @@ h1 {
   align-items: center;
   gap: 0.5em;
   background: transparent;
-  border: 1.5px solid var(--color-border);
+  border: 1px solid var(--color-button-border);
   border-radius: 6px;
   cursor: pointer;
   font-size: clamp(0.85rem, 1.5vw, 0.95rem);
@@ -313,13 +317,13 @@ h1 {
 }
 
 #back-btn:hover {
-  background-color: var(--color-gold-muted);
-  border-color: var(--color-gold);
+  background-color: var(--color-button-highlight);
+  border-color: var(--color-button-border);
   color: var(--color-dark);
 }
 
 #back-btn:focus-visible {
-  outline: 2px solid var(--color-gold);
+  outline: 2px solid var(--color-button-highlight);
   outline-offset: 4px;
   border-radius: 6px;
 }
@@ -344,7 +348,7 @@ h1 {
 #return-top-btn:hover { opacity: 1; }
 
 #return-top-btn:focus-visible {
-  outline: 2px solid var(--color-gold);
+  outline: 2px solid var(--color-button-highlight);
   outline-offset: 4px;
   border-radius: 2px;
 }
@@ -359,7 +363,7 @@ h1 {
 
 .panel {
   flex: 1 1 min(100%, 280px);
-  background: #ffffff;
+  background: var(--color-card-bg);
   border: 1px solid var(--color-border);
   border-radius: 0.75rem;
   padding: clamp(1.25rem, 3vw, 2rem);
@@ -371,11 +375,11 @@ h1 {
 .panel h2 {
   font-family: var(--heading-font, inherit);
   font-size: clamp(1.25rem, 2.5vw, 1.75rem);
-  font-weight: 400;
+  font-weight: 600;
   line-height: 1.2;
-  color: var(--color-body-text);
+  color: var(--color-heading);
   letter-spacing: 0.01em;
-  border-bottom: 1px solid var(--color-gold-muted);
+  border-bottom: 1px solid var(--color-button-highlight-muted);
   padding-bottom: 0.6rem;
 }
 
@@ -383,7 +387,7 @@ h1 {
   font-family: var(--body-font, inherit);
   font-size: clamp(1rem, 1.5vw, 1.125rem);
   line-height: 1.6;
-  color: var(--color-body-sub);
+  color: var(--color-body-text);
   text-transform: none;
   letter-spacing: normal;
   margin-top: 0;
@@ -425,26 +429,28 @@ h1 {
   margin-top: auto;
   font-family: var(--body-font, inherit);
   font-size: clamp(0.85rem, 1.3vw, 0.95rem);
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--color-dark);
+  color: var(--color-button-text);
   text-decoration: none;
   padding: 0.5rem 1rem;
-  border: 1.5px solid var(--color-gold);
+  border: 2px solid var(--color-button-highlight);
   border-radius: 4px;
-  transition: background-color var(--transition-fast), color var(--transition-fast);
+  transition: background-color var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
   align-self: flex-start;
 }
 
 .worship-link:hover,
 .worship-link:focus-visible {
-  background-color: var(--color-gold);
-  color: var(--color-dark);
+  background-color: var(--color-button-hover);
+  color: var(--color-button-text);
+  border-color: var(--color-button-highlight);
+  box-shadow: 0 0 24px 4px var(--color-button-shadow);
 }
 
 .worship-link:focus-visible {
-  outline: 2px solid var(--color-gold);
+  outline: 2px solid var(--color-button-highlight);
   outline-offset: 3px;
 }
 
@@ -454,7 +460,7 @@ h1 {
   width: 100%;
   border-radius: 6px;
   overflow: hidden;
-  background: #111;
+  background: var(--color-surface-alt);
 }
 
 .sermon-embed iframe {
@@ -465,7 +471,7 @@ h1 {
 }
 
 .sermon-placeholder {
-  color: #888;
+  color: var(--color-body-sub);
   font-size: clamp(0.85rem, 1.3vw, 0.95rem);
   padding: 1rem;
   font-family: var(--body-font, sans-serif);
@@ -479,9 +485,9 @@ h1 {
 .explore-heading {
   font-family: var(--heading-font, inherit);
   font-size: clamp(1.5rem, 3vw, 2.25rem);
-  font-weight: 400;
+  font-weight: 700;
   line-height: 1.2;
-  color: var(--color-body-text);
+  color: var(--color-heading);
   letter-spacing: 0.01em;
   margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
 }
@@ -522,9 +528,9 @@ h1 {
   display: block;
   width: 100%;
   padding: 0.85rem 1.25rem;
-  background: var(--color-dark);
-  color: var(--color-gold);
-  border: 1.5px solid var(--color-gold);
+  background: var(--color-button-highlight);
+  color: var(--color-button-text);
+  border: 1px solid var(--color-button-border);
   border-radius: 4px;
   font-family: var(--body-font, inherit);
   font-size: clamp(0.85rem, 1.3vw, 0.95rem);
@@ -533,21 +539,22 @@ h1 {
   text-transform: uppercase;
   cursor: pointer;
   text-align: center;
-  box-shadow: 0 0 12px 2px rgba(245, 200, 66, 0.12);
+  box-shadow: none;
   transition:
     background-color var(--transition-fast),
     color var(--transition-fast),
-    box-shadow var(--transition-fast);
+    box-shadow var(--transition-fast),
+    border-color var(--transition-fast);
 }
 
 .explore-btn:hover {
-  background-color: var(--color-gold);
-  color: var(--color-dark);
-  box-shadow: 0 0 20px 6px rgba(245, 200, 66, 0.28);
+  background-color: var(--color-button-hover);
+  color: var(--color-button-text);
+  border-color: var(--color-button-border);
+  box-shadow: 0 0 30px 6px var(--color-button-shadow);
 }
-
 .explore-btn:focus-visible {
-  outline: 2px solid var(--color-gold);
+  outline: 3px solid var(--color-button-highlight-muted);
   outline-offset: 3px;
 }
 
@@ -572,7 +579,7 @@ h1 {
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  background: rgba(248, 247, 244, 0.88);
+  background: var(--color-overlay-light);
   backdrop-filter: blur(3px);
   display: flex;
   align-items: center;
@@ -602,7 +609,7 @@ h1 {
 .worship-info-box {
   margin-bottom: 1.75rem;
   padding: 0.75rem 1rem;
-  background: #ffffff;
+  background: var(--color-surface-alt);
   border: 1px solid var(--color-border);
   border-radius: 0.75rem;
   font-family: var(--body-font, inherit);
@@ -623,37 +630,47 @@ h1 {
 
 /* ── Panel inline links (Facebook, YouTube channel, map) ────────────────── */
 .panel-link {
-  color: var(--color-body-text);
-  text-decoration: underline;
-  text-decoration-color: var(--color-gold);
-  text-decoration-thickness: 1.5px;
-  text-underline-offset: 3px;
-  font-weight: 600;
-  transition: color var(--transition-fast), text-decoration-color var(--transition-fast), background-color var(--transition-fast);
-  border-radius: 2px;
+  position: relative;
+  color: var(--color-link-gold);
+  text-decoration: none;
+  font-weight: 700;
+  transition: color var(--transition-fast);
+}
+
+.panel-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -0.125em;
+  width: 0;
+  height: var(--color-link-underline-thickness);
+  background-color: var(--color-link-underline);
+  transition: width var(--transition-fast) ease;
+}
+
+.panel-link:hover::after,
+.panel-link:focus-visible::after {
+  width: 100%;
 }
 
 .panel-link:hover {
-  color: var(--color-dark);
-  text-decoration-color: var(--color-body-text);
-  background-color: var(--color-gold-muted);
-  outline: none;
+  color: var(--color-link-gold);
 }
 
 .panel-link:focus-visible {
-  outline: 2px solid var(--color-gold);
+  outline: 2px solid var(--color-button-highlight);
   outline-offset: 3px;
 }
 
 /* ── Footer ──────────────────────────────────────────────────────────────── */
 #site-footer {
-  background-color: var(--color-body-bg);
-  color: var(--color-body-sub);
+  background-color: var(--color-header-footer-bg);
+  color: var(--color-header-text);
   border-top: 1px solid var(--color-border);
   padding: clamp(1.5rem, 4vw, 2.5rem) max(1.5rem, calc((100% - var(--container-width)) / 2));
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  align-items: baseline;
   justify-content: space-between;
   gap: 0.75rem;
   font-family: var(--body-font, sans-serif);
@@ -669,6 +686,25 @@ h1 {
   color: inherit;
 }
 
+.footer-left {
+  flex: 0 0 auto;
+  min-width: 0;
+}
+
+.footer-center {
+  flex: 1 1 0;
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  min-width: 0;
+}
+
+.footer-right {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+}
+
 #site-footer a {
   color: var(--color-body-text);
   text-decoration: none;
@@ -682,19 +718,39 @@ h1 {
   padding: 0.4rem 1rem;
   font-size: clamp(0.75rem, 1.1vw, 0.85rem);
   background: transparent;
-  color: var(--color-body-sub);
-  border-color: var(--color-border);
+  color: var(--color-body-text);
+  border: 1px solid var(--color-button-border);
   box-shadow: none;
 }
 
 .footer-give-btn:hover {
-  background-color: var(--color-gold-muted);
-  color: var(--color-body-text);
-  border-color: var(--color-gold);
+  background-color: var(--color-button-highlight);
+  color: var(--color-button-text);
+  border-color: var(--color-button-border);
   box-shadow: none;
 }
+
+.footer-right {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  margin-left: auto;
+  flex-wrap: wrap;
+  align-content: center;
+}
+
+.footer-tagline {
+  opacity: 0.9;
+  margin: 0;
+}
+
+.footer-logo {
+  height: 48px;
+  width: auto;
+  align-self: baseline;
+}
 #site-footer a:focus-visible {
-  outline: 2px solid var(--color-gold);
+  outline: 2px solid var(--color-button-highlight);
   outline-offset: 3px;
   border-radius: 2px;
 }
