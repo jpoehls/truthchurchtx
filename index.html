@@ -432,7 +432,7 @@
         stamp.className   = "burger-stamp";
         stamp.textContent = "🍔";
         stamp.style.left  = xVw + "vw";
-        stamp.style.top   = yVh + "vh";
+        stamp.style.top   = yVh + "dvh"; // <-- Change this from "vh" to "dvh"
         document.body.appendChild(stamp);
         stamp.addEventListener("animationend", () => stamp.remove());
       },
@@ -461,7 +461,8 @@
       }
 
       dot.style.left = currentX + "vw";
-      dot.style.top  = currentY + "vh";
+      dot.style.top  = currentY + "dvh"; // <-- Change this from "vh" to "dvh"
+      
       if (VERSE_PANEL_ENABLED) updateVersePanel();
     }
 
