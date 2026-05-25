@@ -9,12 +9,18 @@
   <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
   <link rel="apple-touch-icon" href="img/favicon.png">
   
-  <!-- Single Font Load -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
   <style>
+    /* ── Centralized Variables ────────────────────────────────────────────── */
+    :root {
+      --map-bg-color: #0a0a0a;
+      --gold-accent: #f5c842;
+      --trail-color: #a8c8f0;
+    }
+
     *, *::before, *::after {
       box-sizing: border-box;
       margin: 0;
@@ -38,8 +44,7 @@
       background-attachment: fixed;
       background-repeat: no-repeat;
       
-      /* Hardcoded Map Colors & Fonts */
-      background-color: #0a0a0a;
+      background-color: var(--map-bg-color);
       font-family: 'Inter', sans-serif;
       color: #e0e0e0;
     }
@@ -66,7 +71,7 @@
     #map-overlay {
       position: fixed;
       inset: 0;
-      background-color: #0a0a0a;
+      background-color: var(--map-bg-color);
       opacity: 0.68;
       pointer-events: none;
       z-index: 1;
@@ -119,68 +124,6 @@
       100% { transform: scale(3.5); opacity: 0; }
     }
 
-    @keyframes bubble-pulse {
-      0%, 100% {
-        transform: translateY(0) scale(1);
-        box-shadow: 0 0 18px 4px var(--verse-glow-color, rgba(255,255,255,0.12));
-      }
-      50% {
-        transform: translateY(-1px) scale(1.005);
-        box-shadow: 0 0 28px 8px var(--verse-glow-color, rgba(255,255,255,0.18));
-      }
-    }
-
-    .verse-panel {
-      position: fixed;
-      right: auto;
-      bottom: 8vh;
-      transform: translateX(-50%);
-      z-index: 4;
-      inline-size: min(88vw, 720px);
-      max-inline-size: 720px;
-      padding: 1.25rem 1.4rem;
-      border-radius: 34px;
-      border: 1.5px solid #f5c842; /* Map dot color */
-      color: #e0e0e0;
-      background: transparent;
-      
-      /* Replaces the JS size calculation (clamp * 1.3 multiplier) */
-      font-size: clamp(1.1rem, 2.6vw, 1.43rem); 
-      
-      box-shadow: 0 0 24px 8px rgba(245, 200, 66, 0.18);
-      --verse-glow-color: rgba(245, 200, 66, 0.22);
-      
-      opacity: 0; /* JS handles fade in */
-      transition: opacity 0.8s ease, border-color 0.22s ease, box-shadow 0.22s ease, height 0.5s ease;
-      animation: bubble-pulse 2.6s ease-in-out infinite;
-      overflow: hidden;
-    }
-
-    .verse-content {
-      opacity: 1;
-      transform: translateY(0);
-      transition: opacity 0.24s ease, transform 0.24s ease;
-    }
-
-    .verse-content.fade-out {
-      opacity: 0;
-      transform: translateY(0.3rem);
-    }
-
-    .verse-panel span {
-      display: block;
-      line-height: 1.45;
-      white-space: pre-wrap;
-      letter-spacing: 0.01em;
-    }
-
-    .verse-panel strong {
-      display: block;
-      margin-top: 0.8rem;
-      font-weight: 600;
-      opacity: 0.92;
-    }
-
     /* Smashburger trail stamp */
     .burger-stamp {
       position: fixed;
@@ -222,11 +165,24 @@
       flex-direction: column;
       align-items: center;
       text-decoration: none;
+      
+      /* Prevents highlighters from flashing gray blocks on touch in mobile Safari */
+      -webkit-tap-highlight-color: transparent;
     }
 
-    .social-links a:hover {
-      color: #B69E71; /* d4af37 or c99f2e or b38f1d or B69E71 (official) */
-      transform: scale(1.15) translateY(-2px);
+    /* FIXED STICKY STATE: Only apply hover expansions on desktop browsers with true mice */
+    @media (hover: hover) {
+      .social-links a:hover {
+        color: #B69E71; 
+        transform: scale(1.15) translateY(-2px);
+      }
+    }
+
+    /* Provides momentary touch feedback on mobile without getting stuck on navigation back */
+    .social-links a:active {
+      color: #B69E71;
+      transform: scale(0.95);
+      transition: transform 0.05s ease;
     }
 
     .social-links svg {
@@ -266,7 +222,6 @@
   <div class="center">
     <img src="img/tc-wide-white.svg" alt="Truth Church logo" style="width: 100%; max-width: 70vw; margin-bottom: 1.4rem">
     
-    <!-- Social Links -->
     <div class="social-links">
       <a href="https://www.youtube.com/@truthchurchtexas" target="_blank" aria-label="YouTube" title="YouTube">
         <svg viewBox="0 0 24 24">
@@ -281,24 +236,18 @@
         <span>Facebook</span>
       </a>
       <a href="https://groupme.com/join_group/114571097/sni1lv1a" target="_blank" aria-label="GroupMe" title="GroupMe">
-        <!-- Hashtag inside a chat bubble to represent GroupMe -->
         <svg viewBox="0 0 24 24">
           <path d="M11.996 0A12 12 0 0 0 0 12a11.96 11.96 0 0 0 2.378 7.185l-1.325 4.39a.48.48 0 0 0 .6.6l4.392-1.324A11.96 11.96 0 0 0 12 24c6.628 0 12-5.373 12-12S18.624 0 11.996 0Zm-2.73 18.067a3.02 3.02 0 0 1-3.02-3.02v-6.04a3.02 3.02 0 0 1 3.02-3.02h5.46a3.02 3.02 0 0 1 3.02 3.02v6.04a3.02 3.02 0 0 1-3.02 3.02Z"/>
         </svg>
         <span>GroupMe</span>
       </a>
       <a href="https://truthchurchtx.churchcenter.com" target="_blank" aria-label="Planning Center" title="Church Center App">
-        <!-- Location pin with a cross cut out for Church Center -->
         <svg viewBox="0 0 24 24">
           <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm-1 9V9H9V7h2V5h2v2h2v2h-2v2h-2z"/>
         </svg>
         <span>Church Center</span>
       </a>
     </div>
-  </div>
-
-  <div class="verse-panel" aria-live="polite">
-    <div class="verse-content"></div>
   </div>
 
   <div class="footer-copyright">
@@ -308,8 +257,8 @@
   <script>
     // ─── Configuration ────────────────────────────────────────────────────────
     const MAP_FILE    = "dale_noir_20000m.svg";
-    const DOT_COLOR   = "#f5c842"; // colorGold
-    const TRAIL_COLOR = "#a8c8f0"; // colorStreetlight
+    const DOT_COLOR   = "#f5c842"; 
+    const TRAIL_COLOR = "#a8c8f0"; 
     
     // Load the SVG async
     const mapBg = document.getElementById("map-bg");
@@ -319,53 +268,6 @@
       mapBg.classList.add("loaded"); 
     };
     img.src = `dalemaps/${MAP_FILE}`;
-
-    // ─── Verse Panel Logic ───────────────────────────────────────────────────
-    const VERSE_PANEL_ENABLED = new URLSearchParams(window.location.search).get("verse") === "y";
-    const bibleVerses = [
-      { text: "Go, therefore, and make disciples of all nations, baptizing them in the name of the Father and of the Son and of the Holy Spirit, teaching them to observe everything I have commanded you. And remember, I am with you always, to the end of the age.", reference: "Matthew 28:19–20" },
-      { text: "Christ Jesus came into the world to save sinners.", reference: "1 Timothy 1:15" },
-      { text: "For God loved the world in this way: He gave his one and only Son, so that everyone who believes in him will not perish but have eternal life.", reference: "John 3:16" },
-      { text: "Light shines in the darkness for the upright. He is gracious, compassionate, and righteous.", reference: "Psalm 112:4" },
-      { text: "Everyone who calls on the name of the Lord will be saved.", reference: "Romans 10:13" },
-      { text: "For all have sinned and fall short of the glory of God, and all are justified freely by his grace through the redemption that came by Christ Jesus.", reference: "Romans 3:23–24" },
-      { text: "\"I am the light of the world. Anyone who follows me will never walk in the darkness but will have the light of life.\" —Jesus", reference: "John 8:12" },
-      { text: "If we walk in the light as he himself is in the light, we have fellowship with one another, and the blood of Jesus his Son cleanses us from all sin.", reference: "1 John 1:7" },
-      { text: "\"I have come as light into the world, so that everyone who believes in me would not remain in darkness.\" —Jesus", reference: "John 12:46"},
-      { text: "You were once darkness, but now you are light in the Lord. Walk as children of light.", reference: "Ephesians 5:8" },
-      { text: "\"Whoever hears my word and believes him who sent me has eternal life and will not be judged but has crossed over from death to life.\" —Jesus", reference: "John 5:24" },
-      { text: "God has given us eternal life, and this life is in his Son. The one who has the Son has life. The one who does not have the Son of God does not have life.", reference: "1 John 5:11–12" },
-      { text: "The people walking in darkness have seen a great light; a light has dawned on those living in the land of darkness.", reference: "Isaiah 9:2" },
-      { text: "Your word is a lamp for my feet and a light on my path.", reference: "Psalm 119:105"}
-    ];
-
-    const versePanel = document.querySelector(".verse-panel");
-    const verseContent = document.querySelector(".verse-content");
-    
-    if (!VERSE_PANEL_ENABLED && versePanel) {
-      versePanel.style.display = 'none';
-    }
-
-    let currentVerseIndex = Math.floor(Math.random() * bibleVerses.length);
-    let isFirstVerse = true;
-
-    function updateVersePanel() {
-      if (!VERSE_PANEL_ENABLED || !verseContent) return;
-      const verse = bibleVerses[currentVerseIndex];
-      
-      if (isFirstVerse) {
-        verseContent.innerHTML = `<span>${verse.text}</span><strong>${verse.reference}</strong>`;
-        window.setTimeout(() => versePanel.style.opacity = '1', 50);
-        isFirstVerse = false;
-      } else {
-        verseContent.classList.add("fade-out");
-        window.setTimeout(() => {
-          verseContent.innerHTML = `<span>${verse.text}</span><strong>${verse.reference}</strong>`;
-          verseContent.classList.remove("fade-out");
-        }, 220);
-      }
-      currentVerseIndex = (currentVerseIndex + 1) % bibleVerses.length;
-    }
 
     // ─── Locator dot + trail ─────────────────────────────────────────────────
     const SMASHBURGER_MODE = new URLSearchParams(window.location.search).get("smashburger") === "y";
@@ -434,7 +336,7 @@
         stamp.className   = "burger-stamp";
         stamp.textContent = "🍔";
         stamp.style.left  = xVw + "vw";
-        stamp.style.top   = yVh + "dvh"; // <-- Change this from "vh" to "dvh"
+        stamp.style.top   = yVh + "dvh"; 
         document.body.appendChild(stamp);
         stamp.addEventListener("animationend", () => stamp.remove());
       },
@@ -463,9 +365,7 @@
       }
 
       dot.style.left = currentX + "vw";
-      dot.style.top  = currentY + "dvh"; // <-- Change this from "vh" to "dvh"
-      
-      if (VERSE_PANEL_ENABLED) updateVersePanel();
+      dot.style.top  = currentY + "dvh"; 
     }
 
     moveDot();
