@@ -165,12 +165,9 @@
       flex-direction: column;
       align-items: center;
       text-decoration: none;
-      
-      /* Prevents highlighters from flashing gray blocks on touch in mobile Safari */
       -webkit-tap-highlight-color: transparent;
     }
 
-    /* FIXED STICKY STATE: Only apply hover expansions on desktop browsers with true mice */
     @media (hover: hover) {
       .social-links a:hover {
         color: #B69E71; 
@@ -178,7 +175,6 @@
       }
     }
 
-    /* Provides momentary touch feedback on mobile without getting stuck on navigation back */
     .social-links a:active {
       color: #B69E71;
       transform: scale(0.95);
@@ -196,6 +192,95 @@
       font-size: 0.7rem;
       font-weight: 300;
       letter-spacing: 0.05em;
+    }
+
+    /* ── Give Button Styling ─────────────────────────────────────────────────── */
+    .give-container {
+      position: fixed;
+      bottom: 7vh; 
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-give {
+      position: relative;
+      display: inline-block;
+      text-decoration: none;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #e0e0e0;
+      
+      padding: 0.75rem 2.2rem;
+      border-radius: 50px;
+      border: 1px solid rgba(224, 224, 224, 0.2);
+      background-color: rgba(10, 10, 10, 0.6);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      
+      transition: color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+      -webkit-tap-highlight-color: transparent;
+      z-index: 2; /* Ensures button stays safely above the backdrop atmospheric aura */
+    }
+
+    @media (hover: hover) {
+      .btn-give:hover {
+        color: var(--gold-accent);
+        border-color: var(--gold-accent);
+        transform: translateY(-1px);
+        box-shadow: 
+          0 0 12px 1px var(--gold-accent),
+          0 0 24px 4px rgba(245, 200, 66, 0.2);
+      }
+    }
+
+    .btn-give:active {
+      transform: scale(0.97);
+      color: var(--gold-accent);
+      border-color: var(--gold-accent);
+      transition: transform 0.05s ease;
+    }
+
+    /* ── Atmospheric Trail Color Light Blast ─────────────────────────────────── */
+    .give-blast-aura {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50px;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0;
+      transform: scale(1);
+      
+      /* Injects background color matching your dynamic trail canvas, paired with heavy blur */
+      background-color: var(--trail-color);
+      filter: blur(24px); 
+      -webkit-filter: blur(24px);
+    }
+
+    /* Detonation lifecycle triggered cleanly on pointer registration */
+    .give-blast-aura.blasting {
+      animation: give-trail-detonate 0.8s cubic-bezier(0.1, 0.4, 0.15, 1) forwards;
+    }
+
+    @keyframes give-trail-detonate {
+      0% {
+        opacity: 0.8;
+        transform: scale(1);
+      }
+      40% {
+        opacity: 0.5; /* Gives a smooth expansion peak */
+      }
+      100% {
+        opacity: 0;
+        transform: scale(2.8); /* Dissolves far past the perimeter of the button layout */
+      }
     }
 
     .footer-copyright {
@@ -219,6 +304,7 @@
   <div id="map-overlay"></div>
   <canvas id="light-trail"></canvas>
   <div id="locator"></div>
+  
   <div class="center">
     <img src="img/tc-wide-white.svg" alt="Truth Church logo" style="width: 100%; max-width: 70vw; margin-bottom: 1.4rem">
     
@@ -250,15 +336,21 @@
     </div>
   </div>
 
+  <div class="give-container">
+    <div id="give-aura" class="give-blast-aura"></div>
+    <a href="https://truthchurchtx.churchcenter.com/giving" target="_blank" class="btn-give" id="btn-give-trigger">Give</a>
+  </div>
+
   <div class="footer-copyright">
     &copy; 2026 Truth Church Texas. All rights reserved.
   </div>
 
   <script>
-    // ─── Configuration ────────────────────────────────────────────────────────
+    // ─── Configuration Tunnels (Reading properties cleanly from CSS variables) ───
+    const styles      = getComputedStyle(document.documentElement);
     const MAP_FILE    = "dale_noir_20000m.svg";
-    const DOT_COLOR   = "#f5c842"; 
-    const TRAIL_COLOR = "#a8c8f0"; 
+    const DOT_COLOR   = styles.getPropertyValue('--gold-accent').trim(); 
+    const TRAIL_COLOR = styles.getPropertyValue('--trail-color').trim(); 
     
     // Load the SVG async
     const mapBg = document.getElementById("map-bg");
@@ -370,6 +462,18 @@
 
     moveDot();
     setInterval(moveDot, DRIFT_INTERVAL);
+
+    // ─── Give Button Blast Sequence Activation ────────────────────────────────
+    const giveTrigger = document.getElementById("btn-give-trigger");
+    const blastAura   = document.getElementById("give-aura");
+
+    function igniteBlast() {
+      blastAura.classList.remove("blasting");
+      void blastAura.offsetWidth; // Forces CSS layout pipeline calculation
+      blastAura.classList.add("blasting");
+    }
+
+    giveTrigger.addEventListener("pointerdown", igniteBlast);
   </script>
 </body>
 </html>
