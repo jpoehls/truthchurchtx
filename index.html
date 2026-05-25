@@ -226,7 +226,7 @@
       
       transition: color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
       -webkit-tap-highlight-color: transparent;
-      z-index: 2; /* Ensures button stays safely above the backdrop atmospheric aura */
+      z-index: 2;
     }
 
     @media (hover: hover) {
@@ -258,13 +258,11 @@
       opacity: 0;
       transform: scale(1);
       
-      /* Injects background color matching your dynamic trail canvas, paired with heavy blur */
       background-color: var(--trail-color);
       filter: blur(24px); 
       -webkit-filter: blur(24px);
     }
 
-    /* Detonation lifecycle triggered cleanly on pointer registration */
     .give-blast-aura.blasting {
       animation: give-trail-detonate 0.8s cubic-bezier(0.1, 0.4, 0.15, 1) forwards;
     }
@@ -275,11 +273,11 @@
         transform: scale(1);
       }
       40% {
-        opacity: 0.5; /* Gives a smooth expansion peak */
+        opacity: 0.5;
       }
       100% {
         opacity: 0;
-        transform: scale(2.8); /* Dissolves far past the perimeter of the button layout */
+        transform: scale(2.8);
       }
     }
 
@@ -463,17 +461,29 @@
     moveDot();
     setInterval(moveDot, DRIFT_INTERVAL);
 
-    // ─── Give Button Blast Sequence Activation ────────────────────────────────
+    // ─── Intercept Navigation to appreciate Blast Sequence ───────────────────
     const giveTrigger = document.getElementById("btn-give-trigger");
     const blastAura   = document.getElementById("give-aura");
+    const BLAST_DELAY = 450; // Milliseconds to wait before executing navigation
 
-    function igniteBlast() {
+    giveTrigger.addEventListener("click", function(event) {
+      // 1. Prevent immediate browser contextual shift
+      event.preventDefault();
+      
+      // 2. Fire the CSS animation sequence safely
       blastAura.classList.remove("blasting");
-      void blastAura.offsetWidth; // Forces CSS layout pipeline calculation
+      void blastAura.offsetWidth; 
       blastAura.classList.add("blasting");
-    }
 
-    giveTrigger.addEventListener("pointerdown", igniteBlast);
+      // 3. Extract target reference attributes cleanly
+      const targetUrl = this.getAttribute("href");
+      const targetWin = this.getAttribute("target") || "_self";
+
+      // 4. Delay navigation so the bloom effect reaches maximum visual impact
+      setTimeout(() => {
+        window.open(targetUrl, targetWin);
+      }, BLAST_DELAY);
+    });
   </script>
 </body>
 </html>
