@@ -34,13 +34,14 @@
     body {
       height: 100%;
       overscroll-behavior: none;
-      overflow: hidden;
+      overflow-x: auto;
+      overflow-y: hidden;
     }
 
     /* ── Short-viewport overflow guard ──────────────────────────────────────── */
-    /* When the browser is very short, allow vertical scrolling so the fixed
-       button group never overlaps the logo / social icons above it.           */
-    @media (max-height: 500px) {
+    /* Flex layout guarantees no overlap, but allow scroll if content is
+       truly taller than a very short viewport (e.g. landscape phone).        */
+    @media (max-height: 400px) {
       html,
       body {
         overflow-y: auto;
@@ -50,7 +51,8 @@
 
     body {
       display: flex;
-      align-items: flex-start;
+      flex-direction: column;
+      align-items: center;
       justify-content: center;
       min-height: 100vh;
       min-height: 100dvh;
@@ -178,15 +180,20 @@
       position: relative;
       z-index: 3;
       text-align: center;
-      margin-top: 23vh;
-      /* Always leave room at the bottom for the fixed Give button + copyright */
-      padding-bottom: 7rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 2rem 1rem;
+      overflow-x: visible;
     }
 
-    /* On very short viewports, reduce top margin so content fits */
+    /* On very short viewports, reduce padding so content fits */
     @media (max-height: 500px) {
       .center {
-        margin-top: 1.5rem;
+        padding: 1rem;
       }
     }
 
@@ -275,14 +282,13 @@
 
     /* ── Give Button Styling ─────────────────────────────────────────────────── */
     .give-container {
-      position: fixed;
-      bottom: 7vh;
-      left: 50%;
-      transform: translateX(-50%);
+      position: relative;
       z-index: 3;
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      padding-bottom: 0.75rem;
+      flex-shrink: 0;
     }
 
     .btn-give {
@@ -363,11 +369,9 @@
     }
 
     .footer-copyright {
-      position: fixed;
-      bottom: 2vh;
-      left: 50%;
-      transform: translateX(-50%);
+      position: relative;
       z-index: 3;
+      padding-bottom: 1.5rem;
 
       font-size: 0.6rem;
       font-weight: 300;
@@ -375,6 +379,7 @@
       color: #a0a0a0;
       text-align: center;
       white-space: nowrap;
+      flex-shrink: 0;
     }
 
     /* ── Frosted Glass Light Confession Modal ───────────────────────────────── */
@@ -583,7 +588,7 @@
 
   <div class="center">
     <img src="img/tc-wide-white.svg" alt="Truth Church logo"
-      style="width: 100%; max-width: 70vw; margin-bottom: 1.4rem">
+      style="max-width: 70vw; max-height: 20dvh; min-width: 400px; min-height: 100px; object-fit: contain; margin-bottom: 1.4rem">
 
     <div class="social-links">
       <a href="https://www.youtube.com/@truthchurchtexas" target="_blank" aria-label="YouTube" title="YouTube">
