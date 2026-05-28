@@ -427,52 +427,105 @@
 
     /* Fixed Header Zone (Translucent match) */
     .modal-header {
-      padding: 1.8rem 2rem 1.2rem;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+      padding: 0.9rem 1.25rem 0.75rem;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
       background-color: transparent;
-      /* Allows blur consistency across the header card */
       display: flex;
       justify-content: space-between;
       align-items: center;
       position: relative;
       z-index: 5;
+      flex-shrink: 0;
     }
 
     .modal-header h2 {
-      font-size: 1.35rem;
-      color: #111111;
-      font-weight: 700;
-      letter-spacing: 0.02em;
+      font-size: 0.78rem;
+      color: #888888;
+      font-weight: 600;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
     }
 
     .modal-close {
-      background: rgba(0, 0, 0, 0.05);
+      background: transparent;
       border: none;
-      color: #444444;
-      font-size: 1.5rem;
-      width: 36px;
-      height: 36px;
+      color: #888888;
+      font-size: 1.25rem;
+      width: 28px;
+      height: 28px;
       border-radius: 50%;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       transition: background 0.2s, color 0.2s;
+      line-height: 1;
     }
 
     .modal-close:hover {
-      background: rgba(0, 0, 0, 0.12);
+      background: rgba(0, 0, 0, 0.08);
       color: #000000;
     }
 
     /* Fully Isolated Scroll Content Box */
     .modal-scroll-content {
       overflow-y: auto;
-      padding: 2rem;
+      padding: 1.5rem 1.5rem 2rem;
       text-align: left;
       overscroll-behavior: contain;
       -webkit-overflow-scrolling: touch;
+      flex: 1;
+    }
+
+    /* ── Table of Contents ───────────────────────────────────────────────────── */
+    .toc {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.15rem 1.5rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+    }
+
+    .toc a {
+      font-size: 0.8rem;
+      padding: 0.25rem 0;
+      line-height: 1.35;
+      transition: color 0.15s, text-decoration-color 0.15s;
+      
+      display: grid;
+      grid-template-columns: auto 1fr; 
+      align-items: start; 
+
+      /* Remove the decoration from the parent <a> completely */
+      text-decoration: none; 
+    }
+
+    /* Apply the link styles ONLY to the text portion */
+    .toc a .toc-text {
+      color: #2563a8;
+      text-decoration: underline;
+      text-decoration-color: rgba(37, 99, 168, 0.4);
+    }
+
+    /* Sharpen the underline on hover */
+    .toc a:hover .toc-text {
+      text-decoration-color: rgba(37, 99, 168, 1);
+    }
+
+    .toc-num {
+      /* The number stays safely isolated, gray, and naked */
+      color: #aaa;
+      font-size: 0.72rem;
+      min-width: 1.5rem; 
+      padding-top: 0.05rem; 
+      
+      /* Forces the browser to treat this as an independent layout box */
+      display: block; 
+    }
+
+    .toc-text {
+      word-break: break-word;
     }
 
     /* Refined Typography Rules */
@@ -590,70 +643,84 @@
 
       <!-- Scroll Content Block -->
       <div class="modal-scroll-content">
-<p style="margin-bottom: 1.5rem; font-size: 0.92rem;">
-  Truth Church uses a modernized version of the New Hampshire Confession of Faith to summarize our beliefs about what the Bible teaches. While the Scriptures alone are our final authority, this confession affirms our commitment to the historic Christian faith. It provides a clear expression of our doctrine—serving as a vital tool for clarity, accountability, unity, and cooperation.
-</p>
+        <p style="margin-bottom: 1.5rem; font-size: 0.92rem;">
+          Truth Church uses a modernized version of the New Hampshire Confession of Faith to summarize our beliefs about what the Bible teaches. While the Scriptures alone are our final authority, this confession affirms our commitment to the historic Christian faith. It provides a clear expression of our doctrine—serving as a vital tool for clarity, accountability, unity, and cooperation.
+        </p>
 
-<!-- <ul style="margin-bottom: 2rem; padding-left: 1.5rem; font-size: 0.92rem; line-height: 1.6; color: black !important;">
-  <li style="margin-bottom: 0.5rem;"><strong>Clarity:</strong> Anyone can easily see what we believe about the Bible.</li>
-  <li style="margin-bottom: 0.5rem;"><strong>Accountability:</strong> Our people can hold us to teach in accordance with what we say we believe.</li>
-  <li style="margin-bottom: 0.5rem;"><strong>Unity:</strong> We publicly agree on the core truths that bind our church family together.</li>
-  <li style="margin-bottom: 0;"><strong>Cooperation:</strong> We have a clear guide for close partnership in missions and ministry work.</li>
-</ul> -->
+        <nav class="toc" aria-label="Table of contents">
+          <a href="#art-1"><span class="toc-num">1.</span><span class="toc-text">The Scriptures</span></a>
+          <a href="#art-10"><span class="toc-num">10.</span><span class="toc-text">Sanctification</span></a>
+          <a href="#art-2"><span class="toc-num">2.</span><span class="toc-text">The True God</span></a>
+          <a href="#art-11"><span class="toc-num">11.</span><span class="toc-text">The Perseverance of Saints</span></a>
+          <a href="#art-3"><span class="toc-num">3.</span><span class="toc-text">Humanity and the Fall</span></a>
+          <a href="#art-12"><span class="toc-num">12.</span><span class="toc-text">The Harmony of the Law and the Gospel</span></a>
+          <a href="#art-4"><span class="toc-num">4.</span><span class="toc-text">The Way of Salvation</span></a>
+          <a href="#art-13"><span class="toc-num">13.</span><span class="toc-text">A Gospel Church</span></a>
+          <a href="#art-5"><span class="toc-num">5.</span><span class="toc-text">Justification</span></a>
+          <a href="#art-14"><span class="toc-num">14.</span><span class="toc-text">Baptism and the Lord's Supper</span></a>
+          <a href="#art-6"><span class="toc-num">6.</span><span class="toc-text">The Freeness of Salvation</span></a>
+          <a href="#art-15"><span class="toc-num">15.</span><span class="toc-text">The Lord's Day</span></a>
+          <a href="#art-7"><span class="toc-num">7.</span><span class="toc-text">Grace in Regeneration</span></a>
+          <a href="#art-16"><span class="toc-num">16.</span><span class="toc-text">Civil Government</span></a>
+          <a href="#art-8"><span class="toc-num">8.</span><span class="toc-text">Repentance and Faith</span></a>
+          <a href="#art-17"><span class="toc-num">17.</span><span class="toc-text">The Righteous and the Wicked</span></a>
+          <a href="#art-9"><span class="toc-num">9.</span><span class="toc-text">God's Purpose of Grace</span></a>
+          <a href="#art-18"><span class="toc-num">18.</span><span class="toc-text">The World to Come</span></a>
+        </nav>
 
-        <h3>1. The Scriptures</h3>
+        <h3 id="art-1">1. The Scriptures</h3>
         <p>We believe the Holy Bible was written by people who were divinely inspired, and that it is a perfect treasure of heavenly instruction. God is its author, salvation is its purpose, and truth, without any mixture of error, is its content. Scripture reveals the principles by which God will judge us. Therefore, it is now, and will be to the end of the world, the true center of Christian union and the supreme standard for evaluating all human conduct, creeds, and opinions.</p>
 
-        <h3>2. The True God</h3>
+        <h3 id="art-2">2. The True God</h3>
         <p>We believe there is one and only one living and true God—an infinite, intelligent Spirit. His name is the LORD, the Maker and Supreme Ruler of heaven and earth. He is inexpressibly glorious in holiness and is worthy of all possible honor, confidence, and love. In the unity of the Godhead there are three persons: the Father, the Son, and the Holy Spirit. They are equal in every divine perfection, and they carry out distinct but harmonious offices in the great work of redemption.</p>
 
-        <h3>3. Humanity and the Fall</h3>
+        <h3 id="art-3">3. Humanity and the Fall</h3>
         <p>We believe humanity is the special creation of God, made in his own image. God created them male and female as the crowning work of His creation. The gift of gender is thus part of the goodness of God's creation. The gift of marriage consists of the uniting of one man and one woman in covenant commitment for a lifetime, and this gift models the way God relates to His people.</p>
         <p>God created the human race in holiness under his law. By voluntary transgression, however, humanity fell from that holy and happy state. As a result, all people are now sinners, not by external compulsion but by choice. They by nature entirely lack the holiness that is required by the law of God and are actively inclined to evil. Therefore, they are under just condemnation to a sentence of eternal ruin, without defense or excuse.</p>
 
-        <h3>4. The Way of Salvation</h3>
-        <p>We believe the salvation of God’s people is completely by grace, through the mediatorial offices of the Son of God. By the appointment of the Father, he freely took to himself our nature but without sin. He honored the divine law by his personal obedience and made a full atonement for our sins by his substitutionary death, satisfying God’s wrath. He rose from the dead and is now enthroned in heaven. Jesus, the Son, unites in his wonderful person the tenderest sympathies with divine perfections and, as such, is qualified in every way to be a suitable, compassionate, and all-sufficient Savior.</p>
+        <h3 id="art-4">4. The Way of Salvation</h3>
+        <p>We believe the salvation of God's people is completely by grace, through the mediatorial offices of the Son of God. By the appointment of the Father, he freely took to himself our nature but without sin. He honored the divine law by his personal obedience and made a full atonement for our sins by his substitutionary death, satisfying God's wrath. He rose from the dead and is now enthroned in heaven. Jesus, the Son, unites in his wonderful person the tenderest sympathies with divine perfections and, as such, is qualified in every way to be a suitable, compassionate, and all-sufficient Savior.</p>
 
-        <h3>5. Justification</h3>
-        <p>We believe the great gospel blessing that Christ secures to those who believe in him is justification. Justification includes the pardon of sin, righteous standing before God and his people, and the promise of eternal life founded on principles of righteousness. It is not given because of any works of righteousness we have done but only through faith in the Redeemer’s blood. By virtue of this faith his perfect righteousness is freely imputed to us by God. Justification immediately brings us into a state of most blessed peace and favor with God and secures every other blessing we need for time and eternity.</p>
+        <h3 id="art-5">5. Justification</h3>
+        <p>We believe the great gospel blessing that Christ secures to those who believe in him is justification. Justification includes the pardon of sin, righteous standing before God and his people, and the promise of eternal life founded on principles of righteousness. It is not given because of any works of righteousness we have done but only through faith in the Redeemer's blood. By virtue of this faith his perfect righteousness is freely imputed to us by God. Justification immediately brings us into a state of most blessed peace and favor with God and secures every other blessing we need for time and eternity.</p>
 
-        <h3>6. The Freeness of Salvation</h3>
-        <p>We believe the blessings of salvation are made free to all by the gospel. It is the immediate duty of all to accept them by a heartfelt, penitent, and obedient faith. Preventing this salvation is every sinner’s inherent depravity and rejection of the gospel, a rejection that aggravates a sinner’s condemnation.</p>
+        <h3 id="art-6">6. The Freeness of Salvation</h3>
+        <p>We believe the blessings of salvation are made free to all by the gospel. It is the immediate duty of all to accept them by a heartfelt, penitent, and obedient faith. Preventing this salvation is every sinner's inherent depravity and rejection of the gospel, a rejection that aggravates a sinner's condemnation.</p>
 
-        <h3>7. Grace in Regeneration</h3>
-        <p>We believe sinners must be regenerated, or born again, in order to be saved. Regeneration consists of God’s gift of a holy inclination to the mind. It is accomplished in a way that is beyond our comprehension. It is carried out by the power of the Holy Spirit using divine truth to obtain our voluntary obedience to the gospel. The proper evidence of regeneration appears in the holy fruits of repentance, faith, and newness of life.</p>
+        <h3 id="art-7">7. Grace in Regeneration</h3>
+        <p>We believe sinners must be regenerated, or born again, in order to be saved. Regeneration consists of God's gift of a holy inclination to the mind. It is accomplished in a way that is beyond our comprehension. It is carried out by the power of the Holy Spirit using divine truth to obtain our voluntary obedience to the gospel. The proper evidence of regeneration appears in the holy fruits of repentance, faith, and newness of life.</p>
 
-        <h3>8. Repentance and Faith</h3>
+        <h3 id="art-8">8. Repentance and Faith</h3>
         <p>We believe repentance and faith are sacred duties as well as inseparable graces. They are produced in our souls by the regenerating Spirit of God, who convinces us of our guilt, danger, helplessness, and the way of salvation by Christ. And they consist of turning to God with genuine sorrow, confession, and a petition for mercy; receiving heartily the Lord Jesus Christ as Prophet, Priest and King; and relying on him alone as the only and all-sufficient Savior.</p>
 
-        <h3>9. God’s Purpose of Grace</h3>
-        <p>We believe election is the eternal purpose of God according to which he graciously regenerates, sanctifies, and saves sinners. Election is perfectly consistent with human free agency and includes all the means necessary to achieve God’s purpose. It is a most glorious display of God’s sovereign goodness, which is infinitely free, wise, holy, and unchangeable. Election completely rules out boasting and promotes humility, love, prayer, praise, trust in God, and the active imitation of his free mercy. It encourages the greatest possible exercise of human responsibility. The election of individuals to life may be confirmed by its effects in everyone who truly believes the gospel. Election is the foundation of Christian assurance, and confirming our election deserves our greatest diligence.</p>
+        <h3 id="art-9">9. God's Purpose of Grace</h3>
+        <p>We believe election is the eternal purpose of God according to which he graciously regenerates, sanctifies, and saves sinners. Election is perfectly consistent with human free agency and includes all the means necessary to achieve God's purpose. It is a most glorious display of God's sovereign goodness, which is infinitely free, wise, holy, and unchangeable. Election completely rules out boasting and promotes humility, love, prayer, praise, trust in God, and the active imitation of his free mercy. It encourages the greatest possible exercise of human responsibility. The election of individuals to life may be confirmed by its effects in everyone who truly believes the gospel. Election is the foundation of Christian assurance, and confirming our election deserves our greatest diligence.</p>
 
-        <h3>10. Sanctification</h3>
-        <p>We believe sanctification is the process by which we are made partakers of God’s holiness, according to his purpose. Sanctification is a progressive work. It begins in regeneration and continues in the hearts of believers by the presence and power of the Holy Spirit and by God’s appointed means. These means include the word of God, self-examination, self-denial, watchfulness, prayer, and the oversight and fellowship of the visible church.</p>
+        <h3 id="art-10">10. Sanctification</h3>
+        <p>We believe sanctification is the process by which we are made partakers of God's holiness, according to his purpose. Sanctification is a progressive work. It begins in regeneration and continues in the hearts of believers by the presence and power of the Holy Spirit and by God's appointed means. These means include the word of God, self-examination, self-denial, watchfulness, prayer, and the oversight and fellowship of the visible church.</p>
 
-        <h3>11. The Perseverance of Saints</h3>
+        <h3 id="art-11">11. The Perseverance of Saints</h3>
         <p>We believe all genuine believers endure to the end. Their persevering obedience to Christ and attachment to his people are the primary mark distinguishing them from superficial professors. A special providence watches over their welfare, and they are kept by the power of God through faith to salvation.</p>
 
-        <h3>12. The Harmony of the Law and the Gospel</h3>
-        <p>We believe the law of God is the eternal and unchangeable rule of his moral governance. It is holy, just, and good. Fallen human beings are unable to fulfill the precepts of the law, which the Scriptures attribute entirely to their love of sin. A chief purpose of the gospel is to deliver people from this love and to restore them through a mediator to a sincere obedience to the holy law. The visible church’s means of grace share this great purpose.</p>
+        <h3 id="art-12">12. The Harmony of the Law and the Gospel</h3>
+        <p>We believe the law of God is the eternal and unchangeable rule of his moral governance. It is holy, just, and good. Fallen human beings are unable to fulfill the precepts of the law, which the Scriptures attribute entirely to their love of sin. A chief purpose of the gospel is to deliver people from this love and to restore them through a mediator to a sincere obedience to the holy law. The visible church's means of grace share this great purpose.</p>
 
-        <h3>13. A Gospel Church</h3>
+        <h3 id="art-13">13. A Gospel Church</h3>
         <p>We believe a visible church of Christ is a congregation of baptized believers, joined together by covenant in the faith and fellowship of the gospel. A visible church observes the ordinances of Christ, submits to his laws, and exercises the gifts, rights, and privileges invested in them by his word. The only scriptural officers of the church are elders (also called overseers or pastors) and deacons, whose qualifications and duties are defined in the epistles to Timothy and to Titus.</p>
 
-        <h3>14. Baptism and the Lord’s Supper</h3>
-        <p>We believe that Christian baptism is the immersion of a believer in water into the name of the Father, the Son, and the Holy Spirit. It is a solemn and beautiful emblem that declares our faith in the crucified, buried, and risen Savior as well as our union with him in death to sin and resurrection to a new life. Baptism is a prerequisite to the privileges of church membership and the Lord’s Supper. We likewise believe that the Supper is a symbolic act of obedience whereby the members of the church, following earnest self-examination, use bread and the cup in a sacred manner to commemorate together the dying love of Christ. The ordinances belong to the gathered church, marking off believers from unbelievers and making the church visible on earth.</p>
+        <h3 id="art-14">14. Baptism and the Lord's Supper</h3>
+        <p>We believe that Christian baptism is the immersion of a believer in water into the name of the Father, the Son, and the Holy Spirit. It is a solemn and beautiful emblem that declares our faith in the crucified, buried, and risen Savior as well as our union with him in death to sin and resurrection to a new life. Baptism is a prerequisite to the privileges of church membership and the Lord's Supper. We likewise believe that the Supper is a symbolic act of obedience whereby the members of the church, following earnest self-examination, use bread and the cup in a sacred manner to commemorate together the dying love of Christ. The ordinances belong to the gathered church, marking off believers from unbelievers and making the church visible on earth.</p>
 
-        <h3>15. The Lord’s Day</h3>
+        <h3 id="art-15">15. The Lord's Day</h3>
         <p>We believe the first day of the week is the Lord's Day. It is a Christian institution for regular observance. It commemorates the resurrection of Christ from the dead and points to the rest that awaits the people of God. It should include exercises of worship and spiritual devotion, both public and private. Activities on the Lord's Day should be commensurate with the Christian's conscience under the lordship of Jesus Christ.</p>
 
-        <h3>16. Civil Government</h3>
+        <h3 id="art-16">16. Civil Government</h3>
         <p>We believe civil government exists by divine appointment for the benefit and good order of human society. Government officials are to be prayed for, conscientiously honored, and obeyed. The principle exception is for matters contrary to the will of our Lord Jesus Christ, who is the only Lord of the conscience, and the Prince of the kings of the earth.</p>
 
-        <h3>17. The Righteous and the Wicked</h3>
+        <h3 id="art-17">17. The Righteous and the Wicked</h3>
         <p>We believe there is a radical and essential difference between the righteous and the wicked. Only those who are justified by faith in the name of the Lord Jesus and sanctified by the Spirit of our God are truly righteous in his judgment. In contrast, all those who continue in impenitence and unbelief are wicked in his sight and under the curse. This distinction among people holds both at death and afterward.</p>
 
-        <h3>18. The World to Come</h3>
+        <h3 id="art-18">18. The World to Come</h3>
         <p>We believe the end of the world is approaching. At the last day Christ will descend from heaven and raise the dead from the grave to final retribution. A public separation will then take place, in which the wicked will be justly assigned to endless punishment and the righteous to endless joy. This judgment will determine forever on principles of righteousness the final state of people in heaven or hell.</p>
 
         <hr style="border: none; border-top: 1px solid rgba(0,0,0,0.08); margin: 2.5rem 0 1.5rem;">
@@ -808,6 +875,25 @@
       }, BLAST_DELAY);
     });
 
+    // ─── TOC Links: scroll inside modal without changing URL hash ────────────
+    // Clicking a TOC link should jump to the section within the scroll container
+    // but must never alter the URL hash (which is reserved for #belief to keep
+    // bookmarking consistent — any bookmark while the modal is open should
+    // re-open to the top of the confession, not a mid-page anchor).
+    document.querySelectorAll('.toc a').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute('href').slice(1); // strip the '#'
+        const targetEl = document.getElementById(targetId);
+        const scrollBox = document.querySelector('.modal-scroll-content');
+        if (targetEl && scrollBox) {
+          // Offset relative to the scroll container
+          const offsetTop = targetEl.offsetTop - scrollBox.offsetTop;
+          scrollBox.scrollTo({ top: offsetTop, behavior: 'smooth' });
+        }
+      });
+    });
+
     // ─── Modal Management via URL Anchor (#belief) ───────────────────────────
     const modal = document.getElementById("confession-modal");
     const openModalBtn = document.getElementById("btn-believe-trigger");
@@ -817,6 +903,8 @@
     function toggleModal(isOpen) {
       if (isOpen) {
         modal.classList.add("active");
+        // Always reset to top so bookmarks/deep links land at the beginning
+        document.querySelector('.modal-scroll-content').scrollTop = 0;
         // Update URL anchor cleanly without shifting focus or resetting history stack
         if (window.location.hash !== TARGET_HASH) {
           history.pushState(null, null, TARGET_HASH);
