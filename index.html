@@ -37,6 +37,17 @@
       overflow: hidden;
     }
 
+    /* ── Short-viewport overflow guard ──────────────────────────────────────── */
+    /* When the browser is very short, allow vertical scrolling so the fixed
+       button group never overlaps the logo / social icons above it.           */
+    @media (max-height: 500px) {
+      html,
+      body {
+        overflow-y: auto;
+        height: auto;
+      }
+    }
+
     body {
       display: flex;
       align-items: flex-start;
@@ -168,6 +179,15 @@
       z-index: 3;
       text-align: center;
       margin-top: 23vh;
+      /* Always leave room at the bottom for the fixed Give button + copyright */
+      padding-bottom: 7rem;
+    }
+
+    /* On very short viewports, reduce top margin so content fits */
+    @media (max-height: 500px) {
+      .center {
+        margin-top: 1.5rem;
+      }
     }
 
     /* ── Social Links Styling ────────────────────────────────────────────────── */
@@ -217,24 +237,12 @@
       letter-spacing: 0.05em;
     }
 
-    /* ── Combined Button Group Layout ───────────────────────────────────────── */
-    .action-button-group {
-      position: fixed;
-      bottom: 7vh;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 3;
-      display: flex;
-      flex-direction: column;
-      /* Stack on mobile */
-      align-items: center;
-      gap: 1rem;
-      width: 85%;
-      max-width: 420px;
+    /* ── What We Believe Button ─────────────────────────────────────────────── */
+    .btn-believe-wrap {
+      margin-top: 2rem;
     }
 
-    /* Shared base settings from your original .btn-give */
-    .btn-action {
+    .btn-secondary {
       font-family: 'Inter', sans-serif;
       font-size: 0.85rem;
       font-weight: 600;
@@ -247,14 +255,9 @@
       white-space: nowrap;
       -webkit-tap-highlight-color: transparent;
       transition: all 0.3s ease;
-    }
-
-    /* Style specifically for your new secondary button */
-    .btn-secondary {
       background-color: rgba(10, 10, 10, 0.4);
       border: 1px solid rgba(224, 224, 224, 0.3);
       color: #e0e0e0;
-      width: 100%;
     }
 
     @media (hover: hover) {
@@ -268,21 +271,6 @@
 
     .btn-secondary:active {
       transform: scale(0.97);
-    }
-
-    /* Desktop layout override */
-    @media (min-width: 480px) {
-      .action-button-group {
-        flex-direction: row;
-        /* Side by side */
-        justify-content: center;
-        width: auto;
-        max-width: none;
-      }
-
-      .btn-secondary {
-        width: auto;
-      }
     }
 
     /* ── Give Button Styling ─────────────────────────────────────────────────── */
@@ -574,16 +562,16 @@
         <span>Church Center</span>
       </a>
     </div>
+
+    <div class="btn-believe-wrap">
+      <button class="btn-secondary" id="btn-believe-trigger">What We Believe</button>
+    </div>
   </div>
 
-  <div class="action-button-group">
-    <button class="btn-action btn-secondary" id="btn-believe-trigger">What We Believe</button>
-
-    <div class="give-container">
-      <div id="give-aura" class="give-blast-aura"></div>
-      <a href="https://truthchurchtx.churchcenter.com/giving" target="_blank" class="btn-give"
-        id="btn-give-trigger">Give</a>
-    </div>
+  <div class="give-container">
+    <div id="give-aura" class="give-blast-aura"></div>
+    <a href="https://truthchurchtx.churchcenter.com/giving" target="_blank" class="btn-give"
+      id="btn-give-trigger">Give</a>
   </div>
 
   <div class="footer-copyright">
