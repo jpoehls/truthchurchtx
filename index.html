@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +9,7 @@
   <meta name="twitter:title" content="Truth Church">
   <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
   <link rel="apple-touch-icon" href="img/favicon.png">
-  
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -21,13 +22,16 @@
       --trail-color: #a8c8f0;
     }
 
-    *, *::before, *::after {
+    *,
+    *::before,
+    *::after {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
 
-    html, body {
+    html,
+    body {
       height: 100%;
       overscroll-behavior: none;
       overflow: hidden;
@@ -43,7 +47,7 @@
       background-position: center;
       background-attachment: fixed;
       background-repeat: no-repeat;
-      
+
       background-color: var(--map-bg-color);
       font-family: 'Inter', sans-serif;
       color: #e0e0e0;
@@ -96,11 +100,11 @@
       z-index: 3;
       transform: translate(-50%, -50%);
       box-shadow:
-        0 0  8px 2px currentColor,
+        0 0 8px 2px currentColor,
         0 0 28px 8px currentColor,
         0 0 70px 20px currentColor;
       transition: left 2.8s cubic-bezier(0.45, 0, 0.55, 1),
-                  top  2.8s cubic-bezier(0.45, 0, 0.55, 1);
+        top 2.8s cubic-bezier(0.45, 0, 0.55, 1);
       animation: dot-breathe 2.6s ease-in-out infinite;
     }
 
@@ -115,13 +119,27 @@
     }
 
     @keyframes dot-breathe {
-      0%, 100% { opacity: 1; }
-      50%       { opacity: 0.4; }
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.4;
+      }
     }
 
     @keyframes ring-pulse {
-      0%   { transform: scale(0.6); opacity: 0.6; }
-      100% { transform: scale(3.5); opacity: 0; }
+      0% {
+        transform: scale(0.6);
+        opacity: 0.6;
+      }
+
+      100% {
+        transform: scale(3.5);
+        opacity: 0;
+      }
     }
 
     /* Smashburger trail stamp */
@@ -136,8 +154,13 @@
     }
 
     @keyframes burger-fade {
-      0%   { opacity: 0.9; }
-      100% { opacity: 0; }
+      0% {
+        opacity: 0.9;
+      }
+
+      100% {
+        opacity: 0;
+      }
     }
 
     .center {
@@ -160,7 +183,7 @@
     .social-links a {
       color: #e0e0e0;
       transition: color 0.2s ease, transform 0.2s ease;
-      
+
       display: inline-flex;
       flex-direction: column;
       align-items: center;
@@ -170,7 +193,7 @@
 
     @media (hover: hover) {
       .social-links a:hover {
-        color: #B69E71; 
+        color: #B69E71;
         transform: scale(1.15) translateY(-2px);
       }
     }
@@ -186,7 +209,7 @@
       height: 36px;
       fill: currentColor;
     }
-    
+
     .social-links span {
       margin-top: 0.5rem;
       font-size: 0.7rem;
@@ -194,10 +217,78 @@
       letter-spacing: 0.05em;
     }
 
+    /* ── Combined Button Group Layout ───────────────────────────────────────── */
+    .action-button-group {
+      position: fixed;
+      bottom: 7vh;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      /* Stack on mobile */
+      align-items: center;
+      gap: 1rem;
+      width: 85%;
+      max-width: 420px;
+    }
+
+    /* Shared base settings from your original .btn-give */
+    .btn-action {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.75rem 2.2rem;
+      border-radius: 50px;
+      cursor: pointer;
+      text-align: center;
+      white-space: nowrap;
+      -webkit-tap-highlight-color: transparent;
+      transition: all 0.3s ease;
+    }
+
+    /* Style specifically for your new secondary button */
+    .btn-secondary {
+      background-color: rgba(10, 10, 10, 0.4);
+      border: 1px solid rgba(224, 224, 224, 0.3);
+      color: #e0e0e0;
+      width: 100%;
+    }
+
+    @media (hover: hover) {
+      .btn-secondary:hover {
+        color: #fff;
+        border-color: rgba(224, 224, 224, 0.8);
+        background-color: rgba(255, 255, 255, 0.05);
+        transform: translateY(-1px);
+      }
+    }
+
+    .btn-secondary:active {
+      transform: scale(0.97);
+    }
+
+    /* Desktop layout override */
+    @media (min-width: 480px) {
+      .action-button-group {
+        flex-direction: row;
+        /* Side by side */
+        justify-content: center;
+        width: auto;
+        max-width: none;
+      }
+
+      .btn-secondary {
+        width: auto;
+      }
+    }
+
     /* ── Give Button Styling ─────────────────────────────────────────────────── */
     .give-container {
       position: fixed;
-      bottom: 7vh; 
+      bottom: 7vh;
       left: 50%;
       transform: translateX(-50%);
       z-index: 3;
@@ -216,14 +307,14 @@
       letter-spacing: 0.08em;
       text-transform: uppercase;
       color: #e0e0e0;
-      
+
       padding: 0.75rem 2.2rem;
       border-radius: 50px;
       border: 1px solid rgba(224, 224, 224, 0.2);
       background-color: rgba(10, 10, 10, 0.6);
       backdrop-filter: blur(4px);
       -webkit-backdrop-filter: blur(4px);
-      
+
       transition: color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
       -webkit-tap-highlight-color: transparent;
       z-index: 2;
@@ -234,7 +325,7 @@
         color: var(--gold-accent);
         border-color: var(--gold-accent);
         transform: translateY(-1px);
-        box-shadow: 
+        box-shadow:
           0 0 12px 1px var(--gold-accent),
           0 0 24px 4px rgba(245, 200, 66, 0.2);
       }
@@ -257,9 +348,9 @@
       z-index: 1;
       opacity: 0;
       transform: scale(1);
-      
+
       background-color: var(--trail-color);
-      filter: blur(24px); 
+      filter: blur(24px);
       -webkit-filter: blur(24px);
     }
 
@@ -272,9 +363,11 @@
         opacity: 0.8;
         transform: scale(1);
       }
+
       40% {
         opacity: 0.5;
       }
+
       100% {
         opacity: 0;
         transform: scale(2.8);
@@ -287,90 +380,332 @@
       left: 50%;
       transform: translateX(-50%);
       z-index: 3;
-      
+
       font-size: 0.6rem;
       font-weight: 300;
       letter-spacing: 0.05em;
       color: #a0a0a0;
       text-align: center;
-      white-space: nowrap; 
+      white-space: nowrap;
+    }
+
+    /* ── Frosted Glass Light Confession Modal ───────────────────────────────── */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      /* Soft dark tint that lets the background map show through completely */
+      background-color: rgba(0, 0, 0, 0.35);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-card {
+      /* Highly transparent white paired with an aggressive blur to maintain readability */
+      background-color: rgba(252, 251, 250, 0.85);
+      backdrop-filter: blur(20px) saturate(160%);
+      -webkit-backdrop-filter: blur(20px) saturate(160%);
+
+      /* Fine-line border matches your sleek premium aesthetic */
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      border-radius: 20px;
+      width: 92%;
+      max-width: 680px;
+      height: 80vh;
+      height: 80dvh;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      transform: scale(0.96);
+      transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+      box-shadow:
+        0 30px 60px rgba(0, 0, 0, 0.3),
+        0 0 0 1px rgba(0, 0, 0, 0.02);
+      overflow: hidden;
+    }
+
+    .modal-overlay.active .modal-card {
+      transform: scale(1);
+    }
+
+    /* Fixed Header Zone (Translucent match) */
+    .modal-header {
+      padding: 1.8rem 2rem 1.2rem;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+      background-color: transparent;
+      /* Allows blur consistency across the header card */
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      z-index: 5;
+    }
+
+    .modal-header h2 {
+      font-size: 1.35rem;
+      color: #111111;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
+    .modal-close {
+      background: rgba(0, 0, 0, 0.05);
+      border: none;
+      color: #444444;
+      font-size: 1.5rem;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .modal-close:hover {
+      background: rgba(0, 0, 0, 0.12);
+      color: #000000;
+    }
+
+    /* Fully Isolated Scroll Content Box */
+    .modal-scroll-content {
+      overflow-y: auto;
+      padding: 2rem;
+      text-align: left;
+      overscroll-behavior: contain;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* Refined Typography Rules */
+    .modal-scroll-content h3 {
+      font-size: 1.15rem;
+      color: #000000;
+      margin: 2.2rem 0 0.6rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    .modal-scroll-content h3:first-child {
+      margin-top: 0;
+    }
+
+    .modal-scroll-content p {
+      font-size: 0.98rem;
+      line-height: 1.68;
+      color: #222222;
+      /* High-contrast crisp charcoal text for flawless reading */
+      font-weight: 400;
+      margin-bottom: 1.2rem;
+    }
+
+    .modal-scroll-content p:last-child {
+      margin-bottom: 2rem;
+    }
+
+    /* Custom Clean Scrollbar */
+    .modal-scroll-content::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .modal-scroll-content::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .modal-scroll-content::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.18);
+      border-radius: 10px;
+    }
+
+    .modal-scroll-content::-webkit-scrollbar-thumb:hover {
+      background: rgba(0, 0, 0, 0.3);
     }
   </style>
 </head>
+
 <body>
   <div id="map-bg"></div>
   <div id="map-overlay"></div>
   <canvas id="light-trail"></canvas>
   <div id="locator"></div>
-  
+
   <div class="center">
-    <img src="img/tc-wide-white.svg" alt="Truth Church logo" style="width: 100%; max-width: 70vw; margin-bottom: 1.4rem">
-    
+    <img src="img/tc-wide-white.svg" alt="Truth Church logo"
+      style="width: 100%; max-width: 70vw; margin-bottom: 1.4rem">
+
     <div class="social-links">
       <a href="https://www.youtube.com/@truthchurchtexas" target="_blank" aria-label="YouTube" title="YouTube">
         <svg viewBox="0 0 24 24">
-          <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+          <path
+            d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
         </svg>
         <span>YouTube</span>
       </a>
       <a href="https://www.facebook.com/truthchurchtx" target="_blank" aria-label="Facebook" title="Facebook">
         <svg viewBox="0 0 24 24">
-          <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+          <path
+            d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
         </svg>
         <span>Facebook</span>
       </a>
       <a href="https://groupme.com/join_group/114571097/sni1lv1a" target="_blank" aria-label="GroupMe" title="GroupMe">
         <svg viewBox="0 0 24 24">
-          <path d="M11.996 0A12 12 0 0 0 0 12a11.96 11.96 0 0 0 2.378 7.185l-1.325 4.39a.48.48 0 0 0 .6.6l4.392-1.324A11.96 11.96 0 0 0 12 24c6.628 0 12-5.373 12-12S18.624 0 11.996 0Zm-2.73 18.067a3.02 3.02 0 0 1-3.02-3.02v-6.04a3.02 3.02 0 0 1 3.02-3.02h5.46a3.02 3.02 0 0 1 3.02 3.02v6.04a3.02 3.02 0 0 1-3.02 3.02Z"/>
+          <path
+            d="M11.996 0A12 12 0 0 0 0 12a11.96 11.96 0 0 0 2.378 7.185l-1.325 4.39a.48.48 0 0 0 .6.6l4.392-1.324A11.96 11.96 0 0 0 12 24c6.628 0 12-5.373 12-12S18.624 0 11.996 0Zm-2.73 18.067a3.02 3.02 0 0 1-3.02-3.02v-6.04a3.02 3.02 0 0 1 3.02-3.02h5.46a3.02 3.02 0 0 1 3.02 3.02v6.04a3.02 3.02 0 0 1-3.02 3.02Z" />
         </svg>
         <span>GroupMe</span>
       </a>
-      <a href="https://truthchurchtx.churchcenter.com" target="_blank" aria-label="Planning Center" title="Church Center App">
+      <a href="https://truthchurchtx.churchcenter.com" target="_blank" aria-label="Planning Center"
+        title="Church Center App">
         <svg viewBox="0 0 24 24">
-          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm-1 9V9H9V7h2V5h2v2h2v2h-2v2h-2z"/>
+          <path
+            d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm-1 9V9H9V7h2V5h2v2h2v2h-2v2h-2z" />
         </svg>
         <span>Church Center</span>
       </a>
     </div>
   </div>
 
-  <div class="give-container">
-    <div id="give-aura" class="give-blast-aura"></div>
-    <a href="https://truthchurchtx.churchcenter.com/giving" target="_blank" class="btn-give" id="btn-give-trigger">Give</a>
+  <div class="action-button-group">
+    <button class="btn-action btn-secondary" id="btn-believe-trigger">What We Believe</button>
+
+    <div class="give-container">
+      <div id="give-aura" class="give-blast-aura"></div>
+      <a href="https://truthchurchtx.churchcenter.com/giving" target="_blank" class="btn-give"
+        id="btn-give-trigger">Give</a>
+    </div>
   </div>
 
   <div class="footer-copyright">
     &copy; 2026 Truth Church Texas. All rights reserved.
   </div>
 
+  <!-- Confession Modal Window -->
+  <div id="confession-modal" class="modal-overlay">
+    <div class="modal-card">
+
+      <!-- Fixed Header Element -->
+      <div class="modal-header">
+        <h2>What We Believe</h2>
+        <button class="modal-close" id="modal-close-btn" aria-label="Close">&times;</button>
+      </div>
+
+      <!-- Scroll Content Block -->
+      <div class="modal-scroll-content">
+<p style="margin-bottom: 1.5rem; font-size: 0.92rem;">
+  Truth Church uses a modernized version of the New Hampshire Confession of Faith to summarize our beliefs about what the Bible teaches. While the Scriptures alone are our final authority, this confession affirms our commitment to the historic Christian faith. It provides a clear expression of our doctrine—serving as a vital tool for clarity, accountability, unity, and cooperation.
+</p>
+
+<!-- <ul style="margin-bottom: 2rem; padding-left: 1.5rem; font-size: 0.92rem; line-height: 1.6; color: black !important;">
+  <li style="margin-bottom: 0.5rem;"><strong>Clarity:</strong> Anyone can easily see what we believe about the Bible.</li>
+  <li style="margin-bottom: 0.5rem;"><strong>Accountability:</strong> Our people can hold us to teach in accordance with what we say we believe.</li>
+  <li style="margin-bottom: 0.5rem;"><strong>Unity:</strong> We publicly agree on the core truths that bind our church family together.</li>
+  <li style="margin-bottom: 0;"><strong>Cooperation:</strong> We have a clear guide for close partnership in missions and ministry work.</li>
+</ul> -->
+
+        <h3>1. The Scriptures</h3>
+        <p>We believe the Holy Bible was written by people who were divinely inspired, and that it is a perfect treasure of heavenly instruction. God is its author, salvation is its purpose, and truth, without any mixture of error, is its content. Scripture reveals the principles by which God will judge us. Therefore, it is now, and will be to the end of the world, the true center of Christian union and the supreme standard for evaluating all human conduct, creeds, and opinions.</p>
+
+        <h3>2. The True God</h3>
+        <p>We believe there is one and only one living and true God—an infinite, intelligent Spirit. His name is the LORD, the Maker and Supreme Ruler of heaven and earth. He is inexpressibly glorious in holiness and is worthy of all possible honor, confidence, and love. In the unity of the Godhead there are three persons: the Father, the Son, and the Holy Spirit. They are equal in every divine perfection, and they carry out distinct but harmonious offices in the great work of redemption.</p>
+
+        <h3>3. Humanity and the Fall</h3>
+        <p>We believe humanity is the special creation of God, made in his own image. God created them male and female as the crowning work of His creation. The gift of gender is thus part of the goodness of God's creation. The gift of marriage consists of the uniting of one man and one woman in covenant commitment for a lifetime, and this gift models the way God relates to His people.</p>
+        <p>God created the human race in holiness under his law. By voluntary transgression, however, humanity fell from that holy and happy state. As a result, all people are now sinners, not by external compulsion but by choice. They by nature entirely lack the holiness that is required by the law of God and are actively inclined to evil. Therefore, they are under just condemnation to a sentence of eternal ruin, without defense or excuse.</p>
+
+        <h3>4. The Way of Salvation</h3>
+        <p>We believe the salvation of God’s people is completely by grace, through the mediatorial offices of the Son of God. By the appointment of the Father, he freely took to himself our nature but without sin. He honored the divine law by his personal obedience and made a full atonement for our sins by his substitutionary death, satisfying God’s wrath. He rose from the dead and is now enthroned in heaven. Jesus, the Son, unites in his wonderful person the tenderest sympathies with divine perfections and, as such, is qualified in every way to be a suitable, compassionate, and all-sufficient Savior.</p>
+
+        <h3>5. Justification</h3>
+        <p>We believe the great gospel blessing that Christ secures to those who believe in him is justification. Justification includes the pardon of sin, righteous standing before God and his people, and the promise of eternal life founded on principles of righteousness. It is not given because of any works of righteousness we have done but only through faith in the Redeemer’s blood. By virtue of this faith his perfect righteousness is freely imputed to us by God. Justification immediately brings us into a state of most blessed peace and favor with God and secures every other blessing we need for time and eternity.</p>
+
+        <h3>6. The Freeness of Salvation</h3>
+        <p>We believe the blessings of salvation are made free to all by the gospel. It is the immediate duty of all to accept them by a heartfelt, penitent, and obedient faith. Preventing this salvation is every sinner’s inherent depravity and rejection of the gospel, a rejection that aggravates a sinner’s condemnation.</p>
+
+        <h3>7. Grace in Regeneration</h3>
+        <p>We believe sinners must be regenerated, or born again, in order to be saved. Regeneration consists of God’s gift of a holy inclination to the mind. It is accomplished in a way that is beyond our comprehension. It is carried out by the power of the Holy Spirit using divine truth to obtain our voluntary obedience to the gospel. The proper evidence of regeneration appears in the holy fruits of repentance, faith, and newness of life.</p>
+
+        <h3>8. Repentance and Faith</h3>
+        <p>We believe repentance and faith are sacred duties as well as inseparable graces. They are produced in our souls by the regenerating Spirit of God, who convinces us of our guilt, danger, helplessness, and the way of salvation by Christ. And they consist of turning to God with genuine sorrow, confession, and a petition for mercy; receiving heartily the Lord Jesus Christ as Prophet, Priest and King; and relying on him alone as the only and all-sufficient Savior.</p>
+
+        <h3>9. God’s Purpose of Grace</h3>
+        <p>We believe election is the eternal purpose of God according to which he graciously regenerates, sanctifies, and saves sinners. Election is perfectly consistent with human free agency and includes all the means necessary to achieve God’s purpose. It is a most glorious display of God’s sovereign goodness, which is infinitely free, wise, holy, and unchangeable. Election completely rules out boasting and promotes humility, love, prayer, praise, trust in God, and the active imitation of his free mercy. It encourages the greatest possible exercise of human responsibility. The election of individuals to life may be confirmed by its effects in everyone who truly believes the gospel. Election is the foundation of Christian assurance, and confirming our election deserves our greatest diligence.</p>
+
+        <h3>10. Sanctification</h3>
+        <p>We believe sanctification is the process by which we are made partakers of God’s holiness, according to his purpose. Sanctification is a progressive work. It begins in regeneration and continues in the hearts of believers by the presence and power of the Holy Spirit and by God’s appointed means. These means include the word of God, self-examination, self-denial, watchfulness, prayer, and the oversight and fellowship of the visible church.</p>
+
+        <h3>11. The Perseverance of Saints</h3>
+        <p>We believe all genuine believers endure to the end. Their persevering obedience to Christ and attachment to his people are the primary mark distinguishing them from superficial professors. A special providence watches over their welfare, and they are kept by the power of God through faith to salvation.</p>
+
+        <h3>12. The Harmony of the Law and the Gospel</h3>
+        <p>We believe the law of God is the eternal and unchangeable rule of his moral governance. It is holy, just, and good. Fallen human beings are unable to fulfill the precepts of the law, which the Scriptures attribute entirely to their love of sin. A chief purpose of the gospel is to deliver people from this love and to restore them through a mediator to a sincere obedience to the holy law. The visible church’s means of grace share this great purpose.</p>
+
+        <h3>13. A Gospel Church</h3>
+        <p>We believe a visible church of Christ is a congregation of baptized believers, joined together by covenant in the faith and fellowship of the gospel. A visible church observes the ordinances of Christ, submits to his laws, and exercises the gifts, rights, and privileges invested in them by his word. The only scriptural officers of the church are elders (also called overseers or pastors) and deacons, whose qualifications and duties are defined in the epistles to Timothy and to Titus.</p>
+
+        <h3>14. Baptism and the Lord’s Supper</h3>
+        <p>We believe that Christian baptism is the immersion of a believer in water into the name of the Father, the Son, and the Holy Spirit. It is a solemn and beautiful emblem that declares our faith in the crucified, buried, and risen Savior as well as our union with him in death to sin and resurrection to a new life. Baptism is a prerequisite to the privileges of church membership and the Lord’s Supper. We likewise believe that the Supper is a symbolic act of obedience whereby the members of the church, following earnest self-examination, use bread and the cup in a sacred manner to commemorate together the dying love of Christ. The ordinances belong to the gathered church, marking off believers from unbelievers and making the church visible on earth.</p>
+
+        <h3>15. The Lord’s Day</h3>
+        <p>We believe the first day of the week is the Lord's Day. It is a Christian institution for regular observance. It commemorates the resurrection of Christ from the dead and points to the rest that awaits the people of God. It should include exercises of worship and spiritual devotion, both public and private. Activities on the Lord's Day should be commensurate with the Christian's conscience under the lordship of Jesus Christ.</p>
+
+        <h3>16. Civil Government</h3>
+        <p>We believe civil government exists by divine appointment for the benefit and good order of human society. Government officials are to be prayed for, conscientiously honored, and obeyed. The principle exception is for matters contrary to the will of our Lord Jesus Christ, who is the only Lord of the conscience, and the Prince of the kings of the earth.</p>
+
+        <h3>17. The Righteous and the Wicked</h3>
+        <p>We believe there is a radical and essential difference between the righteous and the wicked. Only those who are justified by faith in the name of the Lord Jesus and sanctified by the Spirit of our God are truly righteous in his judgment. In contrast, all those who continue in impenitence and unbelief are wicked in his sight and under the curse. This distinction among people holds both at death and afterward.</p>
+
+        <h3>18. The World to Come</h3>
+        <p>We believe the end of the world is approaching. At the last day Christ will descend from heaven and raise the dead from the grave to final retribution. A public separation will then take place, in which the wicked will be justly assigned to endless punishment and the righteous to endless joy. This judgment will determine forever on principles of righteousness the final state of people in heaven or hell.</p>
+
+        <hr style="border: none; border-top: 1px solid rgba(0,0,0,0.08); margin: 2.5rem 0 1.5rem;">
+
+        <p style="font-size: 0.8rem; line-height: 1.5; color: #666666; font-weight: 400;">
+          We are grateful to Cheverly Baptist Church who published this modernized version of the New Hampshire Confession of Faith. We have adopted their modernized text without modification. Source: Cheverly Baptist Church, “Statement of Faith,” accessed 12 May 2026, <a href="https://cheverlybaptist.org/statement-of-faith" target="_blank" style="color: #111111; text-decoration: underline; transition: color 0.2s;">https://cheverlybaptist.org/statement-of-faith</a>.
+        </p>
+      </div>
+
+    </div>
+  </div>
+
   <script>
     // ─── Configuration Tunnels (Reading properties cleanly from CSS variables) ───
-    const styles      = getComputedStyle(document.documentElement);
-    const MAP_FILE    = "dale_noir_20000m.svg";
-    const DOT_COLOR   = styles.getPropertyValue('--gold-accent').trim(); 
-    const TRAIL_COLOR = styles.getPropertyValue('--trail-color').trim(); 
-    
+    const styles = getComputedStyle(document.documentElement);
+    const MAP_FILE = "dale_noir_20000m.svg";
+    const DOT_COLOR = styles.getPropertyValue('--gold-accent').trim();
+    const TRAIL_COLOR = styles.getPropertyValue('--trail-color').trim();
+
     // Load the SVG async
     const mapBg = document.getElementById("map-bg");
     const img = new Image();
     img.onload = () => {
       mapBg.style.backgroundImage = `url('dalemaps/${MAP_FILE}')`;
-      mapBg.classList.add("loaded"); 
+      mapBg.classList.add("loaded");
     };
     img.src = `dalemaps/${MAP_FILE}`;
 
     // ─── Locator dot + trail ─────────────────────────────────────────────────
     const SMASHBURGER_MODE = new URLSearchParams(window.location.search).get("smashburger") === "y";
-    const TRAIL_ENABLED    = true;   
-    const DRIFT_INTERVAL   = 8000;   
-    const TRAIL_RADIUS     = 120;    
-    const FADE_RATE        = 0.004;  
+    const TRAIL_ENABLED = true;
+    const DRIFT_INTERVAL = 8000;
+    const TRAIL_RADIUS = 120;
+    const FADE_RATE = 0.004;
 
     const canvas = document.getElementById("light-trail");
-    const ctx    = canvas.getContext("2d");
+    const ctx = canvas.getContext("2d");
 
     function resizeCanvas() {
-      canvas.width  = window.innerWidth;
+      canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
     }
     resizeCanvas();
@@ -385,15 +720,15 @@
     const glowTrail = {
       setupDot(dotEl) {
         dotEl.style.backgroundColor = DOT_COLOR;
-        dotEl.style.color           = DOT_COLOR;
+        dotEl.style.color = DOT_COLOR;
       },
       paintTrail(xVw, yVh) {
         const x = (xVw / 100) * canvas.width;
         const y = (yVh / 100) * canvas.height;
         const grad = ctx.createRadialGradient(x, y, 0, x, y, TRAIL_RADIUS);
-        grad.addColorStop(0,   hexRgba(TRAIL_COLOR, 0.38));
+        grad.addColorStop(0, hexRgba(TRAIL_COLOR, 0.38));
         grad.addColorStop(0.4, hexRgba(TRAIL_COLOR, 0.16));
-        grad.addColorStop(1,   hexRgba(TRAIL_COLOR, 0));
+        grad.addColorStop(1, hexRgba(TRAIL_COLOR, 0));
         ctx.fillStyle = grad;
         ctx.beginPath();
         ctx.arc(x, y, TRAIL_RADIUS, 0, Math.PI * 2);
@@ -414,28 +749,28 @@
     const smashburgerTrail = {
       setupDot(dotEl) {
         dotEl.style.backgroundColor = "transparent";
-        dotEl.style.boxShadow       = "none";
-        dotEl.style.width           = "auto";
-        dotEl.style.height          = "auto";
-        dotEl.style.fontSize        = "1.8rem";
-        dotEl.style.lineHeight      = "1";
-        dotEl.textContent           = "🍔";
+        dotEl.style.boxShadow = "none";
+        dotEl.style.width = "auto";
+        dotEl.style.height = "auto";
+        dotEl.style.fontSize = "1.8rem";
+        dotEl.style.lineHeight = "1";
+        dotEl.textContent = "🍔";
       },
       paintTrail(xVw, yVh) {
         const stamp = document.createElement("div");
-        stamp.className   = "burger-stamp";
+        stamp.className = "burger-stamp";
         stamp.textContent = "🍔";
-        stamp.style.left  = xVw + "vw";
-        stamp.style.top   = yVh + "dvh"; 
+        stamp.style.left = xVw + "vw";
+        stamp.style.top = yVh + "dvh";
         document.body.appendChild(stamp);
         stamp.addEventListener("animationend", () => stamp.remove());
       },
-      animateTrail() {}
+      animateTrail() { }
     };
 
     const trailStrategy = SMASHBURGER_MODE ? smashburgerTrail : glowTrail;
     const dot = document.getElementById("locator");
-    
+
     trailStrategy.setupDot(dot);
     if (TRAIL_ENABLED) trailStrategy.animateTrail();
 
@@ -444,9 +779,9 @@
 
     function moveDot() {
       if (TRAIL_ENABLED && currentX !== null) trailStrategy.paintTrail(currentX, currentY);
-      
-      currentX = 25 + Math.random() * 50; 
-      currentY = 30 + Math.random() * 45; 
+
+      currentX = 25 + Math.random() * 50;
+      currentY = 30 + Math.random() * 45;
 
       if (isFirstMove) {
         currentX = 25 + 0.5 * 50;
@@ -455,7 +790,7 @@
       }
 
       dot.style.left = currentX + "vw";
-      dot.style.top  = currentY + "dvh"; 
+      dot.style.top = currentY + "dvh";
     }
 
     moveDot();
@@ -463,16 +798,16 @@
 
     // ─── Intercept Navigation to appreciate Blast Sequence ───────────────────
     const giveTrigger = document.getElementById("btn-give-trigger");
-    const blastAura   = document.getElementById("give-aura");
+    const blastAura = document.getElementById("give-aura");
     const BLAST_DELAY = 450; // Milliseconds to wait before executing navigation
 
-    giveTrigger.addEventListener("click", function(event) {
+    giveTrigger.addEventListener("click", function (event) {
       // 1. Prevent immediate browser contextual shift
       event.preventDefault();
-      
+
       // 2. Fire the CSS animation sequence safely
       blastAura.classList.remove("blasting");
-      void blastAura.offsetWidth; 
+      void blastAura.offsetWidth;
       blastAura.classList.add("blasting");
 
       // 3. Extract target reference attributes cleanly
@@ -484,6 +819,60 @@
         window.open(targetUrl, targetWin);
       }, BLAST_DELAY);
     });
+
+    // ─── Modal Management via URL Anchor (#belief) ───────────────────────────
+    const modal = document.getElementById("confession-modal");
+    const openModalBtn = document.getElementById("btn-believe-trigger");
+    const closeModalBtn = document.getElementById("modal-close-btn");
+    const TARGET_HASH = "#belief";
+
+    function toggleModal(isOpen) {
+      if (isOpen) {
+        modal.classList.add("active");
+        // Update URL anchor cleanly without shifting focus or resetting history stack
+        if (window.location.hash !== TARGET_HASH) {
+          history.pushState(null, null, TARGET_HASH);
+        }
+      } else {
+        modal.classList.remove("active");
+        // Strip out the hash string cleanly when closing
+        if (window.location.hash === TARGET_HASH) {
+          history.pushState(null, null, window.location.pathname + window.location.search);
+        }
+      }
+    }
+
+    // Trigger state from UI interactions
+    openModalBtn.addEventListener("click", () => toggleModal(true));
+    closeModalBtn.addEventListener("click", () => toggleModal(false));
+
+    // Close when clicking outside content box
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) toggleModal(false);
+    });
+
+    // Escape Key compatibility
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && modal.classList.contains("active")) {
+        toggleModal(false);
+      }
+    });
+
+    // ─── Deep Linking Logic ──────────────────────────────────────────────────
+    function checkUrlForAnchor() {
+      if (window.location.hash === TARGET_HASH) {
+        toggleModal(true);
+      } else {
+        toggleModal(false); // Gracefully sync if user navigates backward
+      }
+    }
+
+    // 1. Process immediate deep link entry on initial page boot
+    window.addEventListener("DOMContentLoaded", checkUrlForAnchor);
+
+    // 2. Process changes if user clicks the browser Back/Forward arrows
+    window.addEventListener("hashchange", checkUrlForAnchor);
   </script>
 </body>
+
 </html>
